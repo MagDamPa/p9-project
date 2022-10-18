@@ -1,5 +1,31 @@
+.App {
+  
+}
 
 .top-flexbox {
   display: flex;
   justify-content: space-between;
+  align-content: flex-start;
+  align-items: flex-start;
+  flex-direction: row;
 }
+
+
+.Input {
+display: flex;
+flex-direction: row; 
+background-color: grey;
+align-items: flex-start;
+justify-content: space-between;
+}
+
+.input-container {
+  display: flex;
+  justify-content: center;
+
+}
+
+input {
+  text-align: center; 
+}
+
