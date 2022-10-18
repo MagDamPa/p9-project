@@ -1,6 +1,10 @@
 import React from 'react'
+import deleteIcon from './deleteIcon.svg'
 
 function Input() {
+    function buttonHandler () {
+        console.log("deleting rows, commander");
+    }
   return (
     <div className = "input-container">
       <input type = "number" className = "TestNumber"/> 
@@ -12,9 +16,12 @@ function Input() {
 
 
 
-      <input type = "button" value = "Delete">
 
-      </input>
+    <button onClick ={buttonHandler}> 
+    <img src={deleteIcon}/>
+
+    </button>
+
 
     </div>
   )
