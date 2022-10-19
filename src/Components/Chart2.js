@@ -1,13 +1,8 @@
 import React from 'react'
 import { Chart } from "react-google-charts";
+import deleteIcon from './deleteIcon.svg'
 
 
-export const data = [
-  ["Test Data", "mg/ml"],
-  ["09-09-2022", 100],
-  ["13-09-2022", 70],
-  ["20-09-2022", 20],
-];
 
 
 export const options = {
@@ -17,15 +12,36 @@ export const options = {
 };
 
 function Chart2() {
+  function buttonHandler () {
+    data.push(["22-09-2022", "10"])
+    console.log(data);
+
+}
+
+    var data = [
+    ["Test Data", "mg/ml"],
+    ["09-09-2022", 100],
+    ["13-09-2022", 70],
+    ["20-09-2022", 20],
+  ];
+
   return (
+    <div className='Append'>
+
+<button onClick ={buttonHandler}> 
+    <img src={deleteIcon}/>
+
+    </button>
+
+
     <Chart
     chartType="ScatterChart"
-    width="80%"
+    width="60%"
     height="400px"
     data={data}
     options={options}
   />
-   
+  </div> 
   )
 }
 
