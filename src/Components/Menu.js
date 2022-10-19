@@ -1,5 +1,5 @@
 import React from 'react'
-import menuIcon from './menuIcon.svg'
+import menuIcon from './Icons/menuIcon.svg'
 
 
 

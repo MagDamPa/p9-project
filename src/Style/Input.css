@@ -1,0 +1,74 @@
+.Input {
+    display: flex;
+    flex-direction: row; 
+    justify-content: space-between;
+    text-align: center;
+    align-content: center;
+    border-style: solid;
+    border-width: 1px;
+    gap: 5px;
+    background-color: white;
+    height: 42px;
+    padding: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.flex-item {
+    flex: 1;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 14px;
+    height: 40px;
+    margin: auto;
+    text-align: center;
+    align-content: center;
+    line-height: 40px;
+    border: none;
+    background-color: rgb(230, 230, 230);
+}
+
+#testnumber {
+    max-width: 40px;
+}
+
+.testvalue {
+    height: 38px;
+}
+
+#unit {
+    max-width: 50px;
+}
+
+#valid {
+    max-width: 75px;
+}
+
+
+.Delete {
+    max-width: 40px;
+    padding: 0px;
+    background-color: rgb(230, 230, 230);
+}
+
+.IconInput { 
+    width: fit-content;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+}
+
+.Delete:hover {
+    background-color: rgba(250, 0, 0, 0.634);
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+  
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}

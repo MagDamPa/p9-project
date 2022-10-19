@@ -1,16 +1,17 @@
-import React from 'react';
+
+import React, {useState} from 'react';
 import './App.css';
 import Menu from './Components/Menu';
 import Help from './Components/Help';
 import Input from './Components/Input';
+import Add from './Components/Add';
 import Chart2 from './Components/Chart2';
 import {convertNgMg, specimen_1, specimen_2} from '../src/Utils/Model'; 
+
+
 function App() {
 
-  
-
   convertNgMg(specimen_1, specimen_2); 
- 
  
   return (
     <div className="App">
@@ -18,12 +19,11 @@ function App() {
         <Menu/>
         <Help/>
       </div>
-      <div className ="Input">
+      <div className ="input-container">
         <Input/>
+        <Add/>
       </div>
-    <Chart2/>
-
-
+      <Chart2/>
     </div>
   );
 }
