@@ -1,5 +1,5 @@
 import React from 'react'
-import helpIcon from './helpIcon.svg'
+import helpIcon from './Icons/helpIcon.svg'
 
 function Help() {
 

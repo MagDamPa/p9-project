@@ -1,6 +1,3 @@
-.App {
-  
-}
 
 .top-flexbox {
   display: flex;
@@ -10,22 +7,19 @@
   flex-direction: row;
 }
 
-
-.Input {
-display: flex;
-flex-direction: row; 
-background-color: grey;
-align-items: flex-start;
-justify-content: space-between;
-}
-
 .input-container {
-  display: flex;
   justify-content: center;
-
+  padding-left: 60px;
+  padding-right: 60px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  background-color: rgb(203, 200, 200);
+  
 }
 
-input {
-  text-align: center; 
-}
+
 
