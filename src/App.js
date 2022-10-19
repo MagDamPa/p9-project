@@ -1,8 +1,9 @@
-
+import React from 'react';
 import './App.css';
 import Menu from './Components/Menu';
 import Help from './Components/Help';
-import Input from './Components/Input'
+import Input from './Components/Input';
+import Chart2 from './Components/Chart2';
 function App() {
   return (
     <div className="App">
@@ -12,8 +13,10 @@ function App() {
       </div>
       <div className ="Input">
         <Input/>
- 
       </div>
+    <Chart2/>
+
+
     </div>
   );
 }
