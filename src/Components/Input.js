@@ -1,12 +1,35 @@
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 import '../Style/Input.css'
+import '../Style/Add.css'
 import TrashIcon from './Icons/TrashIcon.svg'
+import AddIcon from './Icons/AddIcon.svg'
+//import { setDatasets } from 'react-chartjs-2/dist/utils'
+import Datapoints from './Datapoints'
 
 function Input() {
 
-  function buttonHandler(){
+  const [datapoints, setDatapoints] = useState([]);
+
+  const testDateRef = useRef()
+  const testValueRef = useRef()
+
+  function buttonHandlerDelete(){
     //console.log(time)
     console.log("Trash me :D")
+    console.log(testDateRef.current.value)
+    console.log(testValueRef.current.value)
+  }
+
+  function buttonHandlerAdd(){
+    const date = testDateRef.current.value
+    const value = testValueRef.current.value
+    setDatapoints(prevDatapoints => {
+     return [...prevDatapoints, { Id: 3, Date: date, Value: value, Valid: 'Valid' }]
+    })
+    
+    return(
+      console.log(datapoints)
+    )
   }
 
   //disables the scrolling function on the number input field. 
@@ -19,27 +42,38 @@ function Input() {
 });
 
   return (
-    <div className='Input'>
-      <p className = "flex-item" id="testnumber">
-        1  
-      </p> 
-      <input type = "datetime-local" className = "flex-item" id='date'/>
-      <input type = 'number' className = "flex-item noscroll testvalue" placeholder='testresult'/>
-      <p className = "flex-item" id="unit">
-        ng/ml
-      </p>
-      <p className = "flex-item" id='valid'>
-        Valid
-      </p>
-      <button className = "flex-item Delete" onClick={buttonHandler}>
-        <img className = "IconInput" 
-          src={TrashIcon}
-        />
-      </button>
+    <div>
+      <div>
+        <Datapoints datapoints={datapoints}/>
+      </div>
+      <div className='Input inputMain'>
+        <p className = "flex-item" id="testnumber">
+          {datapoints.length}
+        </p> 
+        <input type = "datetime-local" className = "flex-item" id='date' ref={testDateRef}/>
+        <input type = 'number' className = "flex-item noscroll testvalue" placeholder='testresult' ref={testValueRef}/>
+        <p className = "flex-item" id="unit">
+          ng/ml
+        </p>
+        <p className = "flex-item" id='valid'>
+          Valid
+        </p>
+        <button className = "flex-item Delete" onClick={buttonHandlerDelete}>
+          <img className = "IconInput" 
+            src={TrashIcon}
+          />
+        </button>
+      </div>
+      <div className='addblock'>
+        <button className='Add' onClick={buttonHandlerAdd}>
+            <img className='IconAdd' 
+                src={AddIcon}
+            />
+        </button>
+      </div>
     </div>
   )
 }
 
-//var time = document.getElementById('date').value;
-
 export default Input
+export var datapoints
