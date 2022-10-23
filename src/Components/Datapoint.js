@@ -2,11 +2,13 @@ import { UpdateModeEnum } from 'chart.js'
 import React from 'react'
 import '../Style/Input.css'
 import TrashIcon from './Icons/TrashIcon.svg'
+import { datapoints } from './Input'
 
 function Datapoint({datapoint}) {
 
   function buttonHandler(){
-    console.log("Trash me :D")
+    console.log("Trash me hard")
+    console.log(datapoint.Number)
   }
 
   function updateDate(){
@@ -16,7 +18,7 @@ function Datapoint({datapoint}) {
   return (
     <div className='Input'>
         <p className = "flex-item" id="testnumber">
-            {datapoint.Id} 
+            {datapoint.Number + 1} 
         </p> 
         <input type = "datetime-local" className = "flex-item" id='date' defaultValue={datapoint.Date} onChange={updateDate}/>
         <input type = 'number' className = "flex-item noscroll testvalue" defaultValue={datapoint.Value}/>

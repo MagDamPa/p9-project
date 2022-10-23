@@ -5,6 +5,7 @@ import TrashIcon from './Icons/TrashIcon.svg'
 import AddIcon from './Icons/AddIcon.svg'
 //import { setDatasets } from 'react-chartjs-2/dist/utils'
 import Datapoints from './Datapoints'
+import { v4 as uuidv4 } from 'uuid'
 
 function Input() {
 
@@ -24,12 +25,10 @@ function Input() {
     const date = testDateRef.current.value
     const value = testValueRef.current.value
     setDatapoints(prevDatapoints => {
-     return [...prevDatapoints, { Id: 3, Date: date, Value: value, Valid: 'Valid' }]
+     return [...prevDatapoints, { Id: uuidv4(), Number: datapoints.length, Date: date, Value: value, Valid: 'Valid' }]
     })
-    
-    return(
-      console.log(datapoints)
-    )
+    testDateRef.current.value = null
+    testValueRef.current.value = null
   }
 
   //disables the scrolling function on the number input field. 
@@ -48,7 +47,7 @@ function Input() {
       </div>
       <div className='Input inputMain'>
         <p className = "flex-item" id="testnumber">
-          {datapoints.length}
+          {datapoints.length + 1}
         </p> 
         <input type = "datetime-local" className = "flex-item" id='date' ref={testDateRef}/>
         <input type = 'number' className = "flex-item noscroll testvalue" placeholder='testresult' ref={testValueRef}/>

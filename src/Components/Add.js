@@ -6,9 +6,6 @@ import setDatapoints from '../App'
 
 
 function Add(testDateRef) {
-
-  const [datapoints, setDatapoints] = useState([id: 1, date: '2022-02-02T13:93', value: 342, valid: 'Valid']);
-
    
   function buttonHandler(){
     console.log(testDateRef)
