@@ -13,6 +13,7 @@ import {
   Scale,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { datapoints } from './Input';
 
 ChartJS.register(
   CategoryScale,
@@ -45,26 +46,26 @@ export const options = {
       text: 'Hello There',
     }
   },
-};
+}; 
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];  
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 300 })),
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-    },
-  ],
-};
 
-function Chart2() {
-  function buttonHandler () {
-    console.log("Hello, world")
-}
+function Chart2({datapoints}) {
+  const labels = datapoints.map(datapoint => 
+    datapoint.Date); 
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: 'Dataset 1',
+        data: datapoints.map(datapoint => 
+          datapoint.Value),
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      },
+    ],
+  };
+
 return (
   <div className='Append'>
     <Line data={data} />
