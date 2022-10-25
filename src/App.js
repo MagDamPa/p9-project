@@ -29,8 +29,15 @@ function App() {
   })
 
 
+
   const [datapoints, setDatapoints] = useState([]);
  
+  function buttonHandlerAdd(){
+    console.log(datapoints[0].Value)
+    convertNgMg(datapoints[0].Value, 7);
+  }
+   
+
   return (
     <div className="App">
       <div className="top-flexbox">
@@ -48,6 +55,9 @@ function App() {
         datapoints={datapoints} 
         setDatapoints={setDatapoints}
         />
+      <button className='beregn' onClick={buttonHandlerAdd}>
+          Beregn resultat
+      </button>
       </div>
       <Chart2 datapoints={datapoints}/>
     </div>
