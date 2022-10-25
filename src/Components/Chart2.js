@@ -65,17 +65,10 @@ function Chart2() {
   function buttonHandler () {
     console.log("Hello, world")
 }
-return <div className='Append'>
-
-
-<button onClick ={buttonHandler}> 
-    <img src={deleteIcon}/>
-
-    </button>
-
+return (
+  <div className='Append'>
     <Line data={data} />
-
-  </div> 
+  </div> )
 }
 
 export default Chart2
