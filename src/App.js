@@ -1,15 +1,17 @@
 
-import React, {useState} from 'react';
+import React, { useState, useRef } from 'react';
 import './App.css';
 import Menu from './Components/Menu';
 import Help from './Components/Help';
 import Input from './Components/Input';
-import Add from './Components/Add';
 import Chart2 from './Components/Chart2';
-import {convertNgMg, specimen_1, specimen_2} from '../src/Utils/Model'; 
-
+import Datapoints from './Components/Datapoints';
+import {convertNgMg, specimen_1, specimen_2} from '../src/Utils/Model';
+import { datapoints } from './Components/Input';
 
 function App() {
+
+  const [datapoints, setDatapoints] = useState([]);
 
   convertNgMg(specimen_1, specimen_2); 
  
@@ -20,12 +22,11 @@ function App() {
         <Help/>
       </div>
       <div className ="input-container">
-        <Input/>
-        <Add/>
+        <Input datapoints={datapoints} setDatapoints={setDatapoints}/>
       </div>
-      <Chart2/>
+      <Chart2 datapoints={datapoints}/>
     </div>
   );
 }
 
-export default App;
+export default App
