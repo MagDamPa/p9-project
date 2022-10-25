@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import '../Style/Input.css'
 import '../Style/Add.css'
 import TrashIcon from './Icons/TrashIcon.svg'
@@ -10,45 +10,10 @@ import AddIcon from './Icons/AddIcon.svg'
 import Datapoints from './Datapoints'
 
 import { v4 as uuidv4 } from 'uuid'
+import { renderHook } from '@testing-library/react'
 
-function Input({inputObject, setInputObject, inputValue, setInputValue, inputDate, setInputDate, datapoints, setDatapoints}) {
+function Input({datapoints, setDatapoints}) {
 
-
-
-
-
-  function onChangeValueHandler (valueEvent) {
-    setInputValue(valueEvent.target.value); 
-    console.log("valueEvent: ", valueEvent.target.value)
-    
-  }
-
-  function onChangeDateHandler (dateEvent) {
-    setInputDate(dateEvent.target.value); 
-    
-    
-  }
-
-  function submitHandler (e) {
-      e.preventDefault();
-      setInputObject({
-        specimen1: {
-          value: inputValue,
-          date: inputDate
-        }
-      } );
-      console.log("After ", inputObject.specimen1.value)
-      
-      convertNgMg(inputObject.specimen1.value, 7); 
-      console.log("inputObjetct: ", inputObject); 
-  }
-
-  
-  //console.log("valueArray: ", valueArray);
-
-
-
-    
 
   const testDateRef = useRef()
   const testValueRef = useRef()
@@ -60,16 +25,22 @@ function Input({inputObject, setInputObject, inputValue, setInputValue, inputDat
     console.log(testValueRef.current.value)
   }
 
-  function buttonHandlerAdd(){
+
+  function buttonHandlerAdd(e){
+    e.preventDefault();
+
     const date = testDateRef.current.value
     const value = testValueRef.current.value
     setDatapoints(prevDatapoints => {
-     return [...prevDatapoints, { Id: uuidv4(), Number: datapoints.length, Date: date, Value: value, Valid: 'Valid' }]
-    })
+      return [...prevDatapoints, { Id: uuidv4(), Number: datapoints.length, Date: date, Value: value, Valid: 'Valid' }]
+     })
     testDateRef.current.value = null
     testValueRef.current.value = null
 
+    convertNgMg(value, 7); 
+     
   }
+  
 
   
 
@@ -92,8 +63,8 @@ function Input({inputObject, setInputObject, inputValue, setInputValue, inputDat
         <p className = "flex-item" id="testnumber">
           {datapoints.length + 1}
         </p> 
-        <input type = "datetime-local" className = "flex-item" id='date' ref={testDateRef} handleChange={onChangeDateHandler}/>
-        <input type = 'number' className = "flex-item noscroll testvalue" placeholder='testresult' ref={testValueRef} onChange={onChangeValueHandler}/>
+        <input type = "datetime-local" className = "flex-item" id='date' ref={testDateRef}/>
+        <input type = 'number' className = "flex-item noscroll testvalue" placeholder='testresult' ref={testValueRef}/>
         <p className = "flex-item" id="unit">
           ng/ml
         </p>
@@ -104,9 +75,6 @@ function Input({inputObject, setInputObject, inputValue, setInputValue, inputDat
           <img className = "IconInput" 
             src={TrashIcon}
           />
-        </button>
-        <button onClick={submitHandler} type="submit">
-          Submit
         </button>
       </div>
       <div className='addblock'>
