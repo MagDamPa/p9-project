@@ -1,5 +1,8 @@
+import {valueArray, specimen_2} from '../Components/Input'; 
 
- const param = {
+
+
+const param = {
     concentration: [
         0, 
         6,
@@ -77,10 +80,13 @@
     ]
 }
 
+export const answers = {
+    first: ''
+}
 
 
-export let specimen_1  = 100; 
-export let specimen_2 = 10; 
+
+
 
  
 export function convertNgMg(specimen_1, specimen_2) {
@@ -93,6 +99,9 @@ let roundedSpecimen_2 = Math.floor(convertSpecimen_2);
 above800(convertSpecimen_1); 
 
 calcRatio(roundedSpecimen_1, roundedSpecimen_2); 
+
+console.log("convertNgMg ", specimen_1)
+//console.log(specimen_1); 
 
 
 
@@ -178,8 +187,10 @@ export function autoInterpretation(result, ratio) {
     
     if (result < ratio) {
         console.log("New use");
+        answers.first = "New use"; 
     } else if (result > ratio) {
         console.log("Abstinent");
+        answers.first = "Abstinent"
     } else {
         console.log("default"); 
     }
@@ -191,7 +202,7 @@ export function upperLimit(A, k, t, S2, RMS, ratio) {
     //console.log("A:", A, "k: ", k, "n: ", "S2: ", S2, "RMS: ", RMS)
     let result = (A * Math.exp(-k * t)) + (2.57*(Math.sqrt(S2+RMS))); 
     autoInterpretation(result, ratio);
-    console.log(result)
+    //console.log(result)
 
 }
 

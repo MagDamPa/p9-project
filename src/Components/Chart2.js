@@ -26,7 +26,7 @@ function Chart2() {
   ];
 
   return (
-    <div className='Append'>
+    <div className='Append' style={{width: "100%"}}>
 
 <button onClick ={buttonHandler}> 
     <img src={deleteIcon}/>
