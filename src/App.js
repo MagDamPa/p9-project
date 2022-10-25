@@ -5,15 +5,31 @@ import Menu from './Components/Menu';
 import Help from './Components/Help';
 import Input from './Components/Input';
 import Chart2 from './Components/Chart2';
+import {convertNgMg} from '../src/Utils/Model'; 
+import Description from './Components/Description';
 import Datapoints from './Components/Datapoints';
-import {convertNgMg, specimen_1, specimen_2} from '../src/Utils/Model';
 import { datapoints } from './Components/Input';
+
 
 function App() {
 
-  const [datapoints, setDatapoints] = useState([]);
+  const [inputValue, setInputValue] = useState();
+  const [inputDate, setInputDate] = useState();
 
-  convertNgMg(specimen_1, specimen_2); 
+
+  const [inputObject, setInputObject] = useState({
+    specimen1: {
+      value: 0,
+      date: ''
+    },
+    specimen2: {
+      value: 0,
+      date: ''
+    }
+  })
+
+
+  const [datapoints, setDatapoints] = useState([]);
  
   return (
     <div className="App">
@@ -22,6 +38,22 @@ function App() {
         <Help/>
       </div>
       <div className ="input-container">
+        <Input
+        inputValue={inputValue}
+        setInputValue={setInputValue}
+        inputDate={inputDate}
+        setInputDate={setInputDate}
+        inputObject={inputObject}
+        setInputObject={setInputObject}
+        />
+        <Add/>
+      </div>
+      <div style={{display: "flex",justifyContent: "space-between", alignItems:"center"}}>
+        <Chart2 style={{width: "50%"}}/>
+        <Description
+        inputObject={inputObject}
+        />
+      </div>
         <Input datapoints={datapoints} setDatapoints={setDatapoints}/>
       </div>
       <Chart2 datapoints={datapoints}/>
