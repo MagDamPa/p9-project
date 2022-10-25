@@ -4,7 +4,7 @@ import Datapoint from './Datapoint'
 function Datapoints({datapoints}) {
   return (
     datapoints.map(datapoint => {
-        return <Datapoint key={datapoint.id} datapoint = {datapoint} />
+        return <Datapoint key={datapoint.Id} datapoint = {datapoint} />
     })
   )
 }

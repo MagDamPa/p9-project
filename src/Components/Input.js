@@ -7,9 +7,7 @@ import AddIcon from './Icons/AddIcon.svg'
 import Datapoints from './Datapoints'
 import { v4 as uuidv4 } from 'uuid'
 
-function Input() {
-
-  const [datapoints, setDatapoints] = useState([]);
+function Input({datapoints, setDatapoints}) {
 
   const testDateRef = useRef()
   const testValueRef = useRef()

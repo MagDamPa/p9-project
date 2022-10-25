@@ -11,6 +11,8 @@ import { datapoints } from './Components/Input';
 
 function App() {
 
+  const [datapoints, setDatapoints] = useState([]);
+
   convertNgMg(specimen_1, specimen_2); 
  
   return (
@@ -20,9 +22,9 @@ function App() {
         <Help/>
       </div>
       <div className ="input-container">
-        <Input/>
+        <Input datapoints={datapoints} setDatapoints={setDatapoints}/>
       </div>
-      <Chart2/>
+      <Chart2 datapoints={datapoints}/>
     </div>
   );
 }
