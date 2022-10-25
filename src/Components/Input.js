@@ -69,6 +69,8 @@ function Input({inputObject, setInputObject, inputValue, setInputValue, inputDat
     testDateRef.current.value = null
     testValueRef.current.value = null
 
+  }
+
   
 
   //disables the scrolling function on the number input field. 
@@ -82,8 +84,7 @@ function Input({inputObject, setInputObject, inputValue, setInputValue, inputDat
   
   return (
 
-    <div className='Input'>
-    <div>
+    <div >
       <div>
         <Datapoints datapoints={datapoints}/>
       </div>

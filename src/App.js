@@ -38,26 +38,20 @@ function App() {
         <Help/>
       </div>
       <div className ="input-container">
-        <Input
+      <Input 
         inputValue={inputValue}
         setInputValue={setInputValue}
         inputDate={inputDate}
         setInputDate={setInputDate}
         inputObject={inputObject}
         setInputObject={setInputObject}
+        datapoints={datapoints} 
+        setDatapoints={setDatapoints}
         />
-        <Add/>
-      </div>
-      <div style={{display: "flex",justifyContent: "space-between", alignItems:"center"}}>
-        <Chart2 style={{width: "50%"}}/>
-        <Description
-        inputObject={inputObject}
-        />
-      </div>
-        <Input datapoints={datapoints} setDatapoints={setDatapoints}/>
       </div>
       <Chart2 datapoints={datapoints}/>
     </div>
+    
   );
 }
 
