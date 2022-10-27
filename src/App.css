@@ -30,4 +30,11 @@
 }
 
 
+.Append {
+  margin: auto;
+  padding: 15px;
+  display: flex;
+  width: "400px";
+  height: "400px"
 
+}

@@ -59,7 +59,9 @@ function App() {
           Beregn resultat
       </button>
       </div>
+      <div className = "Append">
       <Chart2 datapoints={datapoints}/>
+      </div>
     </div>
     
   );

@@ -27,7 +27,7 @@ ChartJS.register(
 
 
 export const options = {
-  responsive: true,
+  maintainAspectRatio: false,
   plugins: {
     legend: {
       position: 'top'
@@ -36,16 +36,16 @@ export const options = {
       align: 'center',
       display: true,
       fullsize: true,
-      text: 'TEST',
+      text: 'THC-COOH concentration by date',
       position: 'bottom',
     },
-    scale: {
-      align: 'center',
-      color: 'Red',
-      display: true,
-      text: 'Hello There',
+    scales: {
+        y: {
+          suggestedmin: 50,
+          Max: 100
+          }
+    },
     }
-  },
 }; 
 
 
@@ -67,8 +67,13 @@ function Chart2({datapoints}) {
   };
 
 return (
-  <div className='Append'>
-    <Line data={data} />
+  <div>
+
+    <Line 
+    height ={"400px"}
+    width = {"600px"}
+    data={data}
+    options ={options}/>
   </div> )
 }
 
