@@ -3,46 +3,39 @@ import '../Style/Input.css'
 import '../Style/Add.css'
 import TrashIcon from './Icons/TrashIcon.svg'
 import {convertNgMg, specimen_2, answers} from '../Utils/Model'
+import { v4 as uuidv4 } from 'uuid'
 import AddIcon from './Icons/AddIcon.svg'
 
 //import { setDatasets } from 'react-chartjs-2/dist/utils'
 
 import Datapoints from './Datapoints'
-
-import { v4 as uuidv4 } from 'uuid'
 import { renderHook } from '@testing-library/react'
+
+
 
 function Input({datapoints, setDatapoints}) {
 
-
   const testDateRef = useRef()
-  const testValueRef = useRef()
+  const testValueRef = useRef() 
 
+   
   function buttonHandlerDelete(){
     //console.log(time)
     console.log("Trash me :D")
     console.log(testDateRef.current.value)
     console.log(testValueRef.current.value)
   }
-
-
+  
   function buttonHandlerAdd(e){
     e.preventDefault();
-
     const date = testDateRef.current.value
     const value = testValueRef.current.value
     setDatapoints(prevDatapoints => {
       return [...prevDatapoints, { Id: uuidv4(), Number: datapoints.length, Date: date, Value: value, Valid: 'Valid' }]
-     })
+    })
     testDateRef.current.value = null
     testValueRef.current.value = null
-
-    convertNgMg(value, 7); 
-     
   }
-  
-
-  
 
   //disables the scrolling function on the number input field. 
   document.addEventListener("wheel", function(event){
@@ -89,4 +82,3 @@ function Input({datapoints, setDatapoints}) {
 }
 
 export default Input
-export var datapoints
