@@ -4,11 +4,12 @@ import '../Style/Input.css'
 import TrashIcon from './Icons/TrashIcon.svg'
 import { datapoints } from './Input'
 
-function Datapoint({datapoint}) {
+function Datapoint({datapoint, setDatapoints, datapoints}) {
 
   function buttonHandler(){
     console.log("Trash me hard")
     console.log(datapoint.Number)
+    setDatapoints(datapoints.filter((el) => el.Id !== datapoint.Id))
   }
 
   function updateDate(){

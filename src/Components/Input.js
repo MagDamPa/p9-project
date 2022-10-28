@@ -50,7 +50,7 @@ function Input({datapoints, setDatapoints}) {
 
     <div >
       <div>
-        <Datapoints datapoints={datapoints}/>
+        <Datapoints datapoints={datapoints} setDatapoints={setDatapoints}/>
       </div>
       <div className='Input inputMain'>
         <p className = "flex-item" id="testnumber">
