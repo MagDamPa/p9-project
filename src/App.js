@@ -5,39 +5,22 @@ import Menu from './Components/Menu';
 import Help from './Components/Help';
 import Input from './Components/Input';
 import Chart2 from './Components/Chart2';
-import {convertNgMg} from '../src/Utils/Model'; 
+import {convertNgMg} from './Utils/Model'; 
 import Description from './Components/Description';
 import Datapoints from './Components/Datapoints';
-import { datapoints } from './Components/Input';
+import { addDatapoint } from './Components/Input';
+import { date, value } from './Components/Input';
+
 
 
 function App() {
 
-  const [inputValue, setInputValue] = useState();
-  const [inputDate, setInputDate] = useState();
-
-
-  const [inputObject, setInputObject] = useState({
-    specimen1: {
-      value: 0,
-      date: ''
-    },
-    specimen2: {
-      value: 0,
-      date: ''
-    }
-  })
-
-
-
   const [datapoints, setDatapoints] = useState([]);
  
-  function buttonHandlerAdd(){
-    console.log(datapoints[0].Value)
-    convertNgMg(datapoints[0].Value, 7);
+  function beregn(){
+    convertNgMg({datapoints});
   }
    
-
   return (
     <div className="App">
       <div className="top-flexbox">
@@ -46,16 +29,10 @@ function App() {
       </div>
       <div className ="input-container">
       <Input 
-        inputValue={inputValue}
-        setInputValue={setInputValue}
-        inputDate={inputDate}
-        setInputDate={setInputDate}
-        inputObject={inputObject}
-        setInputObject={setInputObject}
         datapoints={datapoints} 
         setDatapoints={setDatapoints}
         />
-      <button className='beregn' onClick={buttonHandlerAdd}>
+      <button className='beregn' onClick={beregn}>
           Beregn resultat
       </button>
       </div>

@@ -1,6 +1,7 @@
 import {valueArray, specimen_2} from '../Components/Input'; 
+import { datapoints } from '../Components/Input';
 
-
+var specimen_base = 0 
 
 const param = {
     concentration: [
@@ -81,130 +82,136 @@ const param = {
 }
 
 export const answers = {
-    first: ''
+    Title: '',
+    Text: ''
 }
-
-
-
-
 
  
-export function convertNgMg(specimen_1, specimen_2) {
-let convertSpecimen_1 = specimen_1*1000/113.12; 
-let convertSpecimen_2 = specimen_2*1000/113.12; 
+export function convertNgMg({datapoints}) {
 
-let roundedSpecimen_1 = Math.floor(convertSpecimen_1);
-let roundedSpecimen_2 = Math.floor(convertSpecimen_2);
+    const specimen_last = datapoints.length - 1
 
-above800(convertSpecimen_1); 
+    let convertSpecimen_base = datapoints[specimen_base].Value *1000/113.12; 
+    let roundedSpecimen_base = Math.floor(convertSpecimen_base);
 
-calcRatio(roundedSpecimen_1, roundedSpecimen_2); 
+    let base_date = new Date(datapoints[specimen_base].Date)
 
-console.log("convertNgMg ", specimen_1)
-//console.log(specimen_1); 
+    let convertSpecimen_last = null
+    let roundedSpecimen_last = null
+    let last_date = null
 
+    var totalHours = null
 
-
-
-//console.log(convertSpecimen_1)
-}
-
-
-
-
-export function above800 (roundedConvert) {
-    if (roundedConvert > 800) {
-        //console.table("collect the second specimen on the 5th day")
-    } else {
-        //console.log("collect the second specimen at least 48 hours later")
+    if (datapoints.length === 1){
+        above800(convertSpecimen_base); 
+        return 0;
     }
-}
-
-export function calcRatio(n1, n2) {
-let ratio = n2 / n1; 
-let roundedRatio = Math.floor(ratio * 100 ) / 100 
-
-
-findA(n1, roundedRatio); 
-}
-
-
-
-export function findA(n1, ratio) {
-    let t = 960; 
-    if ( n1 <= param.concentration[1]) {
-        console.log(param.concentration[0], param.A[0], "det virker");
-    } 
-    else if (n1 > param.concentration[1] && n1 < param.concentration[2]) {
-        upperLimit(param.A[1], param.k[1], t, param.S2[1], param.RMS[1], ratio)
-        //console.log(param.concentration[1], "A", param.A[1], "det virker");
-        //console.table(Object.keys(param)); 
-        //console.table(Object.values(param)); 
-    } 
-    else if (n1 > param.concentration[2] && n1 < param.concentration[3]) {
-        upperLimit(param.A[2], param.k[2], t, param.S2[2], param.RMS[2], ratio)
-        //console.log(param.concentration[2], "A", param.A[2], "det virker");
+    else{
+        convertSpecimen_last = datapoints[specimen_last].Value*1000/113.12;
+        roundedSpecimen_last = Math.floor(convertSpecimen_last);
         
-    } 
-    else if (n1 > param.concentration[3] && n1 < param.concentration[4]) {
-        upperLimit(param.A[3], param.k[3], t, param.S2[3], param.RMS[3], ratio)
-        //console.log(param.concentration[3], "A", param.A[3], "det virker");
-    } 
-    else if (n1 > param.concentration[4] && n1 < param.concentration[5]) {
-        upperLimit(param.A[4], param.k[4], t, param.S2[4], param.RMS[4], ratio)
-        //console.log(param.concentration[4],"A", param.A[4], "det virker");
-    } 
-    else if (n1 > param.concentration[5] && n1 < param.concentration[6]) {
-        upperLimit(param.A[5], param.k[5], t, param.S2[5], param.RMS[5], ratio)
-        //console.log(param.concentration[5],"A", param.A[5], "det virker");
-       
+        last_date = new Date(datapoints[specimen_last].Date)
+        
+        const hours = 60 * 60 * 1000; 
+        totalHours = (last_date.getTime() - base_date.getTime()) / hours;
+        totalHours = Math.round(totalHours)
     }
-    else if (n1 > param.concentration[6] && n1 < param.concentration[7]) {
-        upperLimit(param.A[6], param.k[6], t, param.S2[6], param.RMS[6], ratio)
-        //console.log(param.concentration[6],"A", param.A[6], "det virker");
+
+    calcRatio(); 
+
+    function above800 () {
+        if (roundedSpecimen_base > 800) {
+            console.log("collect the second specimen on the 5th day")
+        } else {
+            console.log("collect the second specimen at least 48 hours later")
+        }
     }
-    else if (n1 > param.concentration[7] && n1 < param.concentration[8]) {
-        upperLimit(param.A[7], param.k[7], t, param.S2[7], param.RMS[7], ratio)
-        //console.log(param.concentration[7],"A", param.A[7], "det virker");
+
+    function calcRatio() {
+        let ratio = roundedSpecimen_last / roundedSpecimen_base; 
+        let roundedRatio = Math.floor(ratio * 100 ) / 100 
+
+        findA(roundedRatio); 
     }
-    else if (n1 > param.concentration[8] && n1 < param.concentration[9]) {
-        upperLimit(param.A[8], param.k[8], t, param.S2[8], param.RMS[8], ratio)
-        //console.log(param.concentration[8],"A", param.A[8], "det virker");
+
+    function findA(roundedRatio) {
+
+        if ( roundedSpecimen_base <= param.concentration[1]) {
+            answers.Title = "outside parameter" 
+            console.log(answers.Title)
+        } 
+        else if (roundedSpecimen_base > param.concentration[1] && roundedSpecimen_base < param.concentration[2]) {
+            upperLimit(param.A[1], param.k[1], totalHours, param.S2[1], param.RMS[1], roundedRatio)
+        } 
+        else if (roundedSpecimen_base > param.concentration[2] && roundedSpecimen_base < param.concentration[3]) {
+            upperLimit(param.A[2], param.k[2], totalHours, param.S2[2], param.RMS[2], roundedRatio)
+        } 
+        else if (roundedSpecimen_base > param.concentration[3] && roundedSpecimen_base < param.concentration[4]) {
+            upperLimit(param.A[3], param.k[3], totalHours, param.S2[3], param.RMS[3], roundedRatio)
+        } 
+        else if (roundedSpecimen_base > param.concentration[4] && roundedSpecimen_base < param.concentration[5]) {
+            upperLimit(param.A[4], param.k[4], totalHours, param.S2[4], param.RMS[4], roundedRatio)
+        } 
+        else if (roundedSpecimen_base > param.concentration[5] && roundedSpecimen_base < param.concentration[6]) {
+            upperLimit(param.A[5], param.k[5], totalHours, param.S2[5], param.RMS[5], roundedRatio)
+        }
+        else if (roundedSpecimen_base > param.concentration[6] && roundedSpecimen_base < param.concentration[7]) {
+            upperLimit(param.A[6], param.k[6], totalHours, param.S2[6], param.RMS[6], roundedRatio)
+        }
+        else if (roundedSpecimen_base > param.concentration[7] && roundedSpecimen_base < param.concentration[8]) {
+            upperLimit(param.A[7], param.k[7], totalHours, param.S2[7], param.RMS[7], roundedRatio)
+        }
+        else if (roundedSpecimen_base > param.concentration[8] && roundedSpecimen_base < param.concentration[9]) {
+            upperLimit(param.A[8], param.k[8], totalHours, param.S2[8], param.RMS[8], roundedRatio)
+        }
+        else if (roundedSpecimen_base > param.concentration[9] ) {
+            answers.Title = "outside parameter"
+            console.log(answers.Title) 
+        }
     }
-    else if (n1 > param.concentration[9] ) {
-        //console.log(param.concentration[9],"A", param.A[9], "det virker");
+
+    function rule1(s1, s2) {
+        //TODO
+        if (s1 > 800 ) {
+            console.log("New use" )
+        }
+    }
+
+    function autoInterpretation(result, ratio) {
+        
+        if (result < ratio) {
+            answers.Title = "New use"; 
+            if (roundedSpecimen_base > 800) {
+                answers.Text = 'Test 1 - new use'
+            }
+            else {
+                answers.Text = 'Test 2 - new use'
+            }
+            specimen_base = specimen_last
+        } else if (result > ratio) {
+            answers.Title = "Abstinent"
+            if (roundedSpecimen_base > 800) {
+                answers.Text = 'Test 1 - abstinent'
+            }
+            else {
+                answers.Text = 'Test 2 - abstinent'
+            }
+        } else if (result = null){
+            
+        }
+        console.log('base_date: ', base_date, 'last date: ', last_date)
+        console.log('Text: ', answers.Text)
+        console.log('Title: ', answers.Title)
+        
+    }
+
+
+    function upperLimit(A, k, t, S2, RMS, ratio) { 
+        
+        let result = (A * Math.exp(-k * t)) + (2.57*(Math.sqrt(S2+RMS))); 
+        autoInterpretation(result, ratio);
+
     }
 }
-
-export function rule1(s1, s2) {
-    //TODO
-    if (s1 > 800 ) {
-        console.log("New use" )
-    }
-}
-
-export function autoInterpretation(result, ratio) {
-    
-    if (result < ratio) {
-        console.log("New use");
-        answers.first = "New use"; 
-    } else if (result > ratio) {
-        console.log("Abstinent");
-        answers.first = "Abstinent"
-    } else {
-        console.log("default"); 
-    }
-}
-
-
-export function upperLimit(A, k, t, S2, RMS, ratio) { 
-    
-    //console.log("A:", A, "k: ", k, "n: ", "S2: ", S2, "RMS: ", RMS)
-    let result = (A * Math.exp(-k * t)) + (2.57*(Math.sqrt(S2+RMS))); 
-    autoInterpretation(result, ratio);
-    //console.log(result)
-
-}
-
 
 
