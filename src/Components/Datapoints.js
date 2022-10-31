@@ -3,8 +3,8 @@ import Datapoint from './Datapoint'
 
 function Datapoints({datapoints, setDatapoints}) {
   return (
-    datapoints.map(datapoint => {
-        return <Datapoint key={datapoint.Id} datapoint = {datapoint} setDatapoints={setDatapoints} datapoints={datapoints} />
+    datapoints.map((datapoint, index) => {
+        return <Datapoint key={datapoint.Id} datapoint = {datapoint} setDatapoints={setDatapoints} datapoints={datapoints} index={index}/>
     })
   )
 }

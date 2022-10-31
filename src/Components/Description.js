@@ -1,5 +1,4 @@
 import React from 'react'
-import {answers} from '../Utils/Model'
 
 function Description({inputObject}) {
 
@@ -8,7 +7,7 @@ function Description({inputObject}) {
     <div style={{width:"50%"}}>
        <h2>Beskrivelse</h2> 
        <div>
-        <p style={{fontSize: "30px"}}> {inputObject.specimen1.value}  {inputObject.specimen1.date}  {answers.first}</p>
+        <p style={{fontSize: "30px"}}> {inputObject.specimen1.value}  {inputObject.specimen1.date} </p>
        </div>
     </div>
   )

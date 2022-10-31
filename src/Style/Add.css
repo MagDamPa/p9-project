@@ -4,11 +4,13 @@
 }
 
 .Add {
+    display: flex;
     align-content: center;
     background-color: rgb(230, 230, 230);
     margin-top: 10px;
     margin-right: 0px;
     padding: 0px;
+    justify-content: end;
 }
 
 .Add:hover {

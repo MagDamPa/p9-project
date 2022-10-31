@@ -1,7 +1,3 @@
-import {valueArray, specimen_2} from '../Components/Input'; 
-import { datapoints } from '../Components/Input';
-
-var specimen_base = 0 
 
 const param = {
     concentration: [
@@ -84,17 +80,28 @@ const param = {
 export const answers = {
     Title: '',
     Text: ''
-}
+} 
 
+var specimen_base = 0 
  
 export function convertNgMg({datapoints}) {
 
-    const specimen_last = datapoints.length - 1
+    if (datapoints.length === 0){
+        answers.Title = ''
+        answers.Text = ''
+    }
 
+    if (specimen_base >= datapoints.length || datapoints[specimen_base] === null){
+        specimen_base = 0
+        convertNgMg({datapoints})
+    }
+    
     let convertSpecimen_base = datapoints[specimen_base].Value *1000/113.12; 
     let roundedSpecimen_base = Math.floor(convertSpecimen_base);
 
     let base_date = new Date(datapoints[specimen_base].Date)
+
+    const specimen_last = datapoints.length - 1
 
     let convertSpecimen_last = null
     let roundedSpecimen_last = null
@@ -102,7 +109,7 @@ export function convertNgMg({datapoints}) {
 
     var totalHours = null
 
-    if (datapoints.length === 1){
+    if (datapoints.length === 1 || specimen_last === specimen_base){
         above800(convertSpecimen_base); 
         return 0;
     }
@@ -121,9 +128,11 @@ export function convertNgMg({datapoints}) {
 
     function above800 () {
         if (roundedSpecimen_base > 800) {
-            console.log("collect the second specimen on the 5th day")
+            answers.Title = "First test"
+            answers.Text = "collect the second specimen on the 5th day"
         } else {
-            console.log("collect the second specimen at least 48 hours later")
+            answers.Title = "First test"
+            answers.Text = "collect the second specimen at least 48 hours later"
         }
     }
 
@@ -138,7 +147,6 @@ export function convertNgMg({datapoints}) {
 
         if ( roundedSpecimen_base <= param.concentration[1]) {
             answers.Title = "outside parameter" 
-            console.log(answers.Title)
         } 
         else if (roundedSpecimen_base > param.concentration[1] && roundedSpecimen_base < param.concentration[2]) {
             upperLimit(param.A[1], param.k[1], totalHours, param.S2[1], param.RMS[1], roundedRatio)
@@ -166,7 +174,6 @@ export function convertNgMg({datapoints}) {
         }
         else if (roundedSpecimen_base > param.concentration[9] ) {
             answers.Title = "outside parameter"
-            console.log(answers.Title) 
         }
     }
 
@@ -182,10 +189,10 @@ export function convertNgMg({datapoints}) {
         if (result < ratio) {
             answers.Title = "New use"; 
             if (roundedSpecimen_base > 800) {
-                answers.Text = 'Test 1 - new use'
+                answers.Text = 'False prediction of new use is possible for up to 14 days from first specimen collection. Collect urine specimens 15 days from the first collection'
             }
             else {
-                answers.Text = 'Test 2 - new use'
+                answers.Text = 'Collect the 3rd specimen at least 48 hours later'
             }
             specimen_base = specimen_last
         } else if (result > ratio) {
@@ -197,11 +204,7 @@ export function convertNgMg({datapoints}) {
                 answers.Text = 'Test 2 - abstinent'
             }
         } else if (result = null){
-            
         }
-        console.log('base_date: ', base_date, 'last date: ', last_date)
-        console.log('Text: ', answers.Text)
-        console.log('Title: ', answers.Title)
         
     }
 
