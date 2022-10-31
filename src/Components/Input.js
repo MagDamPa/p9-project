@@ -1,38 +1,11 @@
-import React, {useState, useRef, useEffect} from 'react'
+import React from 'react'
 import '../Style/Input.css'
-import TrashIcon from './Icons/TrashIcon.svg'
-import {convertNgMg, specimen_2, answers} from '../Utils/Model'
-import { v4 as uuidv4 } from 'uuid'
-import AddIcon from './Icons/AddIcon.svg'
-
-//import { setDatasets } from 'react-chartjs-2/dist/utils'
-
 import Datapoints from './Datapoints'
-import { renderHook } from '@testing-library/react'
-
-
 
 function Input({datapoints, setDatapoints, testDateRef, testValueRef}) {
 
-   
-  function buttonHandlerDelete(){
-    //console.log(time)
-    console.log("Trash me :D")
-    console.log(testDateRef.current.value)
-    console.log(testValueRef.current.value)
-  }
-  
-  function buttonHandlerAdd(){
-    const date = testDateRef.current.value
-    const value = testValueRef.current.value
-    setDatapoints(prevDatapoints => {
-      return [...prevDatapoints, { Id: uuidv4(), Number: datapoints.length, Date: date, Value: value, Valid: 'Valid' }]
-    })
-    testDateRef.current.value = null
-    testValueRef.current.value = null
-  }
-
   //disables the scrolling function on the number input field. 
+  //is mostly to ease the use of the field for the user. 
   document.addEventListener("wheel", function(event){
     if(document.activeElement.type === "number" &&
        document.activeElement.classList.contains("noscroll"))
@@ -45,27 +18,23 @@ function Input({datapoints, setDatapoints, testDateRef, testValueRef}) {
 
     <div >
       <div>
+        {/*Creates a element of the component Datapoints, and provides it with the array datapoints, and the function setDatapoints*/}
         <Datapoints datapoints={datapoints} setDatapoints={setDatapoints}/>
       </div>
       <div className='Input inputMain'>
+        {/*adds the number of the next element we will add to the array*/}
         <p className = "flex-item" id="testnumber">
           {datapoints.length + 1}
         </p> 
-        <input type = "datetime-local" className = "flex-item" id='date' ref={testDateRef}/>
+        {/*Creates an input field for the user to enter a date based on a dropdown calender, it acceses the values using the useRef from react*/}
+        <input type = "date" className = "flex-item" id='date' ref={testDateRef}/>
+        {/*Creates an input field for the user to enter a testvalue, again using useRef to acces it later*/}
         <input type = 'number' className = "flex-item noscroll testvalue" placeholder='testresult' ref={testValueRef}/>
-        <p className = "flex-item" id="unit">
-          ng/ml
+        {/*Unit display*/}
+        <p className = "flex-item unitlarge" >
+          mg/mol
         </p>
-        <p className = "flex-item" id='valid'>
-          Valid
-        </p>
-        <button className = "flex-item Delete" onClick={buttonHandlerDelete}>
-          <img className = "IconInput" 
-            src={TrashIcon}
-          />
-        </button>
       </div>
-
     </div>
   )
 }

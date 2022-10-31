@@ -7,27 +7,30 @@ import {convertNgMg} from '../Utils/Model';
 
 function Datapoint({datapoint, setDatapoints, datapoints, index}) {
 
+  //Filters out what datapoints is showed. This makes it possible to visualise a deletion of a datapoint
   function buttonHandler(){
     setDatapoints(datapoints.filter((el) => el.Id !== datapoint.Id))
-  }
-
-  function updateDate(){
-    console.log("update me")
   }
   
   return (
     <div className='Input'>
+      {/*Gives the datapoints a number based on the position in the array, using index in a map function*/}
         <p className = "flex-item" id="testnumber">
             {index + 1} 
         </p> 
-        <input type = "datetime-local" className = "flex-item" id='date' defaultValue={datapoint.Date} onChange={updateDate}/>
-        <input type = 'number' className = "flex-item noscroll testvalue" defaultValue={datapoint.Value}/>
-        <p className = "flex-item" id="unit">
-            ng/ml
+      {/*Shows the date for the datapoint*/}
+        <p className = "flex-item" id='date'>
+          {datapoint.Date}
         </p>
-        <p className = "flex-item" id='valid'>
-            Valid
+      {/*Displays the value for the datapoint*/}
+        <p className = "flex-item noscroll testvalue">
+          {datapoint.Value}
         </p>
+      {/*Simple unit display*/}
+        <p className = "flex-item unitsmall" >
+            mg/mol
+        </p>
+      {/*A deletebutton for every item in array*/}
         <button className = "flex-item Delete" onClick={buttonHandler}>
             <img className = "IconInput" 
             src={TrashIcon}
