@@ -8,8 +8,6 @@ import {convertNgMg} from '../Utils/Model';
 function Datapoint({datapoint, setDatapoints, datapoints, index}) {
 
   function buttonHandler(){
-    console.log("Trash me hard")
-    console.log(datapoint.Number)
     setDatapoints(datapoints.filter((el) => el.Id !== datapoint.Id))
   }
 

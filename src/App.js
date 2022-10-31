@@ -20,13 +20,9 @@ function App() {
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
 
-  function beregn(){
-    convertNgMg({datapoints})
-  }
-
   useEffect(() => {
     if (datapoints.length != 0) {
-      beregn()
+      convertNgMg({datapoints})
       forceUpdate()
     } 
     else {
@@ -43,7 +39,6 @@ function App() {
     testDateRef.current.value = null
     testValueRef.current.value = null
   }
-
 
   return (
     <div className="App">

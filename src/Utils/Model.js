@@ -86,8 +86,13 @@ var specimen_base = 0
  
 export function convertNgMg({datapoints}) {
 
+    if (datapoints.length === 0){
+        answers.Title = ''
+        answers.Text = ''
+    }
+
     if (specimen_base >= datapoints.length || datapoints[specimen_base] === null){
-        specimen_base = datapoints[0]
+        specimen_base = 0
         convertNgMg({datapoints})
     }
     
