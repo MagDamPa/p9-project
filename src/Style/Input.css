@@ -40,14 +40,13 @@
     height: 38px;
 }
 
-#unit {
+.unitsmall {
     max-width: 50px;
 }
 
-#valid {
-    max-width: 75px;
+.unitlarge {
+    max-width: 95px;
 }
-
 
 .Delete {
     max-width: 40px;
