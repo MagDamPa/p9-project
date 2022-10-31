@@ -1,14 +1,16 @@
 import { Title } from 'chart.js';
 import React, {useEffect} from 'react'
+import '../Style/Result.css'
 
 function Result({answersTitle, answersText}) {
 
   return (
-    <div>
-        <h1 className='Title' defaultValue='Resultat titel'>
+    <div className='result-wrapper'>
+      <h2 className='result-heading'>Resultat svar</h2>
+        <p className='result-text' defaultValue='Resultat titel'>
             {answersTitle}            
-        </h1>
-        <p className='Text' defaultValue='tekst forklaring'>
+        </p>
+        <p className='result-text' defaultValue='tekst forklaring'>
             {answersText}
         </p>
     </div>

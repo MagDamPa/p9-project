@@ -1,6 +1,6 @@
 import React from 'react'
-import { faker } from '@faker-js/faker';
-import deleteIcon from './deleteIcon.svg'
+
+import '../Style/Chart.css'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -67,8 +67,7 @@ function Chart2({datapoints}) {
   };
 
 return (
-  <div>
-
+  <div className='chart-wrpper'>
     <Line 
     height ={"400px"}
     width = {"600px"}

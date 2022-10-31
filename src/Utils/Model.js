@@ -87,7 +87,7 @@ var specimen_base = 0
 export function convertNgMg({datapoints}) {
 
     if (datapoints.length === 0){
-        answers.Title = ''
+        answers.Title = 'Intet resultat at vise'
         answers.Text = ''
     }
 

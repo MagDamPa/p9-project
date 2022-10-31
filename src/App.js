@@ -61,7 +61,7 @@ function App() {
           </button>
         </div>
       </div>
-      <div className = "Append">
+      <div className = "result-and-chart-wrapper">
         <Chart2 datapoints={datapoints}/>
         <Result answersTitle={answers.Title} answersText={answers.Text}/>
       </div>

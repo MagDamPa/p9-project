@@ -30,11 +30,12 @@
 }
 
 
-.Append {
+.result-and-chart-wrapper {
   margin: auto;
   padding: 15px;
   display: flex;
-  width: "400px";
+  justify-content: center;
+  width: 100%;
   height: "400px"
 
 }
