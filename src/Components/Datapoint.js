@@ -3,8 +3,9 @@ import React from 'react'
 import '../Style/Input.css'
 import TrashIcon from './Icons/TrashIcon.svg'
 import { datapoints } from './Input'
+import {convertNgMg} from '../Utils/Model'; 
 
-function Datapoint({datapoint, setDatapoints, datapoints}) {
+function Datapoint({datapoint, setDatapoints, datapoints, index}) {
 
   function buttonHandler(){
     console.log("Trash me hard")
@@ -19,7 +20,7 @@ function Datapoint({datapoint, setDatapoints, datapoints}) {
   return (
     <div className='Input'>
         <p className = "flex-item" id="testnumber">
-            {datapoint.Number + 1} 
+            {index + 1} 
         </p> 
         <input type = "datetime-local" className = "flex-item" id='date' defaultValue={datapoint.Date} onChange={updateDate}/>
         <input type = 'number' className = "flex-item noscroll testvalue" defaultValue={datapoint.Value}/>

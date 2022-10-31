@@ -1,6 +1,5 @@
 import React, {useState, useRef, useEffect} from 'react'
 import '../Style/Input.css'
-import '../Style/Add.css'
 import TrashIcon from './Icons/TrashIcon.svg'
 import {convertNgMg, specimen_2, answers} from '../Utils/Model'
 import { v4 as uuidv4 } from 'uuid'
@@ -13,10 +12,7 @@ import { renderHook } from '@testing-library/react'
 
 
 
-function Input({datapoints, setDatapoints}) {
-
-  const testDateRef = useRef()
-  const testValueRef = useRef() 
+function Input({datapoints, setDatapoints, testDateRef, testValueRef}) {
 
    
   function buttonHandlerDelete(){
@@ -26,8 +22,7 @@ function Input({datapoints, setDatapoints}) {
     console.log(testValueRef.current.value)
   }
   
-  function buttonHandlerAdd(e){
-    e.preventDefault();
+  function buttonHandlerAdd(){
     const date = testDateRef.current.value
     const value = testValueRef.current.value
     setDatapoints(prevDatapoints => {
@@ -70,13 +65,7 @@ function Input({datapoints, setDatapoints}) {
           />
         </button>
       </div>
-      <div className='addblock'>
-        <button className='Add' onClick={buttonHandlerAdd}>
-            <img className='IconAdd' 
-                src={AddIcon}
-            />
-        </button>
-      </div>
+
     </div>
   )
 }
