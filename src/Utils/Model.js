@@ -89,19 +89,41 @@ export function convertNgMg({datapoints}) {
     if (datapoints.length === 0){
         answers.Title = 'Intet resultat at vise'
         answers.Text = ''
+        return 1;
     }
 
-    if (specimen_base >= datapoints.length || datapoints[specimen_base] === null){
-        specimen_base = 0
+    if (specimen_base >= datapoints.length - 1 && specimen_base != 0) {
+        specimen_base = specimen_base - 1
+        //console.log('before if: ' + specimen_base)
+        if (datapoints.length - 1 === specimen_base && specimen_base != 0) {
+            specimen_base = specimen_base - 1
+            //console.log('after if: ' + specimen_base)
+        }
         convertNgMg({datapoints})
     }
-    
+
+    const specimen_last = datapoints.length - 1
+
+    daysBetween()
+
+    //checks if the difference between the base date and last day is not above 30 days 
+    //if it is, it tries the next one until it finds the next basedate. 
+    function daysBetween(){
+        var date1 = new Date(datapoints[specimen_base].Date)
+        var date2 = new Date(datapoints[specimen_last].Date)
+        var daysbetween = (date2.getTime() - date1.getTime()) / (1000 * 3600 * 24) 
+        //console.log('daysbetween, before change: ' + datapoints[specimen_base].Date)
+        if (daysbetween >= 31){
+            specimen_base = specimen_base + 1
+            //console.log('daysbetween, after change: ' + datapoints[specimen_base].Date)
+            daysBetween()
+        }
+    }
+
     let convertSpecimen_base = datapoints[specimen_base].Value *1000/113.12; 
     let roundedSpecimen_base = Math.floor(convertSpecimen_base);
 
     let base_date = new Date(datapoints[specimen_base].Date)
-
-    const specimen_last = datapoints.length - 1
 
     let convertSpecimen_last = null
     let roundedSpecimen_last = null
@@ -147,6 +169,8 @@ export function convertNgMg({datapoints}) {
 
         if ( roundedSpecimen_base <= param.concentration[1]) {
             answers.Title = "outside parameter" 
+            answers.Text = ''
+            specimen_base = specimen_last
         } 
         else if (roundedSpecimen_base > param.concentration[1] && roundedSpecimen_base < param.concentration[2]) {
             upperLimit(param.A[1], param.k[1], totalHours, param.S2[1], param.RMS[1], roundedRatio)
@@ -174,11 +198,18 @@ export function convertNgMg({datapoints}) {
         }
         else if (roundedSpecimen_base > param.concentration[9] ) {
             answers.Title = "outside parameter"
+            answers.Text = ''
+            specimen_base = specimen_last
         }
     }
 
     function autoInterpretation(result, ratio) {
-        
+
+        //console.log('Base Date: ' + datapoints[specimen_base].Date)
+        //console.log('Last Date: ' + datapoints[specimen_last].Date)
+        //console.log('First value: ' + convertSpecimen_base)
+        //console.log('Last value: ' + convertSpecimen_last)
+
         if (result < ratio) {
             answers.Title = "New use"; 
             if (roundedSpecimen_base > 800) {
@@ -188,16 +219,19 @@ export function convertNgMg({datapoints}) {
                 answers.Text = 'Collect the 3rd specimen at least 48 hours later'
             }
             specimen_base = specimen_last
+            //console.log('BaseDate after new use: ' + datapoints[specimen_base].Date)
         } else if (result > ratio) {
             answers.Title = "Abstinent"
             if (roundedSpecimen_base > 800) {
-                answers.Text = 'Test 1 - abstinent'
+                answers.Text = 'Test 1 - Abstinent'
             }
             else {
-                answers.Text = 'Test 2 - abstinent'
+                answers.Text = 'Test 2 - Abstinent'
             }
         } else if (result = null){
         }
+
+        
         
     }
 

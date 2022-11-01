@@ -10,6 +10,7 @@ function Datapoint({datapoint, setDatapoints, datapoints, index}) {
   //Filters out what datapoints is showed. This makes it possible to visualise a deletion of a datapoint
   function buttonHandler(){
     setDatapoints(datapoints.filter((el) => el.Id !== datapoint.Id))
+    console.log('I delete one')
   }
   
   return (
@@ -19,8 +20,8 @@ function Datapoint({datapoint, setDatapoints, datapoints, index}) {
             {index + 1} 
         </p> 
       {/*Shows the date for the datapoint*/}
-        <p className = "flex-item" id='date'>
-          {datapoint.Date}
+        <p className = "flex-item" id='date' >
+          {new Date(datapoint.Date).toDateString()}
         </p>
       {/*Displays the value for the datapoint*/}
         <p className = "flex-item noscroll testvalue">

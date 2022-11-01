@@ -27,9 +27,9 @@ function Input({datapoints, setDatapoints, testDateRef, testValueRef}) {
           {datapoints.length + 1}
         </p> 
         {/*Creates an input field for the user to enter a date based on a dropdown calender, it acceses the values using the useRef from react*/}
-        <input type = "date" className = "flex-item" id='date' ref={testDateRef}/>
+        <input type = "date" className = "flex-item" id='date' ref={testDateRef} required={true}/>
         {/*Creates an input field for the user to enter a testvalue, again using useRef to acces it later*/}
-        <input type = 'number' className = "flex-item noscroll testvalue" placeholder='testresult' ref={testValueRef}/>
+        <input type = 'number' className = "flex-item noscroll testvalue" placeholder='testresult' ref={testValueRef} required={true}/>
         {/*Unit display*/}
         <p className = "flex-item unitlarge" >
           mg/mol

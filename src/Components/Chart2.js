@@ -52,7 +52,7 @@ export const options = {
 
 function Chart2({datapoints}) {
   const labels = datapoints.map(datapoint => 
-    datapoint.Date); 
+    new Date(datapoint.Date).toDateString()); 
   const data = {
     labels,
     datasets: [
