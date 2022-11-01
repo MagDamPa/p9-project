@@ -177,13 +177,6 @@ export function convertNgMg({datapoints}) {
         }
     }
 
-    function rule1(s1, s2) {
-        //TODO
-        if (s1 > 800 ) {
-            console.log("New use" )
-        }
-    }
-
     function autoInterpretation(result, ratio) {
         
         if (result < ratio) {
