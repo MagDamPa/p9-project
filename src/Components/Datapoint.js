@@ -21,7 +21,7 @@ function Datapoint({datapoint, setDatapoints, datapoints, index}) {
         </p> 
       {/*Shows the date for the datapoint*/}
         <p className = "flex-item" id='date' >
-          {new Date(datapoint.Date).toDateString()}
+          {new Date(datapoint.Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}
         </p>
       {/*Displays the value for the datapoint*/}
         <p className = "flex-item noscroll testvalue">
