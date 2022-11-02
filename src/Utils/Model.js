@@ -216,7 +216,7 @@ export function convertNgMg({datapoints}) {
                 answers.Text = 'False prediction of new use is possible for up to 14 days from first specimen collection. Collect urine specimens 15 days from the first collection'
             }
             else {
-                answers.Text = 'Collect the 3rd specimen at least 48 hours later'
+                answers.Text = 'Collect the next specimen at least 48 hours later'
             }
             specimen_base = specimen_last
             //console.log('BaseDate after new use: ' + datapoints[specimen_base].Date)
@@ -230,17 +230,11 @@ export function convertNgMg({datapoints}) {
             }
         } else if (result = null){
         }
-
-        
-        
     }
 
-
     function upperLimit(A, k, t, S2, RMS, ratio) { 
-        
         let result = (A * Math.exp(-k * t)) + (2.57*(Math.sqrt(S2+RMS))); 
         autoInterpretation(result, ratio);
-
     }
 }
 
