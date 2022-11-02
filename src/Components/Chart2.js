@@ -13,7 +13,6 @@ import {
   Scale,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { datapoints } from './Input';
 
 ChartJS.register(
   CategoryScale,
@@ -25,34 +24,33 @@ ChartJS.register(
   Legend
 );
 
+function Chart2({datapoints}) {
 
-export const options = {
-  maintainAspectRatio: false,
-  plugins: {
-    legend: {
-      position: 'top'
-    },
-    title: {
-      align: 'center',
-      display: true,
-      fullsize: true,
-      text: 'THC-COOH concentration by date',
-      position: 'bottom',
-    },
-    scales: {
+  const options = {
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'top'
+      },
+      title: {
+        align: 'center',
+        display: true,
+        fullsize: true,
+        text: 'THC-COOH concentration by date',
+        position: 'bottom',
+      },
+      scales: {
         y: {
+          Min: 0,
           suggestedmin: 50,
           Max: 100
           }
-    },
-    }
-}; 
+      },
+      }
+  }; 
 
-
-
-function Chart2({datapoints}) {
   const labels = datapoints.map(datapoint => 
-    datapoint.Date); 
+    new Date(datapoint.Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})); 
   const data = {
     labels,
     datasets: [
@@ -69,10 +67,10 @@ function Chart2({datapoints}) {
 return (
   <div className='chart-wrpper'>
     <Line 
-    height ={"400px"}
+    height = {"400px"}
     width = {"600px"}
-    data={data}
-    options ={options}/>
+    data = {data}
+    options = {options}/>
   </div> )
 }
 
