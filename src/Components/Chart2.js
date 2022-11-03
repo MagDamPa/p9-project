@@ -36,7 +36,7 @@ function Chart2({datapoints}) {
         align: 'center',
         display: true,
         fullsize: true,
-        text: 'THC-COOH concentration by date',
+        text: 'THC-COOH/CREA concentration by date',
         position: 'bottom',
       },
       scales: {

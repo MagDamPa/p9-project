@@ -150,11 +150,11 @@ export function convertNgMg({datapoints}) {
 
     function above800 () {
         if (roundedSpecimen_base > 800) {
-            answers.Title = "First test"
-            answers.Text = "collect the second specimen on the 5th day"
+            answers.Title = "Første test"
+            answers.Text = "Indsamle næste prøve på 5. dagen"
         } else {
-            answers.Title = "First test"
-            answers.Text = "collect the second specimen at least 48 hours later"
+            answers.Title = "Første test"
+            answers.Text = "Indsamle næste prøve tidligst efter 2 dage"
         }
     }
 
@@ -168,8 +168,8 @@ export function convertNgMg({datapoints}) {
     function findA(roundedRatio) {
 
         if ( roundedSpecimen_base <= param.concentration[1]) {
-            answers.Title = "outside parameter" 
-            answers.Text = ''
+            answers.Title = "Udenfor modellens rækkevidde" 
+            answers.Text = 'Testværdien er for lav.'
             specimen_base = specimen_last
         } 
         else if (roundedSpecimen_base > param.concentration[1] && roundedSpecimen_base < param.concentration[2]) {
@@ -197,8 +197,8 @@ export function convertNgMg({datapoints}) {
             upperLimit(param.A[8], param.k[8], totalHours, param.S2[8], param.RMS[8], roundedRatio)
         }
         else if (roundedSpecimen_base > param.concentration[9] ) {
-            answers.Title = "outside parameter"
-            answers.Text = ''
+            answers.Title = "Udenfor modellens rækkevidde"
+            answers.Text = 'Testværdien er for højt'
             specimen_base = specimen_last
         }
     }
@@ -211,22 +211,22 @@ export function convertNgMg({datapoints}) {
         //console.log('Last value: ' + convertSpecimen_last)
 
         if (result < ratio) {
-            answers.Title = "New use"; 
+            answers.Title = "Chance for nyt indtag"; 
             if (roundedSpecimen_base > 800) {
-                answers.Text = 'False prediction of new use is possible for up to 14 days from first specimen collection. Collect urine specimens 15 days from the first collection'
+                answers.Text = `Der er mulighed for en falsk positiv i op til 14 dage fra testen den ${new Date(datapoints[specimen_last].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}, foretag derfor næste test på 15 dagen`
             }
             else {
-                answers.Text = 'Collect the next specimen at least 48 hours later'
+                answers.Text = `Indsamle næste prøve tidligst efter 2 dage. Ved næste testsvar vil resultatet blive beregnet på baggrund af testen fra den ${new Date(datapoints[specimen_last].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}`
             }
             specimen_base = specimen_last
             //console.log('BaseDate after new use: ' + datapoints[specimen_base].Date)
         } else if (result > ratio) {
-            answers.Title = "Abstinent"
+            answers.Title = "Intet nyt indtag af cannabis"
             if (roundedSpecimen_base > 800) {
-                answers.Text = 'Test 1 - Abstinent'
+                answers.Text = 'Der er på nuværende tidspunkt ikke tegn på nyt cannabis forbrug'
             }
             else {
-                answers.Text = 'Test 2 - Abstinent'
+                answers.Text = 'Der er på nuværende tidspunkt ikke tegn på nyt cannabis forbrug'
             }
         } else if (result = null){
         }
