@@ -78,7 +78,7 @@ const param = {
 }
 
 export const answers = {
-    Title: '',
+    Title: 'Intet resultat at vise',
     Text: ''
 } 
 
@@ -86,23 +86,12 @@ var specimen_base = 0
  
 export function convertNgMg({datapoints}) {
 
-    if (datapoints.length === 0){
-        answers.Title = 'Intet resultat at vise'
-        answers.Text = ''
-        return 1;
-    }
-
-    if (specimen_base >= datapoints.length - 1 && specimen_base != 0) {
+    //Denne skal ændres sådan at den tjekker hvorvidt det seneste resultat har være new use...
+    if (specimen_base >= (datapoints.length - 1) && specimen_base != 0) {
         specimen_base = specimen_base - 1
-        //console.log('before if: ' + specimen_base)
-        if (datapoints.length - 1 === specimen_base && specimen_base != 0) {
-            specimen_base = specimen_base - 1
-            //console.log('after if: ' + specimen_base)
-        }
-        convertNgMg({datapoints})
     }
 
-    const specimen_last = datapoints.length - 1
+    var specimen_last = datapoints.length - 1
 
     daysBetween()
 
@@ -213,7 +202,12 @@ export function convertNgMg({datapoints}) {
         if (result < ratio) {
             answers.Title = "Chance for nyt indtag"; 
             if (roundedSpecimen_base > 800) {
-                answers.Text = `Der er mulighed for en falsk positiv i op til 14 dage fra testen den ${new Date(datapoints[specimen_last].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}, foretag derfor næste test på 15 dagen`
+                if(roundedSpecimen_last < 200){
+                    answers.Text = ``
+                }
+                else{
+                    answers.Text = `Der er mulighed for en falsk positiv i op til 14 dage fra testen den ${new Date(datapoints[specimen_last].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}, foretag derfor næste test på 15 dagen`
+                }
             }
             else {
                 answers.Text = `Indsamle næste prøve tidligst efter 2 dage. Ved næste testsvar vil resultatet blive beregnet på baggrund af testen fra den ${new Date(datapoints[specimen_last].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}`

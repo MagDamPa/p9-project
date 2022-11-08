@@ -10,7 +10,6 @@ function Datapoint({datapoint, setDatapoints, datapoints, index}) {
   //Filters out what datapoints is showed. This makes it possible to visualise a deletion of a datapoint
   function buttonHandler(){
     setDatapoints(datapoints.filter((el) => el.Id !== datapoint.Id))
-    console.log('I delete one')
   }
   
   return (
