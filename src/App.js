@@ -17,6 +17,9 @@ function App() {
   const testDateRef = useRef()
   const testValueRef = useRef()
 
+ 
+
+
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
 
@@ -39,6 +42,9 @@ function App() {
     testDateRef.current.value = null
     testValueRef.current.value = null
   }
+
+
+  
 
   return (
     <div className="App">
@@ -63,7 +69,12 @@ function App() {
       </div>
       <div className = "result-and-chart-wrapper">
         <Chart2 datapoints={datapoints}/>
-        <Result answersTitle={answers.Title} answersText={answers.Text}/>
+        <Result 
+        answersTitle={answers.Title} 
+        answersText={answers.Text}
+        answersColor={answers.Color}
+
+        />
       </div>
     </div>
     
