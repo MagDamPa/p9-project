@@ -1,3 +1,4 @@
+import '../App'; 
 
 const param = {
     concentration: [
@@ -79,7 +80,8 @@ const param = {
 
 export const answers = {
     Title: 'Intet resultat at vise',
-    Text: ''
+    Text: '',
+    Color: 'white'
 } 
 
 var specimen_base = 0 
@@ -87,7 +89,7 @@ var specimen_base = 0
 export function convertNgMg({datapoints}) {
 
     //Denne skal ændres sådan at den tjekker hvorvidt det seneste resultat har være new use...
-    if (specimen_base >= (datapoints.length - 1) && specimen_base != 0) {
+    if (specimen_base >= (datapoints.length - 1) && specimen_base !== 0) {
         specimen_base = specimen_base - 1
     }
 
@@ -141,9 +143,11 @@ export function convertNgMg({datapoints}) {
         if (roundedSpecimen_base > 800) {
             answers.Title = "Første test"
             answers.Text = "Indsamle næste prøve på 5. dagen"
+            answers.Color = "grey"
         } else {
             answers.Title = "Første test"
             answers.Text = "Indsamle næste prøve tidligst efter 2 dage"
+            answers.Color = "grey"
         }
     }
 
@@ -159,6 +163,7 @@ export function convertNgMg({datapoints}) {
         if ( roundedSpecimen_base <= param.concentration[1]) {
             answers.Title = "Udenfor modellens rækkevidde" 
             answers.Text = 'Testværdien er for lav.'
+            answers.Color = "grey"
             specimen_base = specimen_last
         } 
         else if (roundedSpecimen_base > param.concentration[1] && roundedSpecimen_base < param.concentration[2]) {
@@ -188,6 +193,7 @@ export function convertNgMg({datapoints}) {
         else if (roundedSpecimen_base > param.concentration[9] ) {
             answers.Title = "Udenfor modellens rækkevidde"
             answers.Text = 'Testværdien er for højt'
+            answers.Color = "grey"
             specimen_base = specimen_last
         }
     }
@@ -201,6 +207,7 @@ export function convertNgMg({datapoints}) {
 
         if (result < ratio) {
             answers.Title = "Chance for nyt indtag"; 
+            answers.Color = "red"
             if (roundedSpecimen_base > 800) {
                 if(roundedSpecimen_last < 200){
                     answers.Text = ``
@@ -216,6 +223,8 @@ export function convertNgMg({datapoints}) {
             //console.log('BaseDate after new use: ' + datapoints[specimen_base].Date)
         } else if (result > ratio) {
             answers.Title = "Intet nyt indtag af cannabis"
+            answers.Color = "green"
+            
             if (roundedSpecimen_base > 800) {
                 answers.Text = 'Der er på nuværende tidspunkt ikke tegn på nyt cannabis forbrug'
             }
