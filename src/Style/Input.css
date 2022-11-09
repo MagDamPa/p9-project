@@ -8,57 +8,81 @@
     border-width: 1px;
     gap: 5px;
     background-color: white;
-    height: 42px;
+    height: 30px;
     padding: 2px;
     padding-left: 5px;
     padding-right: 5px;
     margin-top: 5px;
+    margin: 10px;
 }
 
-.inputMain {
-    margin-top: 30px;
+.datapoints{
+    background-color: #cedbea;
+}
+
+.main {
+    background-color: #9ebbda;
+}
+
+.Small{
+    max-width: 62px;
 }
 
 .flex-item {
     flex: 1;
     font-family: 'Times New Roman', Times, serif;
     font-size: 14px;
-    height: 40px;
+    height: 28px;
     margin: auto;
     text-align: center;
     align-content: center;
-    line-height: 40px;
+    line-height: 28px;
     border: none;
-    background-color: rgb(230, 230, 230);
+}
+
+.testnumber {
+    max-width: 28px;
 }
 
 #testnumber {
-    max-width: 40px;
+    max-width: 28px;
+
+}
+
+.date{
+    max-width: 200px;
+    width: 200px;
+    font-size: 15px;
 }
 
 .testvalue {
-    height: 38px;
+    height: 26px;
+    max-width: 60px;
+    font-size: 15px;
 }
 
-.unitsmall {
-    max-width: 50px;
-}
+.Unit {
+    margin-left:-5px;
+    max-width: 55px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #fbfbfb;
+    border-top: 0px;
+    border-right: 0px;
+    border-bottom: 0px;
+} 
 
-.unitlarge {
-    max-width: 95px;
-}
-
-.Delete {
-    max-width: 40px;
+.Delete, .info {
+    max-width: 28px;
     padding: 0px;
     background-color: rgb(230, 230, 230);
 }
 
 .IconInput { 
     width: fit-content;
-    width: 30px;
-    height: 30px;
-    padding: 5px;
+    width: 20px;
+    height: 20px;
+    padding: 4px;
 }
 
 .Delete:hover {
@@ -79,5 +103,13 @@ input[type=number] {
 
 .input-form {
     display: flex;
-    width: 100%; 
+    max-width: 100%; 
 }
+
+.line {
+    border-color: rgb(208, 208, 208);
+    background-color: rgb(208, 208, 208);
+    margin: 20px;
+}
+
+

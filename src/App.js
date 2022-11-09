@@ -1,7 +1,6 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import './App.css';
-import './Style/Add.css'
 import Menu from './Components/Menu';
 import Help from './Components/Help';
 import Input from './Components/Input';
@@ -10,15 +9,13 @@ import {answers, convertNgMg} from './Utils/Model';
 import Result from './Components/Result';
 import AddIcon from './Components/Icons/AddIcon.svg'
 import { v4 as uuidv4 } from 'uuid'
+import { specimen_base, specimen_last } from './Utils/Model';
 
 function App() {
 
   const [datapoints, setDatapoints] = useState([]);
   const testDateRef = useRef()
   const testValueRef = useRef()
-
- 
-
 
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
@@ -53,28 +50,30 @@ function App() {
         <Help/>
       </div>
       <div className ="input-container">
-        <Input 
-          datapoints={datapoints} 
-          setDatapoints={setDatapoints}
-          testDateRef={testDateRef}
-          testValueRef={testValueRef}
+        <div className='addInput'>    
+          <Input 
+            datapoints={datapoints} 
+            setDatapoints={setDatapoints}
+            testDateRef={testDateRef}
+            testValueRef={testValueRef}
           />
-        <div className='addblock'>    
-          <button className='Add' onClick={buttonHandlerAdd}>
-              <img className='IconAdd' 
-                  src={AddIcon}
-              />
+          <button type='submit' className='Add' onClick={buttonHandlerAdd}>
+          Tilføj testresult
           </button>
+        </div>
+        <div className='ResultBlock'>
+          <Result 
+          answersTitle={answers.Title} 
+          answersText={answers.Text}
+          answersColor={answers.Color}
+          />
+          <p className='UsedTest'>
+            Modellen har beregnet resultatet på baggrund af test nr. {specimen_base + 1} og test nr. {specimen_last + 1}.
+          </p>
         </div>
       </div>
       <div className = "result-and-chart-wrapper">
         <Chart2 datapoints={datapoints}/>
-        <Result 
-        answersTitle={answers.Title} 
-        answersText={answers.Text}
-        answersColor={answers.Color}
-
-        />
       </div>
     </div>
     

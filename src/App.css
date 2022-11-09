@@ -7,19 +7,16 @@
   flex-direction: row;
 }
 
-
 .input-container {
+  display: flex;
   justify-content: center;
-  padding-left: 60px;
-  padding-right: 60px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  width: 73.5%;
+  gap: 30px;
+  width: 70%;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 100px;
-  background-color: rgb(203, 200, 200);
-  
+  margin-top: 60px;
+  flex-direction: row;
+
 }
 
 .beregn {
@@ -29,7 +26,6 @@
   font-family: 'Times New Roman', Times, serif;
 }
 
-
 .result-and-chart-wrapper {
   margin: auto;
   padding: 15px;
@@ -37,5 +33,49 @@
   justify-content: center;
   width: 100%;
   height: "400px"
+}
 
+.addInput{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-direction: column;
+  border-style: solid;
+  border-width: 1px;
+  padding: 10px;
+  width: 50%;
+}
+
+.Add {
+  display: flex;
+  background-color: rgb(230, 230, 230);
+  margin: 10px;
+  padding: 10px;
+  justify-content: center;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 14px;
+  max-width: 200px;
+  border-width: 1px;
+}
+
+.Add:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  background-color: rgb(132, 225, 135);
+}
+
+.ResultBlock{
+  display: flex;
+  flex-direction: column;
+  border-style: solid;
+  border-width: 1px;
+  padding: 20px;
+  width: 50%;
+}
+
+.UsedTest {
+  border-style: solid;
+  border-width: 1px;
+  padding: 10px;
+  font-family: 'Times New Roman', Times, serif;
+  text-align: center;
 }

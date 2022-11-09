@@ -5,14 +5,6 @@ import { answers } from '../Utils/Model';
 
 function Result({answersTitle, answersText, answersColor}) {
 
- 
-
-
-
-
-
-
-
 
   return (
     <div 
@@ -22,13 +14,12 @@ function Result({answersTitle, answersText, answersColor}) {
       backgroundColor: answersColor
     }}
     >
-      <h2 className='result-heading'>Answers:</h2>
-        <p className='result-text' defaultValue='Resultat titel'>
-            {answersTitle}            
-        </p>
-        <p className='result-text' defaultValue='tekst forklaring'>
-            {answersText}
-        </p>
+      <p className='result-text' defaultValue='Resultat titel'>
+          {answersTitle}            
+      </p>
+      <p className='result-text' defaultValue='Tekst forklaring'>
+          {answersText}
+      </p>
     </div>
   )
 }
