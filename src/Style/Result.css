@@ -5,15 +5,17 @@
     align-items: center;
     align-content: center;
     flex-direction: column;
-
-    width: 40%;
     padding: 20px;
+    border-style: solid;
+    border-width: 1px;
 }
 
 .result-heading {
-    font-size: 30px;
+    font-size: 24px;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .result-text {
-    font-size: 24px;
+    font-size: 18px;
+    font-family: 'Times New Roman', Times, serif;
 }

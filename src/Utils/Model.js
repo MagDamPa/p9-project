@@ -1,4 +1,5 @@
 import '../App'; 
+import datapoints from '../App'
 import './Strings'
 
 const param = {
@@ -85,22 +86,18 @@ export const answers = {
     Color: 'white'
 } 
 
-
-
-var specimen_base = 0 
-
-
+export var specimen_base = 0;
+export var specimen_last = 0;
  
 export function convertNgMg({datapoints}) {
 
-    
-
+   
     //Denne skal ændres sådan at den tjekker hvorvidt det seneste resultat har være new use...
     if (specimen_base >= (datapoints.length - 1) && specimen_base !== 0) {
         specimen_base = specimen_base - 1
     }
 
-    var specimen_last = datapoints.length - 1
+    specimen_last = datapoints.length - 1
 
     daysBetween()
 
