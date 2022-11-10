@@ -26,12 +26,12 @@
   font-family: 'Times New Roman', Times, serif;
 }
 
-.result-and-chart-wrapper {
+.chart-wrapper {
   margin: auto;
   padding: 15px;
   display: flex;
   justify-content: center;
-  width: 100%;
+  max-width: 60%;
   height: "600px"
 
 }
