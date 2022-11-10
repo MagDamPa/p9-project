@@ -76,7 +76,6 @@ function App() {
         <Chart2 datapoints={datapoints}/>
       </div>
     </div>
-    
   );
 }
 

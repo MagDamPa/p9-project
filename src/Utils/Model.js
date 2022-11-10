@@ -1,5 +1,6 @@
 import '../App'; 
 import datapoints from '../App'
+import './Strings'
 
 const param = {
     concentration: [
@@ -90,6 +91,7 @@ export var specimen_last = 0;
  
 export function convertNgMg({datapoints}) {
 
+   
     //Denne skal ændres sådan at den tjekker hvorvidt det seneste resultat har være new use...
     if (specimen_base >= (datapoints.length - 1) && specimen_base !== 0) {
         specimen_base = specimen_base - 1
@@ -113,11 +115,17 @@ export function convertNgMg({datapoints}) {
         }
     }
 
+   
+   
+
+
     let convertSpecimen_base = datapoints[specimen_base].Value *1000/113.12; 
     let roundedSpecimen_base = Math.floor(convertSpecimen_base);
 
     let base_date = new Date(datapoints[specimen_base].Date)
+    
 
+   
     let convertSpecimen_last = null
     let roundedSpecimen_last = null
     let last_date = null
@@ -200,12 +208,17 @@ export function convertNgMg({datapoints}) {
         }
     }
 
+ 
+
     function autoInterpretation(result, ratio) {
 
         //console.log('Base Date: ' + datapoints[specimen_base].Date)
         //console.log('Last Date: ' + datapoints[specimen_last].Date)
         //console.log('First value: ' + convertSpecimen_base)
         //console.log('Last value: ' + convertSpecimen_last)
+
+    
+        
 
         if (result < ratio) {
             answers.Title = "Chance for nyt indtag"; 
@@ -215,7 +228,15 @@ export function convertNgMg({datapoints}) {
                     answers.Text = ``
                 }
                 else{
-                    answers.Text = `Der er mulighed for en falsk positiv i op til 14 dage fra testen den ${new Date(datapoints[specimen_last].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}, foretag derfor næste test på 15 dagen`
+                    let visableDate = new Date(datapoints[specimen_last].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})
+                    
+                    //Connected to the Date.prototype.addDays method to add 15 days
+                    var rawDatObject = new Date(datapoints[specimen_last].Date)
+                    // Converts the date into a string with the month name. 
+                    var added15Days = rawDatObject.addDays(15).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})
+                    
+                   
+                    answers.Text = `Der er mulighed for en falsk positiv i op til 14 dage fra testen den ${visableDate}, foretag derfor næste test den ${added15Days}`
                 }
             }
             else {
@@ -241,6 +262,14 @@ export function convertNgMg({datapoints}) {
         let result = (A * Math.exp(-k * t)) + (2.57*(Math.sqrt(S2+RMS))); 
         autoInterpretation(result, ratio);
     }
+
+    
+}
+
+Date.prototype.addDays = function(days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
 }
 
 

@@ -6,6 +6,7 @@ import {
   CategoryScale,
   LinearScale,
   PointElement,
+  TimeScale,
   LineElement,
   Title,
   Tooltip,
@@ -13,12 +14,14 @@ import {
   Scale,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import 'chartjs-adapter-luxon';
 
 ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
+  TimeScale,
   Title,
   Tooltip,
   Legend
@@ -40,11 +43,21 @@ function Chart2({datapoints}) {
         position: 'bottom',
       },
       scales: {
-        y: {
+        xAxis: [
+          {type: 'time',
+          time: {
+            unit: "day"
+          }
+          }
+        ],
+        yAxis: [
+          {
+          type: 'linear',
           Min: 0,
           suggestedmin: 50,
           Max: 100
           }
+        ],
       },
       }
   }; 
@@ -55,20 +68,20 @@ function Chart2({datapoints}) {
     labels,
     datasets: [
       {
-        label: 'Dataset 1',
+        label: 'THC-COOH concentration',
         data: datapoints.map(datapoint => 
           datapoint.Value),
-        borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        borderColor: '#8AABCE',
+        backgroundColor: '#8AABCE',
       },
     ],
   };
 
 return (
-  <div className='chart-wrpper'>
+  <div className='chart-wrapper'>
     <Line 
-    height = {"400px"}
-    width = {"600px"}
+    height = {"600px"}
+    width = {"1500px"}
     data = {data}
     options = {options}/>
   </div> )
