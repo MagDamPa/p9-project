@@ -36,6 +36,18 @@
   display: flex;
   justify-content: center;
   width: 100%;
+  height: "600px"
+
+}
+
+
+
+.Result-wrapper {
+  margin: auto;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
   height: "400px"
 
 }
