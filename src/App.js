@@ -69,13 +69,14 @@ function App() {
       </div>
       <div className = "result-and-chart-wrapper">
         <Chart2 datapoints={datapoints}/>
+      </div>
+      <div classname = "Result-wrapper">
         <Result 
         answersTitle={answers.Title} 
         answersText={answers.Text}
-        answersColor={answers.Color}
-
-        />
+        answersColor={answers.Color}/>
       </div>
+
     </div>
     
   );
