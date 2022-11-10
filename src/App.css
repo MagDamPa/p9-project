@@ -31,12 +31,10 @@
   padding: 15px;
   display: flex;
   justify-content: center;
-  max-width: 60%;
+  max-width: 70%;
   height: "600px"
 
 }
-
-
 
 .Result-wrapper {
   margin: auto;
