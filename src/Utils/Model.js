@@ -252,6 +252,8 @@ export function convertNgMg({datapoints}) {
     
 }
 
+
+//Prototype added to the Date object. It adds days to the date. 
 Date.prototype.addDays = function(days) {
     var date = new Date(this.valueOf());
     date.setDate(date.getDate() + days);
