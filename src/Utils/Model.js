@@ -82,7 +82,7 @@ const param = {
 
 export const answers = {
     Title: 'Intet resultat at vise',
-    Text: '',
+    Text: 'Indtast et testsvar for at beregne et resultat',
     Color: 'white'
 } 
 
@@ -151,13 +151,13 @@ export function convertNgMg({datapoints}) {
 
     function above800 () {
         if (roundedSpecimen_base > 800) {
-            answers.Title = "Første test"
-            answers.Text = "Indsamle næste prøve på 5. dagen"
-            answers.Color = "grey"
+            answers.Title = "Modellen kan endnu ikke forudsige resultatet."
+            answers.Text = "Tag næste prøve efter 5 dage"
+            answers.Color = "lightgrey"
         } else {
-            answers.Title = "Første test"
-            answers.Text = "Indsamle næste prøve tidligst efter 2 dage"
-            answers.Color = "grey"
+            answers.Title = "Modellen kan endnu ikke forudsige resultatet."
+            answers.Text = "Tag næste prøve tidligst efter 2 dage"
+            answers.Color = "lightgrey"
         }
     }
 
@@ -171,9 +171,9 @@ export function convertNgMg({datapoints}) {
     function findA(roundedRatio) {
 
         if ( roundedSpecimen_base <= param.concentration[1]) {
-            answers.Title = "Udenfor modellens rækkevidde" 
-            answers.Text = 'Testværdien er for lav.'
-            answers.Color = "grey"
+            answers.Title = "Værdi er udenfor modellens rækkevidde (0,9 til 132 mg/mol) " 
+            answers.Text = 'Testværdien er for lav til modellen. Lave værdier i denne størrelse kan tolkes som udskillelse af rester fra tidligere stofbrug, som er ophobet i fedtvævet.'
+            answers.Color = "lightgrey"
             specimen_base = specimen_last
         } 
         else if (roundedSpecimen_base > param.concentration[1] && roundedSpecimen_base < param.concentration[2]) {
@@ -201,59 +201,45 @@ export function convertNgMg({datapoints}) {
             upperLimit(param.A[8], param.k[8], totalHours, param.S2[8], param.RMS[8], roundedRatio)
         }
         else if (roundedSpecimen_base > param.concentration[9] ) {
-            answers.Title = "Udenfor modellens rækkevidde"
-            answers.Text = 'Testværdien er for højt'
-            answers.Color = "grey"
+            answers.Title = "Værdi er udenfor modellens rækkevidde (0,9 til 132 mg/mol) "
+            answers.Text = `Testværdien den ${new Date(datapoints[specimen_base].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})} er for høj, og der må afventes et fald inden modellen kan anvendes. Gentagne høje værdier kan betragtes som tegn på fortsat stofbrug`
+            answers.Color = "lightgrey"
             specimen_base = specimen_last
         }
     }
 
- 
 
     function autoInterpretation(result, ratio) {
-
-        //console.log('Base Date: ' + datapoints[specimen_base].Date)
-        //console.log('Last Date: ' + datapoints[specimen_last].Date)
-        //console.log('First value: ' + convertSpecimen_base)
-        //console.log('Last value: ' + convertSpecimen_last)
-
-    
         
+        let visableDate = new Date(datapoints[specimen_last].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})
+        let baseDate = new Date(datapoints[specimen_base].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})
 
         if (result < ratio) {
-            answers.Title = "Chance for nyt indtag"; 
-            answers.Color = "red"
+            answers.Color = "rgba(250, 0, 0, 0.634)"
             if (roundedSpecimen_base > 800) {
                 if(roundedSpecimen_last < 200){
-                    answers.Text = ``
+                    answers.Title = `Tegn på nyt indtag`
+                    answers.Text = `Der er evidens for nyt forbrug. Modellen burde være præcis. Næste beregning vil ske med udgangspunkt i testen fra den ${visableDate}`
                 }
                 else{
-                    let visableDate = new Date(datapoints[specimen_last].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})
-                    
+                    answers.Title = "Risiko for falsk forudsigelse af nyt indtag"; 
                     //Connected to the Date.prototype.addDays method to add 15 days
                     var rawDatObject = new Date(datapoints[specimen_last].Date)
                     // Converts the date into a string with the month name. 
                     var added15Days = rawDatObject.addDays(15).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})
                     
-                   
-                    answers.Text = `Der er mulighed for en falsk positiv i op til 14 dage fra testen den ${visableDate}, foretag derfor næste test den ${added15Days}`
+                    answers.Text = `BEMÆRK: Der er mulighed for en falsk positiv forudsigelse  i op til 14 dage fra testen den ${visableDate}, foretag derfor næste test den ${added15Days}, hvorefter modellen vil være præcis.`
                 }
             }
             else {
-                answers.Text = `Indsamle næste prøve tidligst efter 2 dage. Ved næste testsvar vil resultatet blive beregnet på baggrund af testen fra den ${new Date(datapoints[specimen_last].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}`
+                answers.Title = `Ny prøve påkrævet. Modellen kan endnu ikke forudsige et resultat. Der er risiko for falsk forudsigelse af nyt indtag.`
+                answers.Text = `BEMÆRK: Resultatet fra modellen er usikkert. Tag næste prøve tidligst efter 2 dage. Næste testsvar vil blive beregnet på baggrund af testen fra den ${visableDate}. Modellen burde herefter være præcis`
             }
             specimen_base = specimen_last
-            //console.log('BaseDate after new use: ' + datapoints[specimen_base].Date)
         } else if (result > ratio) {
-            answers.Title = "Intet nyt indtag af cannabis"
-            answers.Color = "green"
-            
-            if (roundedSpecimen_base > 800) {
-                answers.Text = 'Der er på nuværende tidspunkt ikke tegn på nyt cannabis forbrug'
-            }
-            else {
-                answers.Text = 'Der er på nuværende tidspunkt ikke tegn på nyt cannabis forbrug'
-            }
+            answers.Title = "Intet tegn på nyt indtag af cannabis."
+            answers.Color = "rgb(132, 225, 135)"
+            answers.Text = `Der er ikke tegn på nyt cannabis forbrug mellem ${baseDate} og ${visableDate}, der er derfor evidens for abstinens.`  
         } else if (result = null){
         }
     }

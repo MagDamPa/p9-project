@@ -14,7 +14,7 @@ function Result({answersTitle, answersText, answersColor}) {
       backgroundColor: answersColor
     }}
     >
-      <p className='result-text' defaultValue='Resultat titel'>
+      <p className='result-heading' defaultValue='Resultat titel'>
           {answersTitle}            
       </p>
       <p className='result-text' defaultValue='Tekst forklaring'>
