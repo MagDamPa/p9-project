@@ -1,41 +1,140 @@
 
-.top-flexbox {
-  display: flex;
-  justify-content: space-between;
-  align-content: flex-start;
-  align-items: flex-start;
-  flex-direction: row;
+:root {
+ --LightBlue: #F8F9FA; 
+ --DarkBlue: #1C445D;
+ --altBlue: #E8F5FC;
+ --shadow: 0px 4px 8px rgba(0, 0, 0, 0.04);
+ --border: solid 2px var(--altBlue);
 }
 
+
+body {
+  background-color: var(--LightBlue);
+}
+
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 2%
+}
+
+/* Navbar styling */
+.navbar-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 10%;
+  width: 96%;
+  background-color: var(--altBlue);
+  
+  box-shadow: var(--shadow);
+  border-radius: 100px;
+  padding: 1% 2%;
+  margin-top: 2%;
+}
+
+.nav-element{
+  height: 40px;
+  width: 200px;
+  border: solid 2px #1C445D;
+  border-radius: 8px;
+  background-color: var(--LightBlue);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--DarkBlue);
+  cursor: pointer;
+  
+  transition: all 200ms;
+}
+
+.nav-text {
+  font-weight: bolder;
+  color: var(--DarkBlue);
+  text-decoration: none;
+  font-size: 28px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-element:hover {
+  scale: 1.1; 
+}
+
+.nav-element:active {
+  scale: 1.1; 
+  background-color: var(--DarkBlue);
+  border: var(--border);
+}
+
+.nav-text:active {
+  color: var(--LightBlue);
+}
+
+
+
+
+
+/* Inputfields and result*/
+.content-wrapper {
+  width: 100%;
+}
+
+/*Input field */
 .input-container {
   display: flex;
   justify-content: center;
-  gap: 30px;
-  width: 70%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 60px;
-  flex-direction: row;
-
+  gap: 2%;
+  margin-top: 2%;
 }
 
 .beregn {
   display: flex;
-  margin: auto;
   padding: 10px;
   font-family: 'Times New Roman', Times, serif;
 }
 
-.chart-wrapper {
-  margin: auto;
-  padding: 15px;
+.addInput{
   display: flex;
-  justify-content: center;
-  max-width: 70%;
-  height: "600px"
-
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  border: var(--border);
+  padding: 10px;
+  width: 100%;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: var(--shadow);
 }
 
+.Add {
+  display: flex;
+  justify-content: center;
+  border: solid 2px var(--DarkBlue);
+  color: var(--DarkBlue); 
+  background-color: transparent;
+  margin: 10px;
+  padding: 10px;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
+  font-size: 14px;
+  max-width: 200px;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  transition: all 200ms;
+  cursor: pointer;
+}
+
+.Add:hover {
+  background-color: var(--DarkBlue);
+  color: var(--LightBlue);
+}
+
+/* Text output */
 .Result-wrapper {
   margin: auto;
   padding: 15px;
@@ -45,47 +144,38 @@
   height: "400px"
 }
 
-.addInput{
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  flex-direction: column;
-  border-style: solid;
-  border-width: 1px;
-  padding: 10px;
-  width: 50%;
-}
-
-.Add {
-  display: flex;
-  background-color: rgb(230, 230, 230);
-  margin: 10px;
-  padding: 10px;
-  justify-content: center;
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 14px;
-  max-width: 200px;
-  border-width: 1px;
-}
-
-.Add:hover {
-  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-  background-color: rgb(132, 225, 135);
-}
-
 .ResultBlock{
   display: flex;
   flex-direction: column;
-  border-style: solid;
-  border-width: 1px;
+  border: var(--border);
   padding: 20px;
-  width: 50%;
+  width: 100%;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
 }
 
 .UsedTest {
-  border-style: solid;
-  border-width: 1px;
+  border: var(--border);
   padding: 10px;
   font-family: 'Times New Roman', Times, serif;
   text-align: center;
+  border-radius: 8px;
 }
+
+
+/* Chart */ 
+.chart-wrapper {
+  margin: auto;
+  padding: 15px;
+  margin-top: 2%;
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+  height: 100%;
+  background-color: white;
+  border: var(--border);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+

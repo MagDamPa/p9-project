@@ -1,35 +1,44 @@
+:root {
+    --LightBlue: #F8F9FA; 
+    --DarkBlue: #1C445D;
+    --altBlue: #E8F5FC;
+    --shadow: 0px 4px 8px rgba(0, 0, 0, 0.04);
+    --border: solid 2px var(--altBlue);
+   }
+
+
 .Input {
     display: flex;
-    flex-direction: row; 
     justify-content: space-between;
     text-align: center;
     align-content: center;
-    border-style: solid;
+    border: solid 2px var(--DarkBlue);
     border-width: 1px;
     gap: 5px;
-    background-color: white;
+    background-color: white; 
     height: 30px;
-    padding: 2px;
-    padding-left: 5px;
-    padding-right: 5px;
-    margin-top: 5px;
+    padding: 5px;
     margin: 10px;
+    border-radius: 8px;
 }
 
 .datapoints{
-    background-color: #cedbea;
-}
-
-.popuptext {
-    visibility: hidden;
+    background-color: var(--LightBlue);
+    border: var(--border);
+    box-shadow: var(--shadow);
+    
 }
 
 .main {
-    background-color: #9ebbda;
+    background-color: white; 
+    
+    
 }
+
 
 .Small{
     max-width: 62px;
+    
 }
 
 .flex-item {
@@ -42,14 +51,21 @@
     align-content: center;
     line-height: 28px;
     border: none;
+    border-radius: 8px;
+    border: var(--border);
 }
 
 .testnumber {
     max-width: 28px;
+    background-color: var(--DarkBlue);
+    color: var(--LightBlue); 
+    font-weight: bolder;
 }
 
 #testnumber {
     max-width: 28px;
+    background-color: var(--DarkBlue);
+    color: var(--LightBlue)
 
 }
 
@@ -59,27 +75,46 @@
     font-size: 15px;
 }
 
+.border{
+    border: solid 1px #1C445D;
+    
+}
+
+
+
 .testvalue {
     height: 26px;
     max-width: 60px;
     font-size: 15px;
+    border: solid 1px #1C445D;
 }
 
 .Unit {
-    margin-left:-5px;
     max-width: 55px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #fbfbfb;
-    border-top: 0px;
-    border-right: 0px;
-    border-bottom: 0px;
+    border: solid 1px #1C445D;
+    font-weight: bolder;
+    background-color: var(--DarkBlue);
+    color: var(--LightBlue);
+    
 } 
+.bgBlue {
+    background-color: #1C445D;
+    color: #E8F5FC;
+    
+}
 
 .Delete, .info {
     max-width: 28px;
     padding: 0px;
-    background-color: rgb(230, 230, 230);
+    background-color: var(--DarkBlue);
+    border: solid 1px;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.info {
+    cursor: help;
 }
 
 .IconInput { 
@@ -87,6 +122,16 @@
     width: 20px;
     height: 20px;
     padding: 4px;
+    filter: invert(98%) sepia(19%) saturate(1024%) hue-rotate(172deg) brightness(100%) contrast(99%);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+
+    color: var(--LightBlue);
+    
+    border-radius: 8px;
+    padding: 10px;
+
 }
 
 .Delete:hover {
@@ -111,8 +156,9 @@ input[type=number] {
 }
 
 .line {
-    border-color: rgb(208, 208, 208);
-    background-color: rgb(208, 208, 208);
+    border-color: var(--altBlue);
+    background-color: var(--altBlue);
+    height: 2px;
     margin: 20px;
 }
 
