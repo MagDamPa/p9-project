@@ -20,6 +20,10 @@
     background-color: #cedbea;
 }
 
+.popuptext {
+    visibility: hidden;
+}
+
 .main {
     background-color: #9ebbda;
 }
