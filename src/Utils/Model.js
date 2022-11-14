@@ -94,6 +94,8 @@ export function convertNgMg({datapoints}) {
 
     afterDelete()
     
+    //hej 
+    
     function afterDelete(){
         if (specimen_base >= (datapoints.length - 1) && specimen_base !== 0) {
             specimen_base = specimen_base - 1
