@@ -31,4 +31,6 @@ function Result({answersTitle, answersText, answersColor, answersCalculation}) {
   )
 }
 
+//test
+
 export default Result
