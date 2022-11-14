@@ -91,11 +91,13 @@ export var specimen_last = 0;
  
 export function convertNgMg({datapoints}) {
 
-   
-    //Denne skal ændres sådan at den tjekker hvorvidt det seneste resultat har være new use...
-    if (specimen_base >= (datapoints.length - 1) && specimen_base !== 0) {
-        specimen_base = specimen_base - 1
-    }
+    afterDelete()
+    
+    function afterDelete(){
+        if (specimen_base >= (datapoints.length - 1) && specimen_base !== 0) {
+            specimen_base = specimen_base - 1
+            afterDelete()
+        }
 
     specimen_last = datapoints.length - 1
 
