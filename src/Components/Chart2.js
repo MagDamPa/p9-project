@@ -51,7 +51,7 @@ scales: {
         x: {
               reverse: false,
               beginAtZero: true,
-              max: 103,
+              max: 150,
               stepSize: 3,
 // Scales er "Skalaerne", altså, hvordan måles de forskellige elementer? max siger at der maks kan være 103 punkter i dataen, beginatZero sætter x-aksens minimum til at være 0.
 },
@@ -68,7 +68,7 @@ scales: {
             reverse: false,
             beginAtZero: true,
             min: 0,
-            max: 105,
+            max: 160,
         },
   }; 
 /// Labels er hvorledes disse dato-strings skal repræsenteres: Selvfølgelig i dansk format.
