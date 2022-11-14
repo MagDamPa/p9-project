@@ -83,7 +83,8 @@ const param = {
 export const answers = {
     Title: 'Intet resultat at vise',
     Text: 'Indtast et testsvar for at beregne et resultat',
-    Color: '#E8F5FC'
+    Color: 'white',
+    Calculation: 'Ingen testsvar er indsat'
 } 
 
 export var specimen_base = 0;
@@ -98,7 +99,7 @@ export function convertNgMg({datapoints}) {
             specimen_base = specimen_base - 1
             afterDelete()
         }
-
+    }
     specimen_last = datapoints.length - 1
 
     daysBetween()
@@ -109,10 +110,8 @@ export function convertNgMg({datapoints}) {
         var date1 = new Date(datapoints[specimen_base].Date)
         var date2 = new Date(datapoints[specimen_last].Date)
         var daysbetween = (date2.getTime() - date1.getTime()) / (1000 * 3600 * 24) 
-        //console.log('daysbetween, before change: ' + datapoints[specimen_base].Date)
         if (daysbetween >= 31){
             specimen_base = specimen_base + 1
-            //console.log('daysbetween, after change: ' + datapoints[specimen_base].Date)
             daysBetween()
         }
     }
@@ -155,11 +154,13 @@ export function convertNgMg({datapoints}) {
         if (roundedSpecimen_base > 800) {
             answers.Title = "Modellen kan endnu ikke forudsige resultatet."
             answers.Text = "Tag næste prøve efter 5 dage"
-            answers.Color = "#E8F5FC"
+            answers.Color = "lightgrey"
+            answers.Calculation = `Modellen har givet følgende resultat baseret på test nr. ${specimen_base + 1}.`
         } else {
             answers.Title = "Modellen kan endnu ikke forudsige resultatet."
             answers.Text = "Tag næste prøve tidligst efter 2 dage"
-            answers.Color = "#E8F5FC"
+            answers.Color = "lightgrey"
+            answers.Calculation = `Modellen har givet følgende resultat baseret på test nr. ${specimen_base + 1}.`
         }
     }
 
@@ -175,7 +176,8 @@ export function convertNgMg({datapoints}) {
         if ( roundedSpecimen_base <= param.concentration[1]) {
             answers.Title = "Værdi er udenfor modellens rækkevidde (0,9 til 132 mg/mol) " 
             answers.Text = 'Testværdien er for lav til modellen. Lave værdier i denne størrelse kan tolkes som udskillelse af rester fra tidligere stofbrug, som er ophobet i fedtvævet.'
-            answers.Color = "#E8F5FC"
+            answers.Color = "lightgrey"
+            answers.Calculation = `Modellen er uden for rækkevidde baseret på test nr. ${specimen_base}`
             specimen_base = specimen_last
         } 
         else if (roundedSpecimen_base > param.concentration[1] && roundedSpecimen_base < param.concentration[2]) {
@@ -205,7 +207,8 @@ export function convertNgMg({datapoints}) {
         else if (roundedSpecimen_base > param.concentration[9] ) {
             answers.Title = "Værdi er udenfor modellens rækkevidde (0,9 til 132 mg/mol) "
             answers.Text = `Testværdien den ${new Date(datapoints[specimen_base].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})} er for høj, og der må afventes et fald inden modellen kan anvendes. Gentagne høje værdier kan betragtes som tegn på fortsat stofbrug`
-            answers.Color = "#E8F5FC"
+            answers.Color = "lightgrey"
+            answers.Calculation = `Modellen er uden for rækkevidde baseret på test nr. ${specimen_base}`
             specimen_base = specimen_last
         }
     }
@@ -218,6 +221,7 @@ export function convertNgMg({datapoints}) {
 
         if (result < ratio) {
             answers.Color = "rgba(250, 0, 0, 0.634)"
+            answers.Calculation = `Modellen har givet følgende resultat baseret på test nr. ${specimen_base + 1} og test nr. ${specimen_last + 1}`
             if (roundedSpecimen_base > 800) {
                 if(roundedSpecimen_last < 200){
                     answers.Title = `Tegn på nyt indtag`
@@ -241,7 +245,8 @@ export function convertNgMg({datapoints}) {
         } else if (result > ratio) {
             answers.Title = "Intet tegn på nyt indtag af cannabis."
             answers.Color = "rgb(132, 225, 135)"
-            answers.Text = `Der er ikke tegn på nyt cannabis forbrug mellem ${baseDate} og ${visableDate}, der er derfor evidens for abstinens.`  
+            answers.Text = `Der er ikke tegn på nyt cannabis forbrug mellem ${baseDate} og ${visableDate}, der er derfor evidens for abstinens.`
+            answers.Calculation = `Modellen har givet følgende resultat baseret på test nr. ${specimen_base + 1} og test nr. ${specimen_last + 1}`  
         } else if (result = null){
         }
     }
@@ -262,4 +267,3 @@ Date.prototype.addDays = function(days) {
     return date;
 }
 
-}
