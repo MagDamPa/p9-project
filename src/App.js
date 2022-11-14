@@ -10,6 +10,8 @@ import Result from './Components/Result';
 import AddIcon from './Components/Icons/AddIcon.svg'
 import { v4 as uuidv4 } from 'uuid'
 import { specimen_base, specimen_last } from './Utils/Model';
+import Navbar from './Components/Navbar';
+
 
 function App() {
 
@@ -45,21 +47,20 @@ function App() {
 
   return (
     <div className="App">
-      <div className="top-flexbox">
-        <Menu/>
-        <Help/>
-      </div>
+        <Navbar />
+      <div className='content-wrapper'> 
       <div className ="input-container">
-        <div className='addInput'>    
-          <Input 
-            datapoints={datapoints} 
-            setDatapoints={setDatapoints}
-            testDateRef={testDateRef}
-            testValueRef={testValueRef}
-          />
-          <button type='submit' className='Add' onClick={buttonHandlerAdd}>
-          Tilføj testresult
-          </button>
+        <div className='addInput'>  
+            <h2>Indtast test værdier her:</h2>
+              <Input 
+                datapoints={datapoints} 
+                setDatapoints={setDatapoints}
+                testDateRef={testDateRef}
+                testValueRef={testValueRef}
+              />
+              <button type='submit' className='Add' onClick={buttonHandlerAdd}>
+                Tilføj testresult
+              </button>
         </div>
         <div className='ResultBlock'>
           <Result 
@@ -74,6 +75,7 @@ function App() {
       </div>
       <div className = "result-and-chart-wrapper">
         <Chart2 datapoints={datapoints}/>
+      </div>
       </div>
     </div>
   );

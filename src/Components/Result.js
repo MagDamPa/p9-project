@@ -11,7 +11,7 @@ function Result({answersTitle, answersText, answersColor}) {
     className='result-wrapper'
     style={{
       // Changes the background color depending on the value answers.color is holding.
-      backgroundColor: answersColor
+      borderColor: answersColor
     }}
     >
       <p className='result-heading' defaultValue='Resultat titel'>

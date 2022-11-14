@@ -83,7 +83,7 @@ const param = {
 export const answers = {
     Title: 'Intet resultat at vise',
     Text: 'Indtast et testsvar for at beregne et resultat',
-    Color: 'white'
+    Color: '#E8F5FC'
 } 
 
 export var specimen_base = 0;
@@ -153,11 +153,11 @@ export function convertNgMg({datapoints}) {
         if (roundedSpecimen_base > 800) {
             answers.Title = "Modellen kan endnu ikke forudsige resultatet."
             answers.Text = "Tag næste prøve efter 5 dage"
-            answers.Color = "lightgrey"
+            answers.Color = "#E8F5FC"
         } else {
             answers.Title = "Modellen kan endnu ikke forudsige resultatet."
             answers.Text = "Tag næste prøve tidligst efter 2 dage"
-            answers.Color = "lightgrey"
+            answers.Color = "#E8F5FC"
         }
     }
 
@@ -173,7 +173,7 @@ export function convertNgMg({datapoints}) {
         if ( roundedSpecimen_base <= param.concentration[1]) {
             answers.Title = "Værdi er udenfor modellens rækkevidde (0,9 til 132 mg/mol) " 
             answers.Text = 'Testværdien er for lav til modellen. Lave værdier i denne størrelse kan tolkes som udskillelse af rester fra tidligere stofbrug, som er ophobet i fedtvævet.'
-            answers.Color = "lightgrey"
+            answers.Color = "#E8F5FC"
             specimen_base = specimen_last
         } 
         else if (roundedSpecimen_base > param.concentration[1] && roundedSpecimen_base < param.concentration[2]) {
@@ -203,7 +203,7 @@ export function convertNgMg({datapoints}) {
         else if (roundedSpecimen_base > param.concentration[9] ) {
             answers.Title = "Værdi er udenfor modellens rækkevidde (0,9 til 132 mg/mol) "
             answers.Text = `Testværdien den ${new Date(datapoints[specimen_base].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})} er for høj, og der må afventes et fald inden modellen kan anvendes. Gentagne høje værdier kan betragtes som tegn på fortsat stofbrug`
-            answers.Color = "lightgrey"
+            answers.Color = "#E8F5FC"
             specimen_base = specimen_last
         }
     }
