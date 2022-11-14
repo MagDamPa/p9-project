@@ -10,8 +10,8 @@ function Navbar() {
 
   return (
     <div className='navbar-wrapper'>
-        <div className='nav-element'>
-            <a className='nav-text' href="#cannabis-test">
+        <div className='nav-element selected'>
+            <a className='nav-text selected-text ' href="#cannabis-test">
                 Cannabis test
             </a>
         </div>

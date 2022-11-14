@@ -26,8 +26,8 @@ body {
   justify-content: center;
   gap: 10%;
   width: 96%;
-  background-color: var(--altBlue);
-  
+  background-color: white;
+  border: var(--border);
   box-shadow: var(--shadow);
   border-radius: 100px;
   padding: 1% 2%;
@@ -37,9 +37,10 @@ body {
 .nav-element{
   height: 40px;
   width: 200px;
-  border: solid 2px #1C445D;
+  border: var(--border); 
   border-radius: 8px;
   background-color: var(--LightBlue);
+  box-shadow: var(--shadow);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -49,11 +50,13 @@ body {
   transition: all 200ms;
 }
 
+
+
 .nav-text {
   font-weight: bolder;
   color: var(--DarkBlue);
   text-decoration: none;
-  font-size: 28px;
+  font-size: 1.5rem;
   width: 100%;
   height: 100%;
   display: flex;
@@ -75,7 +78,16 @@ body {
   color: var(--LightBlue);
 }
 
+.selected {
+  scale: 1.1; 
+  background-color: var(--DarkBlue);
+  border: var(--border);
+  
+}
 
+.selected-text {
+  color: var(--LightBlue); 
+}
 
 
 
@@ -129,6 +141,13 @@ body {
   cursor: pointer;
 }
 
+.flex-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
 .Add:hover {
   background-color: var(--DarkBlue);
   color: var(--LightBlue);
@@ -141,7 +160,8 @@ body {
   display: flex;
   justify-content: center;
   width: 100%;
-  height: "400px"
+  height: auto; 
+  
 }
 
 .ResultBlock{

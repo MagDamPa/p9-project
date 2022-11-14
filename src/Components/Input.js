@@ -40,19 +40,19 @@ function Input({datapoints, setDatapoints}) {
 
     <div >
       <form>
-        <div>
+        <div className='flex-wrapper' >
           <div>
             {/*Creates a element of the component Datapoints, and provides it with the array datapoints, and the function setDatapoints*/}
             <Datapoints datapoints={datapoints} setDatapoints={setDatapoints}/>
           </div>
-          <hr className='line'/>
+          <div className='line'/>
           <div className='Input'>
             {/*adds the number of the next element we will add to the array*/}
             <p className = "flex-item main testnumber" id="testnumber">
               {datapoints.length + 1}
             </p> 
             {/*Creates an input field for the user to enter a date based on a dropdown calender, it acceses the values using the useRef from react*/}
-            <input type = "date"  className = "flex-item main date" id='date' ref={testDateRef} required/>
+            <input type = "date"  className = "flex-item main date border" id='date' ref={testDateRef} required/>
             {/*Creates an input field for the user to enter a testvalue, again using useRef to acces it later*/}
             <input type = 'number' className = "flex-item noscroll main testvalue Small" ref={testValueRef} required placeholder='Resultat'/>
             <span className="flex-item Unit main"> 

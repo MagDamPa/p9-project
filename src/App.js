@@ -44,7 +44,7 @@ function App() {
         <Result 
           answersTitle={answers.Title} 
           answersText={answers.Text}
-          answersColor={answers.Color}
+          answersColor={answers.borderColor}
           answersCalculation={answers.Calculation}
           />
         </div>
