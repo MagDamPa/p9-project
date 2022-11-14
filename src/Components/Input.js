@@ -21,7 +21,7 @@ function Input({datapoints, setDatapoints}) {
     }
 });
 
-  function buttonHandlerAdd(){
+  function buttonHandlerAdd(e){
     var date = testDateRef.current.value
     var value = testValueRef.current.value
 
@@ -29,8 +29,10 @@ function Input({datapoints, setDatapoints}) {
       setDatapoints(prevDatapoints => {
         return [...prevDatapoints, { Id: uuidv4(), Number: datapoints.length, Date: date, Value: value, Valid: 'Valid'}]
       })
+      e.preventDefault()
       testDateRef.current.value = null
       testValueRef.current.value = null
+
     }
   }
   
