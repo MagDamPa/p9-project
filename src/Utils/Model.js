@@ -150,9 +150,10 @@ export function convertNgMg({datapoints}) {
         const hours = 60 * 60 * 1000; 
         totalHours = (last_date.getTime() - base_date.getTime()) / hours;
         totalHours = Math.round(totalHours)
+        calcRatio(); 
     }
 
-    calcRatio(); 
+    
 
     function above800 () {
         if (roundedSpecimen_base > 800) {
@@ -181,7 +182,7 @@ export function convertNgMg({datapoints}) {
             answers.Title = "Værdi er udenfor modellens rækkevidde (0,9 til 132 mg/mol) " 
             answers.Text = 'Testværdien er for lav til modellen. Lave værdier i denne størrelse kan tolkes som udskillelse af rester fra tidligere stofbrug, som er ophobet i fedtvævet.'
             answers.borderColor = normalBorder
-            answers.Calculation = `Modellen er uden for rækkevidde baseret på test nr. ${specimen_base}`
+            answers.Calculation = `Modellen er uden for rækkevidde baseret på test nr. ${specimen_base + 1}`
             specimen_base = specimen_last
         } 
         else if (roundedSpecimen_base > param.concentration[1] && roundedSpecimen_base < param.concentration[2]) {
@@ -212,7 +213,7 @@ export function convertNgMg({datapoints}) {
             answers.Title = "Værdi er udenfor modellens rækkevidde (0,9 til 132 mg/mol) "
             answers.Text = `Testværdien den ${new Date(datapoints[specimen_base].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})} er for høj, og der må afventes et fald inden modellen kan anvendes. Gentagne høje værdier kan betragtes som tegn på fortsat stofbrug`
             answers.borderColor = normalBorder
-            answers.Calculation = `Modellen er uden for rækkevidde baseret på test nr. ${specimen_base}`
+            answers.Calculation = `Modellen er uden for rækkevidde baseret på test nr. ${specimen_base + 1}`
             specimen_base = specimen_last
         }
     }
