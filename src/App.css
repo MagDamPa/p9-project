@@ -56,7 +56,7 @@ body {
   font-weight: bolder;
   color: var(--DarkBlue);
   text-decoration: none;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   width: 100%;
   height: 100%;
   display: flex;
@@ -108,6 +108,7 @@ body {
   display: flex;
   padding: 10px;
   font-family: 'Times New Roman', Times, serif;
+  
 }
 
 .addInput{
@@ -133,7 +134,7 @@ body {
   padding: 10px;
   font-family: 'Times New Roman', Times, serif;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 24px;
   max-width: 200px;
   border-radius: 8px;
   box-shadow: var(--shadow);
@@ -181,6 +182,10 @@ body {
   font-family: 'Times New Roman', Times, serif;
   text-align: center;
   border-radius: 8px;
+}
+
+p {
+  font-size: 20px; 
 }
 
 
