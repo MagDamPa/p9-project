@@ -241,7 +241,7 @@ export function convertNgMg({datapoints}) {
                     // Converts the date into a string with the month name. 
                     var added15Days = rawDatObject.addDays(15).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})
                     
-                    answers.Text = `BEMÆRK: Der er mulighed for en falsk positiv forudsigelse  i op til 14 dage fra testen den ${visableDate}, foretag derfor næste test den ${added15Days}, hvorefter modellen vil være præcis.`
+                    answers.Text = `BEMÆRK: Der er mulighed for en falsk positiv forudsigelse  i op til 14 dage fra testen den ${visableDate}, foretag derfor næste test efter den ${added15Days}, hvorefter modellen vil være præcis.`
                     answers.borderColor = orangeBorder
                 }
             }
