@@ -45,6 +45,7 @@
     flex: 1;
     font-family: 'Times New Roman', Times, serif;
     font-size: 22px;
+    font-weight: bolder;
     height: 28px;
     margin: auto;
     text-align: center;
@@ -52,6 +53,7 @@
     line-height: 28px;
     border: none;
     border-radius: 8px;
+    border: var(--border);
 }
 
 .testnumber {
@@ -64,7 +66,8 @@
 #testnumber {
     max-width: 30px;
     background-color: var(--DarkBlue);
-    color: var(--LightBlue)
+    color: var(--LightBlue);
+    border: none; 
 
 }
 
