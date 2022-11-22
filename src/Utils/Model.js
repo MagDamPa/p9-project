@@ -123,8 +123,6 @@ export function convertNgMg({datapoints}) {
     }
 
    
-   
-
 
     let convertSpecimen_base = datapoints[specimen_base].Value *1000/113.12; 
     let roundedSpecimen_base = Math.floor(convertSpecimen_base);
@@ -228,13 +226,15 @@ export function convertNgMg({datapoints}) {
         if (roundedSpecimen_last <= param.concentration[1]){
             answers.Title = "Værdi er udenfor modellens rækkevidde (0,9 til 132 mg/mol) "
             answers.Calculation = `Modellen er uden for rækkevidde baseret på test nr. ${specimen_last + 1}`
-            answers.borderColor = normalBorder
+            answers.Text = 'Testværdien er for lav til modellen. Lave værdier i denne størrelse kan tolkes som udskillelse af rester fra tidligere stofbrug, som er ophobet i fedtvævet. BEMÆRK: Der er derfor ikke tegn på nyt indtag'
+            answers.borderColor = blackBorder
             specimen_base = specimen_last
         }
         else if (roundedSpecimen_last > param.concentration[9]){
             answers.Title = "Værdi er udenfor modellens rækkevidde (0,9 til 132 mg/mol) "
             answers.Calculation = `Modellen er uden for rækkevidde baseret på test nr. ${specimen_last + 1}`
-            answers.borderColor = normalBorder
+            answers.Text = `Testværdien den ${visableDate} er for høj, og der må afventes et fald inden modellen kan anvendes. Gentagne høje værdier kan betragtes som tegn på fortsat stofbrug`
+            answers.borderColor = blackBorder
             specimen_base = specimen_last
         }
         else {
@@ -272,7 +272,8 @@ export function convertNgMg({datapoints}) {
             } 
             else if (result = null){
             }
-    }
+        }
+    }    
 
     function upperLimit(A, k, t, S2, RMS, ratio) { 
         let result = (A * Math.exp(-k * t)) + (2.57*(Math.sqrt(S2+RMS))); 
