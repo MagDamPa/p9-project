@@ -32,7 +32,6 @@ ChartJS.register(
 
 function Chart2({datapoints}) {
 //Chart2 er hovedfunktionen, og specificerer de egenskaber grafen skal have, samt den data der puttes ind i den.
-
   const options = {
     maintainAspectRatio: false,
     plugins: {
@@ -45,6 +44,9 @@ function Chart2({datapoints}) {
         fullsize: true,
         text: 'THC-COOH/CREA concentration by date',
         position: 'bottom',
+        font: {
+          size: 30
+        }
         //Dette specificerer graftitlen, dens lokation, størrelse, og position.
       },
 scales: {
