@@ -56,14 +56,15 @@
 }
 
 .testnumber {
-    max-width: 28px;
+   
     background-color: var(--DarkBlue);
     color: var(--LightBlue); 
     font-weight: bolder;
 }
 
 #testnumber {
-    max-width: 28px;
+    max-width: 26px;
+    height: 26px;
     background-color: var(--DarkBlue);
     color: var(--LightBlue)
 
@@ -87,7 +88,7 @@
 
 
 .testvalue {
-    height: 28.8px;
+    height: 26px;
     max-width: 90px;
     font-size: 24px;
     border: solid 1px #1C445D;
@@ -99,6 +100,7 @@
     font-weight: bolder;
     background-color: var(--DarkBlue);
     color: var(--LightBlue);
+    padding: 0 2px;
     
 } 
 .bgBlue {
@@ -108,12 +110,13 @@
 }
 
 .Delete, .info {
-    max-width: 28px;
-    padding: 0px;
+    max-width: 30px;
+    height: 30px;
     background-color: var(--DarkBlue);
     border: solid 1px;
     display: flex;
     justify-content: center;
+    align-items: center;
     cursor: pointer;
 }
 
