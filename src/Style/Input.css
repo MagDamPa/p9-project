@@ -52,7 +52,6 @@
     line-height: 28px;
     border: none;
     border-radius: 8px;
-    border: var(--border);
 }
 
 .testnumber {
