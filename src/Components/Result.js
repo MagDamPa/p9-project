@@ -18,7 +18,7 @@ function Result({answersTitle, answersText, answersColor, answersCalculation}) {
         <p className='result-heading' defaultValue='Resultat titel'>
             {answersTitle}            
         </p>
-        <p className='result-text' defaultValue='Tekst forklaring'>
+        <p className='result-text' defaultValue='Tekst forklaring' font-size = '200'>
             {answersText}
         </p>
       </div>
