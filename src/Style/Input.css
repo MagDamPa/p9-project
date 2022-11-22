@@ -63,8 +63,7 @@
 }
 
 #testnumber {
-    max-width: 26px;
-    
+    max-width: 30px;
     background-color: var(--DarkBlue);
     color: var(--LightBlue)
 
