@@ -123,8 +123,6 @@ export function convertNgMg({datapoints}) {
     }
 
    
-   
-
 
     let convertSpecimen_base = datapoints[specimen_base].Value *1000/113.12; 
     let roundedSpecimen_base = Math.floor(convertSpecimen_base);
@@ -220,12 +218,10 @@ export function convertNgMg({datapoints}) {
         }
     }
 
-
     function autoInterpretation(result, ratio) {
         
         let visableDate = new Date(datapoints[specimen_last].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})
         let baseDate = new Date(datapoints[specimen_base].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})
-
         if (result < ratio) {
             answers.borderColor = redBorder
             answers.Calculation = `Modellen har givet følgende resultat baseret på test nr. ${specimen_base + 1} og test nr. ${specimen_last + 1}`
@@ -250,22 +246,63 @@ export function convertNgMg({datapoints}) {
                 answers.Text = `BEMÆRK: Resultatet fra modellen er usikkert. Tag næste prøve tidligst efter 2 dage. Næste testsvar vil blive beregnet på baggrund af testen fra den ${visableDate}. Modellen burde herefter være præcis`
                 answers.borderColor = orangeBorder
             }
+        if (roundedSpecimen_last <= param.concentration[1]){
+            answers.Title = "Værdi er udenfor modellens rækkevidde (0,9 til 132 mg/mol) "
+            answers.Calculation = `Modellen er uden for rækkevidde baseret på test nr. ${specimen_last + 1}`
+            answers.Text = 'Testværdien er for lav til modellen. Lave værdier i denne størrelse kan tolkes som udskillelse af rester fra tidligere stofbrug, som er ophobet i fedtvævet. BEMÆRK: Der er derfor ikke tegn på nyt indtag'
+            answers.borderColor = blackBorder
             specimen_base = specimen_last
-        } else if (result > ratio) {
-            answers.Title = "Intet tegn på nyt indtag af cannabis."
-            answers.borderColor = grenBorder
-            answers.Text = `Der er ikke tegn på nyt cannabis forbrug mellem ${baseDate} og ${visableDate}, der er derfor evidens for intet nyt indtag.`
-            answers.Calculation = `Modellen har givet følgende resultat baseret på test nr. ${specimen_base + 1} og test nr. ${specimen_last + 1}`  
-        } else if (result = null){
+        }
+        else if (roundedSpecimen_last > param.concentration[9]){
+            answers.Title = "Værdi er udenfor modellens rækkevidde (0,9 til 132 mg/mol) "
+            answers.Calculation = `Modellen er uden for rækkevidde baseret på test nr. ${specimen_last + 1}`
+            answers.Text = `Testværdien den ${visableDate} er for høj, og der må afventes et fald inden modellen kan anvendes. Gentagne høje værdier kan betragtes som tegn på fortsat stofbrug`
+            answers.borderColor = blackBorder
+            specimen_base = specimen_last
+        }
+        else {
+            if (result < ratio) {
+                answers.borderColor = redBorder
+                answers.Calculation = `Modellen har givet følgende resultat baseret på test nr. ${specimen_base + 1} og test nr. ${specimen_last + 1}`
+                if (roundedSpecimen_base > 800) {
+                    if(roundedSpecimen_last < 200){
+                        answers.Title = `Tegn på nyt indtag`
+                        answers.Text = `Der er evidens for nyt forbrug. Modellen burde være præcis. Næste beregning vil ske med udgangspunkt i testen fra den ${visableDate}`
+                    }
+                    else{
+                        answers.Title = "Risiko for falsk forudsigelse af nyt indtag"; 
+                        //Connected to the Date.prototype.addDays method to add 15 days
+                        var rawDatObject = new Date(datapoints[specimen_last].Date)
+                        // Converts the date into a string with the month name. 
+                        var added15Days = rawDatObject.addDays(15).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})
+                        
+                        answers.Text = `BEMÆRK: Der er mulighed for en falsk positiv forudsigelse  i op til 14 dage fra testen den ${visableDate}, foretag derfor næste test den ${added15Days}, hvorefter modellen vil være præcis.`
+                        answers.borderColor = orangeBorder
+                    }
+                }
+                else {
+                    answers.Title = `Ny prøve påkrævet. Modellen kan endnu ikke forudsige et resultat. Der er risiko for falsk forudsigelse af nyt indtag.`
+                    answers.Text = `BEMÆRK: Resultatet fra modellen er usikkert. Tag næste prøve tidligst efter 2 dage. Næste testsvar vil blive beregnet på baggrund af testen fra den ${visableDate}. Modellen burde herefter være præcis`
+                }
+                specimen_base = specimen_last
+                
+            } 
+            else if (result > ratio) {
+                answers.Title = "Intet tegn på nyt indtag af cannabis."
+                answers.borderColor = grenBorder
+                answers.Text = `Der er ikke tegn på nyt cannabis forbrug mellem ${baseDate} og ${visableDate}, der er derfor evidens for intet nyt indtag.`
+                answers.Calculation = `Modellen har givet følgende resultat baseret på test nr. ${specimen_base + 1} og test nr. ${specimen_last + 1}`  
+            } 
+            else if (result = null){
+            }
         }
     }
+}    
 
     function upperLimit(A, k, t, S2, RMS, ratio) { 
         let result = (A * Math.exp(-k * t)) + (2.57*(Math.sqrt(S2+RMS))); 
         autoInterpretation(result, ratio);
     }
-
-    
 }
 
 
