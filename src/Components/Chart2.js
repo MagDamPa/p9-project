@@ -42,10 +42,11 @@ function Chart2({datapoints}) {
         align: 'center',
         display: true,
         fullsize: true,
-        text: 'THC-COOH/CREA concentration by date',
-        position: 'bottom',
+        text: 'Graf over testresultater',
+        position: 'top',
         font: {
-          size: 30
+          size: 30,
+          family: "Times New Roman"
         }
         //Dette specificerer graftitlen, dens lokation, størrelse, og position.
       },
