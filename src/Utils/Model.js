@@ -82,7 +82,9 @@ const param = {
 
 var normalBorder = 'solid 4px #E8F5FC'
 var redBorder = 'solid 4px #e2271d'
-var grenBorder = 'solid 6px #3be21d'
+var orangeBorder = 'solid 4px #ffa202'
+var grenBorder = 'solid 4px #3be21d'
+var blackBorder = 'solid 4px #000000'
 
 export const answers = {
     Title: 'Intet resultat at vise',
@@ -180,8 +182,8 @@ export function convertNgMg({datapoints}) {
 
         if ( roundedSpecimen_base <= param.concentration[1]) {
             answers.Title = "Værdi er udenfor modellens rækkevidde (0,9 til 132 mg/mol) " 
-            answers.Text = 'Testværdien er for lav til modellen. Lave værdier i denne størrelse kan tolkes som udskillelse af rester fra tidligere stofbrug, som er ophobet i fedtvævet.'
-            answers.borderColor = normalBorder
+            answers.Text = 'Testværdien er for lav til modellen. Lave værdier i denne størrelse kan tolkes som udskillelse af rester fra tidligere stofbrug, som er ophobet i fedtvævet. BEMÆRK: Der er derfor ikke tegn på nyt indtag'
+            answers.borderColor = blackBorder
             answers.Calculation = `Modellen er uden for rækkevidde baseret på test nr. ${specimen_base + 1}`
             specimen_base = specimen_last
         } 
@@ -212,7 +214,7 @@ export function convertNgMg({datapoints}) {
         else if (roundedSpecimen_base > param.concentration[9] ) {
             answers.Title = "Værdi er udenfor modellens rækkevidde (0,9 til 132 mg/mol) "
             answers.Text = `Testværdien den ${new Date(datapoints[specimen_base].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})} er for høj, og der må afventes et fald inden modellen kan anvendes. Gentagne høje værdier kan betragtes som tegn på fortsat stofbrug`
-            answers.borderColor = normalBorder
+            answers.borderColor = blackBorder
             answers.Calculation = `Modellen er uden for rækkevidde baseret på test nr. ${specimen_base + 1}`
             specimen_base = specimen_last
         }
@@ -252,6 +254,7 @@ export function convertNgMg({datapoints}) {
                         var added15Days = rawDatObject.addDays(15).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})
                         
                         answers.Text = `BEMÆRK: Der er mulighed for en falsk positiv forudsigelse  i op til 14 dage fra testen den ${visableDate}, foretag derfor næste test den ${added15Days}, hvorefter modellen vil være præcis.`
+                        answers.borderColor = orangeBorder
                     }
                 }
                 else {
@@ -259,14 +262,16 @@ export function convertNgMg({datapoints}) {
                     answers.Text = `BEMÆRK: Resultatet fra modellen er usikkert. Tag næste prøve tidligst efter 2 dage. Næste testsvar vil blive beregnet på baggrund af testen fra den ${visableDate}. Modellen burde herefter være præcis`
                 }
                 specimen_base = specimen_last
-            } else if (result > ratio) {
+                
+            } 
+            else if (result > ratio) {
                 answers.Title = "Intet tegn på nyt indtag af cannabis."
                 answers.borderColor = grenBorder
-                answers.Text = `Der er ikke tegn på nyt cannabis forbrug mellem ${baseDate} og ${visableDate}, der er derfor evidens for abstinens.`
+                answers.Text = `Der er ikke tegn på nyt cannabis forbrug mellem ${baseDate} og ${visableDate}, der er derfor evidens for intet nyt indtag.`
                 answers.Calculation = `Modellen har givet følgende resultat baseret på test nr. ${specimen_base + 1} og test nr. ${specimen_last + 1}`  
-            } else if (result = null){
+            } 
+            else if (result = null){
             }
-        }
     }
 
     function upperLimit(A, k, t, S2, RMS, ratio) { 
