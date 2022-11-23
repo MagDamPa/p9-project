@@ -10,7 +10,7 @@ import Result from './Components/Result';
 import AddIcon from './Components/Icons/AddIcon.svg'
 import { specimen_base, specimen_last } from './Utils/Model';
 import Navbar from './Components/Navbar';
-
+import Render from './Components/Render';
 
 function App() {
 
@@ -53,6 +53,10 @@ function App() {
         <Chart2 datapoints={datapoints}/>
       </div>
       </div>
+      <div className = "print-button">
+<Render
+/>
+</div>      
     </div>
   );
 }
