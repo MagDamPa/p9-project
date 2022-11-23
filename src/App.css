@@ -200,7 +200,23 @@ p {
   background-color: white;
   border: var(--border);
   border-radius: 8px;
+  align-items: center;
   box-shadow: var(--shadow);
+}
+
+.print-button{
+  background-color: white;
+  border: var(--border);
+  border-radius: 8px;
+  align-items: center;
+  box-shadow: var(--shadow);
+    margin: auto;
+  padding: 15px;
+  margin-top: 2%;
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+  height: 100%;
 }
 
 .Render {
@@ -209,7 +225,7 @@ p {
   border: solid 2px var(--DarkBlue);
   color: var(--DarkBlue); 
   background-color: transparent;
-  margin: 10px;
+  margin: 30px;
   padding: 10px;
   font-family: 'Times New Roman', Times, serif;
   font-weight: bold;
@@ -219,6 +235,7 @@ p {
   box-shadow: var(--shadow);
   transition: all 200ms;
   cursor: pointer;
+  background-color: white;
 }
 
 
