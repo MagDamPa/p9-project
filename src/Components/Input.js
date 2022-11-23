@@ -43,40 +43,42 @@ function Input({datapoints, setDatapoints}) {
   return (
 
     <div >
-      <div className='flex-wrapper' >
-        <div>
-          {/*Creates a element of the component Datapoints, and provides it with the array datapoints, and the function setDatapoints*/}
-          <Datapoints datapoints={datapoints} setDatapoints={setDatapoints}/>
+      <form onSubmit={e => { e.preventDefault(); }}>
+        <div className='flex-wrapper' >
+          <div>
+            {/*Creates a element of the component Datapoints, and provides it with the array datapoints, and the function setDatapoints*/}
+            <Datapoints datapoints={datapoints} setDatapoints={setDatapoints}/>
+          </div>
+          <div className='line'/>
+          <div className='Input'>
+            {/*adds the number of the next element we will add to the array*/}
+            <p className = "flex-item main testnumber" id="testnumber">
+              {datapoints.length + 1}
+            </p> 
+            {/*Creates an input field for the user to enter a date based on a dropdown calender, it acceses the values using the useRef from react*/}
+            <input type = "date"  className = "flex-item main date border" id='date' ref={testDateRef} required/>
+            {/*Creates an input field for the user to enter a testvalue, again using useRef to acces it later*/}
+            <input type = 'number' className = "flex-item noscroll main testvalue Small" ref={testValueRef} required placeholder='Resultat'/>
+            <span className="flex-item Unit main"> 
+              mg/mol
+            </span>
+            {/*Unit display*/}
+            <button className = "flex-item info main">
+                <img className = "IconInput" 
+                  src={infoIcon}
+                />
+            </button>
+          </div>
+          <div className='buttons'>
+            <button className='Add' onClick={buttonHandlerAdd}>
+                Tilføj testresult
+            </button>
+            <button className='deleteAll' onClick={buttonHandlerDelete}>
+                Slet alle testresultater
+            </button>
+          </div>
         </div>
-        <div className='line'/>
-        <div className='Input'>
-          {/*adds the number of the next element we will add to the array*/}
-          <p className = "flex-item main testnumber" id="testnumber">
-            {datapoints.length + 1}
-          </p> 
-          {/*Creates an input field for the user to enter a date based on a dropdown calender, it acceses the values using the useRef from react*/}
-          <input type = "date"  className = "flex-item main date border" id='date' ref={testDateRef} required/>
-          {/*Creates an input field for the user to enter a testvalue, again using useRef to acces it later*/}
-          <input type = 'number' className = "flex-item noscroll main testvalue Small" ref={testValueRef} required placeholder='Resultat'/>
-          <span className="flex-item Unit main"> 
-            mg/mol
-          </span>
-          {/*Unit display*/}
-          <button className = "flex-item info main">
-              <img className = "IconInput" 
-                src={infoIcon}
-              />
-          </button>
-        </div>
-        <div className='buttons'>
-          <button className='Add' onClick={buttonHandlerAdd}>
-              Tilføj testresult
-          </button>
-          <button className='deleteAll' onClick={buttonHandlerDelete}>
-              Slet alle testresultater
-          </button>
-        </div>
-      </div>
+      </form>
     </div>
   )
 }

@@ -30,30 +30,30 @@ function App() {
     <div className="App">
       <Navbar />
       <div className='content-wrapper'> 
-      <div className ="input-container">
-        <div className='addInput'>  
-            <h2>Indtast test værdier her:</h2>
-              <Input 
-                datapoints={datapoints} 
-                setDatapoints={setDatapoints}
-              />
+        <div className ="input-container">
+          <div className='addInput'>  
+              <h2>Indtast test værdier her:</h2>
+                <Input 
+                  datapoints={datapoints} 
+                  setDatapoints={setDatapoints}
+                />
+          </div>
+          <div className='ResultBlock'>
+            <Result 
+              answersTitle={answers.Title} 
+              answersText={answers.Text}
+              answersColor={answers.borderColor}
+              answersCalculation={answers.Calculation}
+            />
+          </div>
         </div>
-        <div className='ResultBlock'>
-        <Result 
-          answersTitle={answers.Title} 
-          answersText={answers.Text}
-          answersColor={answers.borderColor}
-          answersCalculation={answers.Calculation}
-          />
+        <div className = "result-and-chart-wrapper">
+          <Chart2 datapoints={datapoints}/>
         </div>
       </div>
-        <div className = "result-and-chart-wrapper">
-        <Chart2 datapoints={datapoints}/>
-        </div>
-  </div>
-        <div className = "print-button">
+      <div className = "print-button">
         <Render/>
-        </div>      
+      </div>      
   </div>
   );
 }

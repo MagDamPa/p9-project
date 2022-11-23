@@ -1,21 +1,36 @@
 .Render {
     display: flex;
-    align-content: center;
-    background-color: rgb(230, 230, 230);
-    margin-top: 10px;
-    margin-right: 0px;
-    padding: 0px;
-    justify-content: end;
-}
-
-.Render:hover {
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-    background-color: rgb(132, 225, 135);
-}
-
-.Render { 
-    width: 30px;
-    height: 30px;
-    padding: 3px;
-    margin: auto;
-}
+    justify-content: center;
+    border: solid 2px var(--DarkBlue);
+    color: var(--DarkBlue); 
+    background-color: transparent;
+    margin: 30px;
+    padding: 10px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    font-size: 24px;
+    width: 40%;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    transition: all 200ms;
+    cursor: pointer;
+    background-color: white;
+  }
+  
+  
+  .RenderInput{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    border: var(--border);
+    padding: 10px;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: var(--shadow);
+  }
+  
+  .Render:hover {
+    background-color: var(--DarkBlue);
+    color: var(--LightBlue);
+  }
