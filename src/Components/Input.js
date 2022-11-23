@@ -35,6 +35,10 @@ function Input({datapoints, setDatapoints}) {
 
     }
   }
+
+  function buttonHandlerDelete(){
+      window.location.reload(false);
+  }
   
   return (
 
@@ -65,9 +69,12 @@ function Input({datapoints, setDatapoints}) {
                 />
             </button>
           </div>
-          <div>
+          <div className='buttons'>
             <button className='Add' onClick={buttonHandlerAdd}>
                 Tilføj testresult
+            </button>
+            <button className='deleteAll' onClick={buttonHandlerDelete}>
+                Slet alle testresultater
             </button>
           </div>
         </div>
