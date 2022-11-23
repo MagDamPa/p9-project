@@ -31,7 +31,7 @@ function App() {
   return (
     <div className="App">
         <Navbar />
-      <div className='content-wrapper'> 
+  <div className='content-wrapper'> 
       <div className ="input-container">
         <div className='addInput'>  
             <h2>Indtast test værdier her:</h2>
@@ -49,15 +49,14 @@ function App() {
           />
         </div>
       </div>
-      <div className = "result-and-chart-wrapper">
+        <div className = "result-and-chart-wrapper">
         <Chart2 datapoints={datapoints}/>
-      </div>
-      </div>
-      <div className = "print-button">
-<Render
-/>
-</div>      
-    </div>
+        </div>
+  </div>
+        <div className = "print-button">
+        <Render/>
+        </div>      
+  </div>
   );
 }
 
