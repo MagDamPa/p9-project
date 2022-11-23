@@ -7,8 +7,6 @@ import Input from './Components/Input';
 import Chart2 from './Components/Chart2';
 import {answers, convertNgMg} from './Utils/Model'; 
 import Result from './Components/Result';
-import AddIcon from './Components/Icons/AddIcon.svg'
-import { specimen_base, specimen_last } from './Utils/Model';
 import Navbar from './Components/Navbar';
 
 
@@ -30,7 +28,7 @@ function App() {
 
   return (
     <div className="App">
-        <Navbar />
+      <Navbar />
       <div className='content-wrapper'> 
       <div className ="input-container">
         <div className='addInput'>  

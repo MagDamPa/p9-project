@@ -50,8 +50,6 @@ body {
   transition: all 200ms;
 }
 
-
-
 .nav-text {
   font-weight: bolder;
   color: var(--DarkBlue);
@@ -124,34 +122,11 @@ body {
   box-shadow: var(--shadow);
 }
 
-.Add {
-  display: flex;
-  justify-content: center;
-  border: solid 2px var(--DarkBlue);
-  color: var(--DarkBlue); 
-  background-color: transparent;
-  margin: 10px;
-  padding: 10px;
-  font-family: 'Times New Roman', Times, serif;
-  font-weight: bold;
-  font-size: 24px;
-  max-width: 200px;
-  border-radius: 8px;
-  box-shadow: var(--shadow);
-  transition: all 200ms;
-  cursor: pointer;
-}
-
 .flex-wrapper {
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
-}
-
-.Add:hover {
-  background-color: var(--DarkBlue);
-  color: var(--LightBlue);
 }
 
 /* Text output */
