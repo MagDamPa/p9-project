@@ -8,7 +8,7 @@ import Chart2 from './Components/Chart2';
 import {answers, convertNgMg} from './Utils/Model'; 
 import Result from './Components/Result';
 import Navbar from './Components/Navbar';
-
+import Render from './Components/Render';
 
 function App() {
 
@@ -47,11 +47,14 @@ function App() {
           />
         </div>
       </div>
-      <div className = "result-and-chart-wrapper">
+        <div className = "result-and-chart-wrapper">
         <Chart2 datapoints={datapoints}/>
-      </div>
-      </div>
-    </div>
+        </div>
+  </div>
+        <div className = "print-button">
+        <Render/>
+        </div>      
+  </div>
   );
 }
 
