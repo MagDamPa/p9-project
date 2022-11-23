@@ -246,9 +246,9 @@ export function convertNgMg({datapoints}) {
                         answers.Title = `Tegn på nyt indtag`
                         answers.Text = `Der er evidens for nyt forbrug. Modellen burde være præcis. Næste beregning vil ske med udgangspunkt i testen fra den ${visableDate}`
                     }
-                    else if (answers.Title === "Risiko for falsk forudsigelse af nyt indtag")
+                    else if (answers.Title === "Risiko for falsk forudsigelse af nyt indtag" || answers.Title === "Tegn på nyt indtag" && roundedSpecimen_last >= 200)
                     {
-                        answers.Title = `Tegn på nyt indtag`
+                        answers.Title = "Tegn på nyt indtag"
                         answers.Text = `Der er evidens for nyt forbrug, eftersom model stadig efter 14 dage forudsiger nyt indtag. Modellen burde være præcis. Næste beregning vil ske med udgangspunkt i testen fra den ${visableDate}`
                     }
                     else{
@@ -263,8 +263,8 @@ export function convertNgMg({datapoints}) {
                     }
                 }
                 else if (roundedSpecimen_base <= 800) {
-                    if (answers.Title === "Ny prøve påkrævet. Modellen kan endnu ikke forudsige et resultat. Der er risiko for falsk forudsigelse af nyt indtag."){
-                        answers.Title = `Tegn på nyt indtag`
+                    if (answers.Title === "Ny prøve påkrævet. Modellen kan endnu ikke forudsige et resultat. Der er risiko for falsk forudsigelse af nyt indtag." || answers.Title === "Tegn på nyt indtag"){
+                        answers.Title = "Tegn på nyt indtag"
                         answers.Text = `Der er evidens for nyt forbrug, eftersom model stadig efter denne test forudsiger nyt indtag. Modellen burde være præcis. Næste beregning vil ske med udgangspunkt i testen fra den ${visableDate}`
                         answers.borderColor = redBorder
                     }
