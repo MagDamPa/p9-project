@@ -7,10 +7,6 @@ import {convertNgMg} from '../Utils/Model';
 
 function Datapoint({datapoint, setDatapoints, datapoints, index}) {
 
-  //Filters out what datapoints is showed. This makes it possible to visualise a deletion of a datapoint
-  function buttonHandler(){
-    setDatapoints(datapoints.filter((el) => el.Id !== datapoint.Id))
-  }
   
   return (
     <div className='Input'>
@@ -30,12 +26,6 @@ function Datapoint({datapoint, setDatapoints, datapoints, index}) {
       <span className="flex-item Unit datapoints"> 
           mg/mol
       </span>
-      {/*A deletebutton for every item in array*/}
-        <button className = "flex-item Delete" onClick={buttonHandler}>
-            <img className = "IconInput" 
-              src={TrashIcon}
-            />
-        </button>
     </div>
   )
 }
