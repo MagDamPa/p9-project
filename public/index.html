@@ -27,17 +27,45 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Test af Cannabisprøver</title>
-    <link rel="stylesheet" href="alertstyle.css">
+    <link rel="stylesheet" href="Alertstyle.css">
   </head>
   <body >
-    <div class="callout">
-      <div class="callout-header">Vigtig information</div>
-      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-      <div class="callout-container">
-        <p class="callout-text">
+    <div 
+      class="callout" 
+      style="display: flex;
+      flex-direction: column;
+      position: fixed;
+      z-index: 3;
+      top: 30%;
+      bottom: 30%;
+      left: 30%;
+      right: 30%;"
+    >
+      <div 
+      class="callout-header"
+      style="padding: 25px 15px;
+      background: #555;
+      font-size: 30px;
+      color: white;"
+      >Vigtig information</div>
+      <span class="closebtn" 
+      style="display: flex;
+      position: absolute;
+      top: 5px;
+      right: 15px;
+      color: white;
+      font-size: 30px;
+      cursor: pointer;"
+      onclick="this.parentElement.style.display='none';">&times;</span>
+      <div 
+      class="callout-container" 
+      style="padding: 15px;
+      background-color: rgb(150, 184, 235);
+      color: black">
+        <p class="callout-text" style="font-size: 25px;">
           Dette system er udelukkende en prototype, og er stadig under udvikling. Det er derfor vigtigt at hvis der opstår nogen form for tvivl så kontakter i Torben.
         </p>
-        <p class="callout-text">
+        <p class="callout-text" style="font-size: 25px;">
           Er der spørgsmål til selve systemet så kan i kontakte os på <a href="mailto: canisi18@student.aau.dk"> canisi18@student.aau.dk </a>
         </p>
       </div>

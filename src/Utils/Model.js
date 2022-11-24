@@ -160,7 +160,7 @@ export function convertNgMg({datapoints}) {
         },
         ifRoundedBaseIsLagerThan800AndroundedSpecimenLastLargerThan200: {
             Title: "Risiko for falsk forudsigelse af nyt indtag",
-            Text: `BEMÆRK: Der er mulighed for en falsk positiv forudsigelse  i op til 14 dage fra testen den ${new Date(datapoints[specimen_last].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}, foretag derfor næste test efter den ${new Date(datapoints[specimen_last].Date).addDays(15).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}, hvorefter modellen vil være præcis.`
+            Text: `BEMÆRK: Der er mulighed for en falsk positiv forudsigelse  i op til 14 dage fra testen den ${new Date(datapoints[specimen_base].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}, foretag derfor næste test efter den ${new Date(datapoints[specimen_base].Date).addDays(15).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}, hvorefter modellen vil være præcis.`
         }, 
         ifRoundedBaseIsLessOrEqualTo800: {
             ifAnswerTitleIsEqualToAnswerTitle: {
@@ -189,6 +189,8 @@ export function convertNgMg({datapoints}) {
             Text: `Testværdien den ${new Date(datapoints[specimen_last].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})} er for høj, og der må afventes et fald inden modellen kan anvendes. Gentagne høje værdier kan betragtes som tegn på fortsat stofbrug`,
             Calculation: `Modellen er uden for rækkevidde baseret på test nr. ${specimen_last + 1}`
         }, 
+
+        //bliver disse brugt??
         ifRoundedSpecimenLastBetweenParam1AndParam9: {
             ifResultLessThanRatio: {
                 Calculation: `Modellen har givet følgende resultat baseret på test nr. ${specimen_base + 1} og test nr. ${specimen_last + 1}`,
@@ -198,7 +200,7 @@ export function convertNgMg({datapoints}) {
                 },
                 ifRoundedBaseIsLagerThan800AndroundedSpecimenLastLargerThan200: {
                     Title: "Risiko for falsk forudsigelse af nyt indtag",
-                    Text: `BEMÆRK: Der er mulighed for en falsk positiv forudsigelse  i op til 14 dage fra testen den ${new Date(datapoints[specimen_last].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}, foretag derfor næste test den ${new Date(datapoints[specimen_last].Date).addDays(15).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}, hvorefter modellen vil være præcis.`
+                    Text: `BEMÆRK: Der er mulighed for en falsk positiv forudsigelse  i op til 14 dage fra testen den ${new Date(datapoints[specimen_base].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}, foretag derfor næste test den ${new Date(datapoints[specimen_base].Date).addDays(15).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}, hvorefter modellen vil være præcis.`
                 },
                 ifRoundedBaseIsLessThan800: {
                     Title: `Ny prøve påkrævet. Modellen kan endnu ikke forudsige et resultat. Der er risiko for falsk forudsigelse af nyt indtag.`,
