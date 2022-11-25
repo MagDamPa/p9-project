@@ -93,20 +93,11 @@ export const answers = {
     Calculation: 'Ingen testsvar er indsat'
 } 
 
-export var specimen_base = 0;
-export var specimen_last = 0;
+var specimen_base = 0;
+var specimen_last = 0;
  
 export function convertNgMg({datapoints}) {
 
-
-    afterDelete()
-    
-    function afterDelete(){
-        if (specimen_base >= (datapoints.length - 1) && specimen_base !== 0) {
-            specimen_base = specimen_base - 1
-            afterDelete()
-        }
-    }
     specimen_last = datapoints.length - 1
 
     daysBetween()
@@ -207,12 +198,7 @@ export function convertNgMg({datapoints}) {
                     Text: `BEMÆRK: Resultatet fra modellen er usikkert. Tag næste prøve tidligst efter 2 dage. Næste testsvar vil blive beregnet på baggrund af testen fra den ${new Date(datapoints[specimen_last].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}. Modellen burde herefter være præcis`
                 },
             },
-
-            
         }
-
-
-
     }
 
     
@@ -243,9 +229,9 @@ export function convertNgMg({datapoints}) {
 
     var totalHours = null
 
+    console.log('Specimen base: ' + specimen_base + ' specimen last: ' + specimen_last)
     if (datapoints.length === 1 || specimen_last === specimen_base){
         above800(convertSpecimen_base); 
-        return 0;
     }
     else{
         convertSpecimen_last = datapoints[specimen_last].Value*1000/113.12;
@@ -259,21 +245,36 @@ export function convertNgMg({datapoints}) {
         calcRatio(); 
     }
 
-    
-    
-    
 
     function above800 () {
-        if (roundedSpecimen_base > 800) {
-            answers.Title = ifRoundedSpeciemBaseIsLargerThan800.Title
-            answers.Text = ifRoundedSpeciemBaseIsLargerThan800.Text
-            answers.borderColor = normalBorder
-            answers.Calculation = ifRoundedSpeciemBaseIsLargerThan800.Calculation
-        } else {
-            answers.Title = ifRoundedSpeciemBaseIsLessThan800.Title
-            answers.Text = ifRoundedSpeciemBaseIsLessThan800.Text
-            answers.borderColor = normalBorder
-            answers.Calculation = ifRoundedSpeciemBaseIsLessThan800.Calculation
+        if (roundedSpecimen_base <= param.concentration[1]){
+            answers.Title = ifRoundedSpecimenBaseisLessOrEqualToParam1.Title
+            answers.Text = ifRoundedSpecimenBaseisLessOrEqualToParam1.Text
+            answers.Calculation = ifRoundedSpecimenBaseisLessOrEqualToParam1.Calculation
+            specimen_base = specimen_base + 1
+            answers.borderColor = blackBorder
+        }
+        else if (roundedSpecimen_base > param.concentration[9]){
+            answers.Title = ifRoundedSpecimenBaseisLargerThanParam9.Title
+            answers.Text = ifRoundedSpecimenBaseisLargerThanParam9.Text
+            answers.Calculation = ifRoundedSpecimenBaseisLargerThanParam9.Calculation
+            console.log(specimen_base)
+            specimen_base = specimen_base + 1
+            console.log(specimen_base)
+            answers.borderColor = blackBorder
+        }
+        else{
+            if (roundedSpecimen_base > 800) {
+                answers.Title = ifRoundedSpeciemBaseIsLargerThan800.Title
+                answers.Text = ifRoundedSpeciemBaseIsLargerThan800.Text
+                answers.borderColor = normalBorder
+                answers.Calculation = ifRoundedSpeciemBaseIsLargerThan800.Calculation
+            } else {
+                answers.Title = ifRoundedSpeciemBaseIsLessThan800.Title
+                answers.Text = ifRoundedSpeciemBaseIsLessThan800.Text
+                answers.borderColor = normalBorder
+                answers.Calculation = ifRoundedSpeciemBaseIsLessThan800.Calculation
+            }
         }
     }
 
