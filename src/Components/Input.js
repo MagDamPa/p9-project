@@ -21,18 +21,36 @@ function Input({datapoints, setDatapoints}) {
     }
 });
 
+var date_last;
+
   function buttonHandlerAdd(e){
-    var date = testDateRef.current.value
+    var date = new Date(testDateRef.current.value)
     var value = testValueRef.current.value
 
-    if(date != '' && value != ''){
-      setDatapoints(prevDatapoints => {
-        return [...prevDatapoints, { Id: uuidv4(), Number: datapoints.length, Date: date, Value: value, Valid: 'Valid'}]
-      })
-      e.preventDefault()
-      testDateRef.current.value = null
-      testValueRef.current.value = null
+    if (datapoints.length === 0){
+      date_last = ''
+    }
+    else(
+      date_last = new Date(datapoints[datapoints.length-1].Date)
+    )
 
+    let warn = ''
+
+    if(date != '' && value != ''){
+      if (date_last < date || date_last === ''){
+        setDatapoints(prevDatapoints => {
+          return [...prevDatapoints, { Id: uuidv4(), Date: date, Value: value,}]
+        })
+        e.preventDefault()
+        testDateRef.current.value = null
+        testValueRef.current.value = null
+        warn = ''
+        document.getElementById("output-box").innerHTML = warn;
+      }
+      else{
+        warn = "Datoen du har indtastet ligger før tidligere indtastet datoer<br>";
+        document.getElementById("output-box").innerHTML = warn;
+      }
     }
   }
 
@@ -56,7 +74,7 @@ function Input({datapoints, setDatapoints}) {
               {datapoints.length + 1}
             </p> 
             {/*Creates an input field for the user to enter a date based on a dropdown calender, it acceses the values using the useRef from react*/}
-            <input type = "date"  className = "flex-item main date border" id='date' ref={testDateRef} required/>
+            <input type = "date"  className = "flex-item main date border" id='date' ref={testDateRef} required />
             {/*Creates an input field for the user to enter a testvalue, again using useRef to acces it later*/}
             <input type = 'number' className = "flex-item noscroll main testvalue Small" ref={testValueRef} required placeholder='Resultat'/>
             <span className="flex-item Unit main"> 
@@ -69,6 +87,7 @@ function Input({datapoints, setDatapoints}) {
                 />
             </button>
           </div>
+          <div className='text' id="output-box"></div>
           <div className='buttons'>
             <button className='Add' onClick={buttonHandlerAdd}>
                 Tilføj testresult
