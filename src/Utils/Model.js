@@ -100,7 +100,7 @@ export function convertNgMg({datapoints}) {
 
     specimen_last = datapoints.length - 1
 
-    daysBetween()
+    //daysBetween()
 
     const ifRoundedSpeciemBaseIsLargerThan800 = {
         Title: "Modellen kan endnu ikke forudsige resultatet.",
