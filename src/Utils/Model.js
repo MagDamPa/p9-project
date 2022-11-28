@@ -90,7 +90,8 @@ export const answers = {
     Title: 'Intet resultat at vise',
     Text: 'Indtast et testsvar for at beregne et resultat',
     borderColor: normalBorder,
-    Calculation: 'Ingen testsvar er indsat'
+    Calculation: 'Ingen testsvar er indsat',
+    Outside: ''
 } 
 
 var specimen_base = 0;
@@ -100,7 +101,7 @@ export function convertNgMg({datapoints}) {
 
     specimen_last = datapoints.length - 1
 
-    //daysBetween()
+    daysBetween()
 
     const ifRoundedSpeciemBaseIsLargerThan800 = {
         Title: "Modellen kan endnu ikke forudsige resultatet.",
@@ -210,8 +211,8 @@ export function convertNgMg({datapoints}) {
         var date2 = new Date(datapoints[specimen_last].Date)
         var daysbetween = (date2.getTime() - date1.getTime()) / (1000 * 3600 * 24) 
         if (daysbetween >= 31){
-            specimen_base = specimen_base + 1
-            daysBetween()
+            //specimen_base = specimen_base + 1
+            answers.Outside = 'Spændet på de 30 dage for modellen er overskredet, resultatet er derfor udelukkende vejledende'
         }
     }
 
@@ -348,6 +349,7 @@ export function convertNgMg({datapoints}) {
         }
         else {
             if (result < ratio) {
+                answers.Outside = ''
                 answers.borderColor = redBorder
                 answers.Calculation = ifResultIsLargerThanRatio.Calculation
                 if (roundedSpecimen_base > 800) {

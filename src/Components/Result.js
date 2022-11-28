@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react'
 import '../Style/Result.css'
 import { answers } from '../Utils/Model';
 
-function Result({answersTitle, answersText, answersColor, answersCalculation}) {
+function Result({answersTitle, answersText, answersColor, answersCalculation, answersOutside}) {
 
 
   return (
@@ -25,7 +25,11 @@ function Result({answersTitle, answersText, answersColor, answersCalculation}) {
       <div className='result-wrapper'>
         <p>
           {answersCalculation}
+          <br></br>
+          <br></br>
+          {answersOutside}
         </p>
+          
       </div>
     </div>
   )

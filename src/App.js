@@ -44,6 +44,7 @@ function App() {
               answersText={answers.Text}
               answersColor={answers.borderColor}
               answersCalculation={answers.Calculation}
+              answersOutside={answers.Outside}
             />
           </div>
         </div>
