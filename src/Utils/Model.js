@@ -101,6 +101,13 @@ export function convertNgMg({datapoints}) {
 
     specimen_last = datapoints.length - 1
 
+    
+
+    var date_base = new Date(datapoints[specimen_base].Date)
+    var date_last = new Date(datapoints[specimen_last].Date)
+    var date_base_format = new Date(datapoints[specimen_base].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})
+    var date_last_format = new Date(datapoints[specimen_last].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})
+    
     daysBetween()
 
     const ifRoundedSpeciemBaseIsLargerThan800 = {
@@ -123,7 +130,7 @@ export function convertNgMg({datapoints}) {
     
     const ifRoundedSpecimenBaseisLargerThanParam9 = {
         Title: "Værdi er udenfor modellens rækkevidde (0,9 til 132 mg/mol).",
-        Text: `Testværdien den ${new Date(datapoints[specimen_base].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})} er for høj, og der må afventes et fald inden modellen kan anvendes. Gentagne høje værdier kan betragtes som tegn på fortsat stofbrug`,
+        Text: `Testværdien den ${date_base_format} er for høj, og der må afventes et fald inden modellen kan anvendes. Gentagne høje værdier kan betragtes som tegn på fortsat stofbrug`,
         Calculation: `Modellen er uden for rækkevidde baseret på test nr. ${specimen_base + 1}`
     }
 
@@ -135,7 +142,7 @@ export function convertNgMg({datapoints}) {
 
     const ifRoundedSpecimenLastIsLargerThanParam9 = {
         Title: "Værdi er udenfor modellens rækkevidde (0,9 til 132 mg/mol) ",
-        Text:`Testværdien den ${new Date(datapoints[specimen_last].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})} er for høj, og der må afventes et fald inden modellen kan anvendes. Gentagne høje værdier kan betragtes som tegn på fortsat stofbrug`,
+        Text:`Testværdien den ${date_last_format} er for høj, og der må afventes et fald inden modellen kan anvendes. Gentagne høje værdier kan betragtes som tegn på fortsat stofbrug`,
         Calculation: `Modellen er uden for rækkevidde baseret på test nr. ${specimen_last + 1}`
     }
 
@@ -143,34 +150,32 @@ export function convertNgMg({datapoints}) {
         Calculation: `Modellen har givet følgende resultat baseret på test nr. ${specimen_base + 1} og test nr. ${specimen_last + 1}`,
         ifRoundedBaseIsLagerThan800AndroundedSpecimenLastIsLessThan200: {
             Title: `Tegn på nyt indtag`,
-            Text: `Der er evidens for nyt forbrug. Modellen burde være præcis. Næste beregning vil ske med udgangspunkt i testen fra den ${new Date(datapoints[specimen_last].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}`
+            Text: `Der er evidens for nyt forbrug. Næste beregning vil ske med udgangspunkt i testen fra den ${date_last_format}`
         }, 
         ifAnswerTitleIsEqualToAnswerTitleAndRoundedSpecimenIsLargerOrEqualTo200: {
             Title: "Tegn på nyt indtag.",
-            Text: `Der er evidens for nyt forbrug, eftersom model stadig efter 14 dage forudsiger nyt indtag. Modellen burde være præcis. Næste beregning vil ske med udgangspunkt i testen fra den ${new Date(datapoints[specimen_last].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}`
+            Text: `Der er evidens for nyt forbrug. Næste beregning vil ske med udgangspunkt i testen fra den ${date_last_format}`
 
         },
         ifRoundedBaseIsLagerThan800AndroundedSpecimenLastLargerThan200: {
             Title: "Risiko for falsk forudsigelse af nyt indtag",
-            Text: `BEMÆRK: Der er mulighed for en falsk positiv forudsigelse  i op til 14 dage fra testen den ${new Date(datapoints[specimen_base].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}, foretag derfor næste test efter den ${new Date(datapoints[specimen_base].Date).addDays(15).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}, hvorefter modellen vil være præcis.`
+            Text: `BEMÆRK: Der er mulighed for en falsk positiv forudsigelse  i op til 14 dage fra testen den ${date_base_format}, foretag derfor næste test efter den ${new Date(datapoints[specimen_base].Date).addDays(15).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}, hvorefter modellen vil være præcis.`
         }, 
         ifRoundedBaseIsLessOrEqualTo800: {
             ifAnswerTitleIsEqualToAnswerTitle: {
                 Titel: "Tegn på nyt indtag",
-                Text: `Der er evidens for nyt forbrug, eftersom model stadig efter denne test forudsiger nyt indtag. Modellen burde være præcis. Næste beregning vil ske med udgangspunkt i testen fra den ${new Date(datapoints[specimen_last].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}`
+                Text: `Der er evidens for nyt forbrug. Næste beregning vil ske med udgangspunkt i testen fra den ${date_last_format}`
             },
             ifAnswerTitleIsNotEqualToAnswerTitle: {
                 Title:"Ny prøve påkrævet. Modellen kan endnu ikke forudsige et resultat. Der er risiko for falsk forudsigelse af nyt indtag.",
-                Text: `BEMÆRK: Resultatet fra modellen er usikkert. Tag næste prøve tidligst efter 2 dage. Næste testsvar vil blive beregnet på baggrund af testen fra den ${new Date(datapoints[specimen_last].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}. Modellen burde herefter være præcis`
+                Text: `BEMÆRK: Resultatet fra modellen er usikkert. Tag næste prøve tidligst efter 2 dage. Næste testsvar vil blive beregnet på baggrund af testen fra den ${date_last_format}. Modellen burde herefter være præcis`
             }
         }, 
-
         ifResultIsLargerThanRatio: {
             Title: "Intet tegn på nyt indtag af cannabis.",
-            Text: `Der er ikke tegn på nyt cannabis forbrug mellem ${new Date(datapoints[specimen_base].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})} og ${new Date(datapoints[specimen_last].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}, der er derfor evidens for intet nyt indtag.`,
+            Text: `Der er ikke evidens for nyt cannabis forbrug mellem den ${date_base_format} og den ${date_last_format}. Næste prøve vil fortsat blive beregnet med udgangspunkt i testen fra den ${date_base_format}`,
             Calculation: `Modellen har givet følgende resultat baseret på test nr. ${specimen_base + 1} og test nr. ${specimen_last + 1}`
         },
-        //I don't know if the strings below are in use
         ifRoundedSpecimenLastLessThanParam1: {
             Title: "Værdi er udenfor modellens rækkevidde (0,9 til 132 mg/mol)",
             Text: 'Testværdien er for lav til modellen. Lave værdier i denne størrelse kan tolkes som udskillelse af rester fra tidligere stofbrug, som er ophobet i fedtvævet. BEMÆRK: Der er derfor ikke tegn på nyt indtag',
@@ -180,25 +185,6 @@ export function convertNgMg({datapoints}) {
             Title: "Værdi er udenfor modellens rækkevidde (0,9 til 132 mg/mol) ",
             Text: `Testværdien den ${new Date(datapoints[specimen_last].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})} er for høj, og der må afventes et fald inden modellen kan anvendes. Gentagne høje værdier kan betragtes som tegn på fortsat stofbrug`,
             Calculation: `Modellen er uden for rækkevidde baseret på test nr. ${specimen_last + 1}`
-        }, 
-
-        //bliver disse brugt??
-        ifRoundedSpecimenLastBetweenParam1AndParam9: {
-            ifResultLessThanRatio: {
-                Calculation: `Modellen har givet følgende resultat baseret på test nr. ${specimen_base + 1} og test nr. ${specimen_last + 1}`,
-                ifRoundedBaseIsLagerThan800AndroundedSpecimenLastLessThan200: {
-                    Title: `Tegn på nyt indtag`,
-                    Text: `Der er evidens for nyt forbrug. Modellen burde være præcis. Næste beregning vil ske med udgangspunkt i testen fra den ${new Date(datapoints[specimen_last].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}`,
-                },
-                ifRoundedBaseIsLagerThan800AndroundedSpecimenLastLargerThan200: {
-                    Title: "Risiko for falsk forudsigelse af nyt indtag",
-                    Text: `BEMÆRK: Der er mulighed for en falsk positiv forudsigelse  i op til 14 dage fra testen den ${new Date(datapoints[specimen_base].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}, foretag derfor næste test den ${new Date(datapoints[specimen_base].Date).addDays(15).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}, hvorefter modellen vil være præcis.`
-                },
-                ifRoundedBaseIsLessThan800: {
-                    Title: `Ny prøve påkrævet. Modellen kan endnu ikke forudsige et resultat. Der er risiko for falsk forudsigelse af nyt indtag.`,
-                    Text: `BEMÆRK: Resultatet fra modellen er usikkert. Tag næste prøve tidligst efter 2 dage. Næste testsvar vil blive beregnet på baggrund af testen fra den ${new Date(datapoints[specimen_last].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}. Modellen burde herefter være præcis`
-                },
-            },
         }
     }
 
@@ -207,9 +193,7 @@ export function convertNgMg({datapoints}) {
     //checks if the difference between the base date and last day is not above 30 days 
     //if it is, it tries the next one until it finds the next basedate. 
     function daysBetween(){
-        var date1 = new Date(datapoints[specimen_base].Date)
-        var date2 = new Date(datapoints[specimen_last].Date)
-        var daysbetween = (date2.getTime() - date1.getTime()) / (1000 * 3600 * 24) 
+        var daysbetween = (date_last.getTime() - date_base.getTime()) / (1000 * 3600 * 24) 
         if (daysbetween >= 31){
             //specimen_base = specimen_base + 1
             answers.Outside = 'Spændet på de 30 dage for modellen er overskredet, resultatet er derfor udelukkende vejledende'
@@ -230,7 +214,6 @@ export function convertNgMg({datapoints}) {
 
     var totalHours = null
 
-    console.log('Specimen base: ' + specimen_base + ' specimen last: ' + specimen_last)
     if (datapoints.length === 1 || specimen_last === specimen_base){
         above800(convertSpecimen_base); 
     }
@@ -259,9 +242,7 @@ export function convertNgMg({datapoints}) {
             answers.Title = ifRoundedSpecimenBaseisLargerThanParam9.Title
             answers.Text = ifRoundedSpecimenBaseisLargerThanParam9.Text
             answers.Calculation = ifRoundedSpecimenBaseisLargerThanParam9.Calculation
-            console.log(specimen_base)
             specimen_base = specimen_base + 1
-            console.log(specimen_base)
             answers.borderColor = blackBorder
         }
         else{
@@ -329,9 +310,6 @@ export function convertNgMg({datapoints}) {
     }
 
     function autoInterpretation(result, ratio) {
-        
-        let visableDate = new Date(datapoints[specimen_last].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})
-        let baseDate = new Date(datapoints[specimen_base].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})
 
         if (roundedSpecimen_last <= param.concentration[1]){
             answers.Title = ifRoundedSpecimenLastIsLessOrEqualToParam1.Title
@@ -357,7 +335,7 @@ export function convertNgMg({datapoints}) {
                         answers.Title = ifResultIsLargerThanRatio.ifRoundedBaseIsLagerThan800AndroundedSpecimenLastIsLessThan200.Title
                         answers.Text = ifResultIsLargerThanRatio.ifRoundedBaseIsLagerThan800AndroundedSpecimenLastIsLessThan200.Text
                     }
-                    else if (answers.Title === ifResultIsLargerThanRatio.ifRoundedBaseIsLagerThan800AndroundedSpecimenLastLargerThan200.Title || answers.Title === ifResultIsLargerThanRatio.ifAnswerTitleIsEqualToAnswerTitleAndRoundedSpecimenIsLargerOrEqualTo200.Title && roundedSpecimen_last >= 200)
+                    else if (specimen_last - specimen_base >= 1)
                     {
                         answers.Title = ifResultIsLargerThanRatio.ifAnswerTitleIsEqualToAnswerTitleAndRoundedSpecimenIsLargerOrEqualTo200.Title
                         answers.Text = ifResultIsLargerThanRatio.ifAnswerTitleIsEqualToAnswerTitleAndRoundedSpecimenIsLargerOrEqualTo200.Text
@@ -374,7 +352,7 @@ export function convertNgMg({datapoints}) {
                     }
                 }
                 else if (roundedSpecimen_base <= 800) {
-                    if (answers.Title === ifResultIsLargerThanRatio.ifRoundedBaseIsLessOrEqualTo800.ifAnswerTitleIsNotEqualToAnswerTitle.Title || answers.Title === ifResultIsLargerThanRatio.ifRoundedBaseIsLessOrEqualTo800.ifAnswerTitleIsEqualToAnswerTitle.Titel){
+                    if (specimen_last - specimen_base >= 1){
                         answers.Title = ifResultIsLargerThanRatio.ifRoundedBaseIsLessOrEqualTo800.ifAnswerTitleIsEqualToAnswerTitle.Titel
                         answers.Text = ifResultIsLargerThanRatio.ifRoundedBaseIsLessOrEqualTo800.ifAnswerTitleIsEqualToAnswerTitle.Text
                         answers.borderColor = redBorder
