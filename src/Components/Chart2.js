@@ -2,6 +2,7 @@ import React from 'react'
 import 'chartjs-adapter-date-fns';
 import '../Style/Chart.css'
 import {da} from 'date-fns/locale';
+import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -14,7 +15,8 @@ import {
   Legend,
   Scale,
 } from 'chart.js';
-import { Line } from 'react-chartjs-2';
+
+
 // Størstedelen af ovenstående er blot at importere Chart.js elementer, der er vores graf-library; Derudover,
 // så er Chart.css den associerede .css fil, og import {da} importerer dansk standard for dato-angivelse, fra date-fns, et api til at koble tid på grafer.
 
@@ -50,29 +52,28 @@ function Chart2({datapoints}) {
         }
         //Dette specificerer graftitlen, dens lokation, størrelse, og position.
       },
-scales: {
+      scales: {
         x: {
-              reverse: false,
-              beginAtZero: true,
-              max: 150,
-              stepSize: 3,
-// Scales er "Skalaerne", altså, hvordan måles de forskellige elementer? max siger at der maks kan være 103 punkter i dataen, beginatZero sætter x-aksens minimum til at være 0.
-},
+          reverse: false,
+          beginAtZero: true,
+          max: 150,
+          stepSize: 3,
         },
-
-/// Adapters sørger for at dato bliver læst af api'en som dansk tid...
-        adapters: {
-            date: {
-              locale: da
-            }
-          }
-        },
-        y: {
-            reverse: false,
-            beginAtZero: true,
-            min: 0,
-            max: 160,
-        },
+        // Scales er "Skalaerne", altså, hvordan måles de forskellige elementer? max siger at der maks kan være 103 punkter i dataen, beginatZero sætter x-aksens minimum til at være 0.
+      },
+    // Adapters sørger for at dato bliver læst af api'en som dansk tid...
+      adapters: {
+        date: {
+          locale: da
+        }
+      }
+    },
+    y: {
+      reverse: false,
+      beginAtZero: true,
+      min: 0,
+      max: 160,
+    },
   }; 
 /// Labels er hvorledes disse dato-strings skal repræsenteres: Selvfølgelig i dansk format.
   const labels = datapoints.map(datapoint => 
@@ -94,10 +95,11 @@ return (
   //Endelig spytter Return denne funktion fra komponentet ud til vores app.js.
   <div className='chart-wrapper'>
     <Line 
-    height = {"600px"}
-    width = {"1500px"}
-    data = {data}
-    options = {options}/>
+      height = {"600px"}
+      width = {"1500px"}
+      data = {data}
+      options = {options}
+    />
   </div> )
 }
 

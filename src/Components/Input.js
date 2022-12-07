@@ -6,10 +6,8 @@ import { v4 as uuidv4 } from 'uuid'
 
 function Input({datapoints, setDatapoints}) {
 
-
   var testDateRef = useRef()
   var testValueRef = useRef()
-
 
   //disables the scrolling function on the number input field. 
   //is mostly to ease the use of the field for the user. 
@@ -19,10 +17,14 @@ function Input({datapoints, setDatapoints}) {
     {
         document.activeElement.blur();
     }
-});
+  });
 
-var date_last;
+  //initiate a variable called date_last
+  var date_last;
 
+  //the function that runs when pressing the add button. 
+  //it checks whether the inputfields are empty before adding it
+  //it also checks whether the date is before the other dates input and if so it does not add it.
   function buttonHandlerAdd(e){
     var date = new Date(testDateRef.current.value)
     var value = testValueRef.current.value
@@ -54,12 +56,12 @@ var date_last;
     }
   }
 
+  //reload page as to delete all elements in the statearray. 
   function buttonHandlerDelete(){
       window.location.reload(false);
   }
   
   return (
-
     <div >
       <form onSubmit={e => { e.preventDefault(); }}>
         <div className='flex-wrapper' >
@@ -101,7 +103,5 @@ var date_last;
     </div>
   )
 }
-
-//test 
 
 export default Input

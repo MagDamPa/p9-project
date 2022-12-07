@@ -1,7 +1,7 @@
 import '../App'; 
-import datapoints from '../App'
 import './Strings'
 
+//Model parameters
 const param = {
     concentration: [
         0, 
@@ -80,12 +80,14 @@ const param = {
     ]
 }
 
+//border colours
 var normalBorder = 'solid 4px #E8F5FC'
 var redBorder = 'solid 4px #e2271d'
 var orangeBorder = 'solid 4px #ffa202'
 var grenBorder = 'solid 4px #3be21d'
 var blackBorder = 'solid 4px #000000'
 
+//base answers
 export const answers = {
     Title: 'Intet resultat at vise',
     Text: 'Indtast et testsvar for at beregne et resultat',
@@ -94,20 +96,23 @@ export const answers = {
     Outside: ''
 } 
 
+//the number of the current test used for calculations
 var specimen_base = 0;
 var specimen_last = 0;
  
+//main function
 export function convertNgMg({datapoints}) {
 
+    //Sets the variable equal to the length of the list minus 1. 
     specimen_last = datapoints.length - 1
 
-    
-
+    //creates variables to use in the results
     var date_base = new Date(datapoints[specimen_base].Date)
     var date_last = new Date(datapoints[specimen_last].Date)
     var date_base_format = new Date(datapoints[specimen_base].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})
     var date_last_format = new Date(datapoints[specimen_last].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})
     
+    //runs the function days between
     daysBetween()
 
     const ifRoundedSpeciemBaseIsLargerThan800 = {
@@ -200,36 +205,37 @@ export function convertNgMg({datapoints}) {
         }
     }
 
-   
-
+    //calculations for the base specimen
     let convertSpecimen_base = datapoints[specimen_base].Value *1000/113.12; 
     let roundedSpecimen_base = Math.floor(convertSpecimen_base);
-
     let base_date = new Date(datapoints[specimen_base].Date)
     
-   
+    //initiate the variable for the last specimen and assign it null
     let convertSpecimen_last = null
     let roundedSpecimen_last = null
     let last_date = null
 
     var totalHours = null
 
+    //the if-statement that initiate the correct calculations, whether there is one or more specimens. 
     if (datapoints.length === 1 || specimen_last === specimen_base){
         above800(convertSpecimen_base); 
     }
     else{
+        //assignes the variables for the last specimen
         convertSpecimen_last = datapoints[specimen_last].Value*1000/113.12;
         roundedSpecimen_last = Math.floor(convertSpecimen_last);
         
         last_date = new Date(datapoints[specimen_last].Date)
         
+        //calculates the hours between the tests
         const hours = 60 * 60 * 1000; 
         totalHours = (last_date.getTime() - base_date.getTime()) / hours;
         totalHours = Math.round(totalHours)
         calcRatio(); 
     }
 
-
+    //gives an answer based on one test
     function above800 () {
         if (roundedSpecimen_base <= param.concentration[1]){
             answers.Title = ifRoundedSpecimenBaseisLessOrEqualToParam1.Title
@@ -260,6 +266,7 @@ export function convertNgMg({datapoints}) {
         }
     }
 
+    //calculates the ratio between the tests
     function calcRatio() {
         let ratio = roundedSpecimen_last / roundedSpecimen_base; 
         let roundedRatio = Math.floor(ratio * 100 ) / 100 
@@ -267,9 +274,9 @@ export function convertNgMg({datapoints}) {
         findA(roundedRatio); 
     }
 
+    //findes the correct parameters to use for the calculations. 
     function findA(roundedRatio) {
-
-        if ( roundedSpecimen_base <= param.concentration[1]) {
+        if (roundedSpecimen_base <= param.concentration[1]) {
             answers.Title = ifRoundedSpecimenBaseisLessOrEqualToParam1.Title
             answers.Text = ifRoundedSpecimenBaseisLessOrEqualToParam1.Text
             answers.borderColor = blackBorder
@@ -309,8 +316,14 @@ export function convertNgMg({datapoints}) {
         }
     }
 
-    function autoInterpretation(result, ratio) {
+    //calculates the upper limit for the correct parameters
+    function upperLimit(A, k, t, S2, RMS, ratio) { 
+        let result = (A * Math.exp(-k * t)) + (2.57*(Math.sqrt(S2+RMS))); 
+        autoInterpretation(result, ratio);
+    }
 
+    //Assignes the correct result based on the result and ratio, as well as other elements
+    function autoInterpretation(result, ratio) {
         if (roundedSpecimen_last <= param.concentration[1]){
             answers.Title = ifRoundedSpecimenLastIsLessOrEqualToParam1.Title
             answers.Text = ifRoundedSpecimenLastIsLessOrEqualToParam1.Text
@@ -352,7 +365,9 @@ export function convertNgMg({datapoints}) {
                     }
                 }
                 else if (roundedSpecimen_base <= 800) {
-                    if (specimen_last - specimen_base >= 1){
+                    console.log(specimen_base)
+                    console.log(specimen_last)
+                    if (specimen_last - specimen_base > 1){
                         answers.Title = ifResultIsLargerThanRatio.ifRoundedBaseIsLessOrEqualTo800.ifAnswerTitleIsEqualToAnswerTitle.Titel
                         answers.Text = ifResultIsLargerThanRatio.ifRoundedBaseIsLessOrEqualTo800.ifAnswerTitleIsEqualToAnswerTitle.Text
                         answers.borderColor = redBorder
@@ -378,10 +393,6 @@ export function convertNgMg({datapoints}) {
         }
     }   
 
-    function upperLimit(A, k, t, S2, RMS, ratio) { 
-        let result = (A * Math.exp(-k * t)) + (2.57*(Math.sqrt(S2+RMS))); 
-        autoInterpretation(result, ratio);
-    }
 }
 
 

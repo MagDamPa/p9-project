@@ -1,11 +1,6 @@
 import React from 'react'
-import '../App.css'
 
 function Navbar() {
-
-    function buttonHandler () {
-
-    }
 
 
   return (

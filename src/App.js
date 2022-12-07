@@ -1,14 +1,12 @@
 
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import Menu from './Components/Menu';
-import Help from './Components/Help';
 import Input from './Components/Input';
 import Chart2 from './Components/Chart2';
 import {answers, convertNgMg} from './Utils/Model'; 
 import Result from './Components/Result';
 import Navbar from './Components/Navbar';
-import Render from './Components/Render';
+import Print from './Components/Print';
 
 function App() {
 
@@ -53,7 +51,7 @@ function App() {
         </div>
       </div>
       <div className = "print-button">
-        <Render/>
+        <Print/>
       </div>      
   </div>
   );
