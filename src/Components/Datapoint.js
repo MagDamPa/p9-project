@@ -1,13 +1,7 @@
-import { UpdateModeEnum } from 'chart.js'
 import React from 'react'
 import '../Style/Input.css'
-import TrashIcon from './Icons/TrashIcon.svg'
-import { datapoints } from './Input'
-import {convertNgMg} from '../Utils/Model'; 
 
-function Datapoint({datapoint, setDatapoints, datapoints, index}) {
-
-  
+function Datapoint({datapoint, index}) {
   return (
     <div className='Input'>
       {/*Gives the datapoints a number based on the position in the array, using index in a map function*/}

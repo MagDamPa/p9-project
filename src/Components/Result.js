@@ -1,7 +1,5 @@
-import { Title } from 'chart.js';
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import '../Style/Result.css'
-import { answers } from '../Utils/Model';
 
 function Result({answersTitle, answersText, answersColor, answersCalculation, answersOutside}) {
 
