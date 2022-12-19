@@ -32,8 +32,8 @@ ChartJS.register(
 );
 // Dette aktiverer disse specifikationer, således de er associeret med ChartJS,
 
-function Chart2({datapoints}) {
-//Chart2 er hovedfunktionen, og specificerer de egenskaber grafen skal have, samt den data der puttes ind i den.
+function Chart({datapoints}) {
+//Chart er hovedfunktionen, og specificerer de egenskaber grafen skal have, samt den data der puttes ind i den.
   const options = {
     maintainAspectRatio: false,
     plugins: {
@@ -83,7 +83,7 @@ function Chart2({datapoints}) {
     datasets: [
       {
         // her mappes variablen data, som er et array, til den indtastede data fra Datapoints. 
-        label: 'THC-COOH concentration',
+        label: 'THC-COOH/CREA concentration',
         data: datapoints.map(datapoint => 
           datapoint.Value),
         borderColor: '#8AABCE',
@@ -103,4 +103,4 @@ return (
   </div> )
 }
 
-export default Chart2
+export default Chart

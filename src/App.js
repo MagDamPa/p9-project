@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Input from './Components/Input';
-import Chart2 from './Components/Chart2';
+import Chart from './Components/Chart';
 import {answers, convertNgMg} from './Utils/Model'; 
 import Result from './Components/Result';
 import Navbar from './Components/Navbar';
@@ -47,7 +47,7 @@ function App() {
           </div>
         </div>
         <div className = "result-and-chart-wrapper">
-          <Chart2 datapoints={datapoints}/>
+          <Chart datapoints={datapoints}/>
         </div>
       </div>
       <div className = "print-button">
