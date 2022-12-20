@@ -23,12 +23,28 @@ The structure of the files are as follows:
 ![File structure](/src/assets/File-structure.png "Structure of the files")
 
 App.js - Is the main file which renders the rest of the components.
+
+
 Model.js - Consists of the systems logic and is where the mathmatical model is implemented.
+
+
 Input.js - Is the input component of the system where dates and test values can be entered.
+
+
 Datapoints.js - Consistes of the individual datapoints and displays them for the user. 
+
+
 Datapoint.js -  It gives the default layout of the datapoint. 
+
+
 Result.js - Is where the textual results gets displayed. 
+
+
 Chart.js - Is the component containing the chart view. 
+
+
 Print.js - is the print button. 
+
+
 Navbar.js - Is the component of the navigationbar. 
 
