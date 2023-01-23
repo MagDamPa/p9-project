@@ -99,6 +99,9 @@ export const answers = {
 //the number of the current test used for calculations
 var specimen_base = 0;
 var specimen_last = 0;
+
+//A variable for the old title 0 = okay, 1 = outside parameter
+var old_title = 0;
  
 //main function
 export function convertNgMg({datapoints}) {
@@ -243,6 +246,7 @@ export function convertNgMg({datapoints}) {
             answers.Calculation = ifRoundedSpecimenBaseisLessOrEqualToParam1.Calculation
             specimen_base = specimen_base + 1
             answers.borderColor = blackBorder
+            old_title = 1;
         }
         else if (roundedSpecimen_base > param.concentration[9]){
             answers.Title = ifRoundedSpecimenBaseisLargerThanParam9.Title
@@ -250,6 +254,7 @@ export function convertNgMg({datapoints}) {
             answers.Calculation = ifRoundedSpecimenBaseisLargerThanParam9.Calculation
             specimen_base = specimen_base + 1
             answers.borderColor = blackBorder
+            old_title = 1;
         }
         else{
             if (roundedSpecimen_base > 800) {
@@ -257,11 +262,13 @@ export function convertNgMg({datapoints}) {
                 answers.Text = ifRoundedSpeciemBaseIsLargerThan800.Text
                 answers.borderColor = normalBorder
                 answers.Calculation = ifRoundedSpeciemBaseIsLargerThan800.Calculation
+                old_title = 1;
             } else {
                 answers.Title = ifRoundedSpeciemBaseIsLessThan800.Title
                 answers.Text = ifRoundedSpeciemBaseIsLessThan800.Text
                 answers.borderColor = normalBorder
                 answers.Calculation = ifRoundedSpeciemBaseIsLessThan800.Calculation
+                old_title = 1;
             }
         }
     }
@@ -282,6 +289,7 @@ export function convertNgMg({datapoints}) {
             answers.borderColor = blackBorder
             answers.Calculation = ifRoundedSpecimenBaseisLessOrEqualToParam1.Calculation
             specimen_base = specimen_last
+            old_title = 1;
         } 
         else if (roundedSpecimen_base > param.concentration[1] && roundedSpecimen_base < param.concentration[2]) {
             upperLimit(param.A[1], param.k[1], totalHours, param.S2[1], param.RMS[1], roundedRatio)
@@ -313,6 +321,7 @@ export function convertNgMg({datapoints}) {
             answers.borderColor = blackBorder
             answers.Calculation = ifRoundedSpecimenBaseisLargerThanParam9.Calculation
             specimen_base = specimen_last
+            old_title = 1;
         }
     }
 
@@ -348,7 +357,7 @@ export function convertNgMg({datapoints}) {
                         answers.Title = ifResultIsLargerThanRatio.ifRoundedBaseIsLagerThan800AndroundedSpecimenLastIsLessThan200.Title
                         answers.Text = ifResultIsLargerThanRatio.ifRoundedBaseIsLagerThan800AndroundedSpecimenLastIsLessThan200.Text
                     }
-                    else if (specimen_last - specimen_base >= 1)
+                    else if (specimen_last - specimen_base >= 1 && old_title === 0)
                     {
                         answers.Title = ifResultIsLargerThanRatio.ifAnswerTitleIsEqualToAnswerTitleAndRoundedSpecimenIsLargerOrEqualTo200.Title
                         answers.Text = ifResultIsLargerThanRatio.ifAnswerTitleIsEqualToAnswerTitleAndRoundedSpecimenIsLargerOrEqualTo200.Text
@@ -365,20 +374,17 @@ export function convertNgMg({datapoints}) {
                     }
                 }
                 else if (roundedSpecimen_base <= 800) {
-                    console.log(specimen_base)
-                    console.log(specimen_last)
-                    if (specimen_last - specimen_base > 1){
+                    if (specimen_last > 1 && old_title === 0){
                         answers.Title = ifResultIsLargerThanRatio.ifRoundedBaseIsLessOrEqualTo800.ifAnswerTitleIsEqualToAnswerTitle.Titel
                         answers.Text = ifResultIsLargerThanRatio.ifRoundedBaseIsLessOrEqualTo800.ifAnswerTitleIsEqualToAnswerTitle.Text
                         answers.borderColor = redBorder
                     }
-                    else 
+                    else
                     {
                         answers.Title = ifResultIsLargerThanRatio.ifRoundedBaseIsLessOrEqualTo800.ifAnswerTitleIsNotEqualToAnswerTitle.Title
                         answers.Text = ifResultIsLargerThanRatio.ifRoundedBaseIsLessOrEqualTo800.ifAnswerTitleIsNotEqualToAnswerTitle.Text
                         answers.borderColor = orangeBorder
                     }
-                    
                 }
                 specimen_base = specimen_last
             } 
@@ -390,6 +396,8 @@ export function convertNgMg({datapoints}) {
             } 
             else if (result = null){
             }
+            console.log(old_title);
+            old_title = 0;
         }
     }   
 
