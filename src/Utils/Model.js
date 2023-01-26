@@ -202,8 +202,8 @@ export function convertNgMg({datapoints}) {
     //if it is, it tries the next one until it finds the next basedate. 
     function daysBetween(){
         var daysbetween = (date_last.getTime() - date_base.getTime()) / (1000 * 3600 * 24) 
+        answers.Outside = '';
         if (daysbetween >= 31){
-            //specimen_base = specimen_base + 1
             answers.Outside = 'Spændet på de 30 dage for modellen er overskredet, resultatet er derfor udelukkende vejledende'
         }
     }
@@ -349,10 +349,9 @@ export function convertNgMg({datapoints}) {
         }
         else {
             if (result < ratio) {
-                answers.Outside = ''
                 answers.borderColor = redBorder
                 answers.Calculation = ifResultIsLargerThanRatio.Calculation
-                if (roundedSpecimen_base > 800) {
+                if (roundedSpecimen_base >= 800) {
                     if(roundedSpecimen_last < 200){
                         answers.Title = ifResultIsLargerThanRatio.ifRoundedBaseIsLagerThan800AndroundedSpecimenLastIsLessThan200.Title
                         answers.Text = ifResultIsLargerThanRatio.ifRoundedBaseIsLagerThan800AndroundedSpecimenLastIsLessThan200.Text
@@ -373,7 +372,7 @@ export function convertNgMg({datapoints}) {
                         answers.borderColor = orangeBorder
                     }
                 }
-                else if (roundedSpecimen_base <= 800) {
+                else if (roundedSpecimen_base < 800) {
                     if (specimen_last > 1 && old_title === 0){
                         answers.Title = ifResultIsLargerThanRatio.ifRoundedBaseIsLessOrEqualTo800.ifAnswerTitleIsEqualToAnswerTitle.Titel
                         answers.Text = ifResultIsLargerThanRatio.ifRoundedBaseIsLessOrEqualTo800.ifAnswerTitleIsEqualToAnswerTitle.Text
@@ -396,7 +395,6 @@ export function convertNgMg({datapoints}) {
             } 
             else if (result = null){
             }
-            console.log(old_title);
             old_title = 0;
         }
     }   
