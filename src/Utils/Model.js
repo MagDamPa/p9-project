@@ -118,82 +118,83 @@ export function convertNgMg({datapoints}) {
     //runs the function days between
     daysBetween()
 
-    const ifRoundedSpeciemBaseIsLargerThan800 = {
+    // Case1 of the results describes that the model can't predict anything yet because of a large value. 
+    const case1 = {
         Title: "Modellen kan endnu ikke forudsige resultatet.",
         Text: "Tag næste prøve efter 5 dage.",
         Calculation: `Modellen har givet følgende resultat baseret på test nr. ${specimen_base + 1}.`
     }
-
-    const ifRoundedSpeciemBaseIsLessThan800 = {
+    // Case2 of the results describes that the model can't predict anything yet. 
+    const case2 = {
         Title: "Modellen kan endnu ikke forudsige resultatet.",
         Text: "Tag næste prøve tidligst efter 2 dage.",
         Calculation: `Modellen har givet følgende resultat baseret på test nr. ${specimen_base + 1}.`
     }
 
-    const ifRoundedSpecimenBaseisLessOrEqualToParam1 = {
+    // Case3 of the results describes that the model can't predict anything yet beacuse of the value is less than the cut off point 0,9 mg/mol. 
+    const case3 = {
         Title: "Værdi er udenfor modellens rækkevidde (0,9 til 132 mg/mol).",
         Text: "Testværdien er for lav til modellen. Lave værdier i denne størrelse kan tolkes som udskillelse af rester fra tidligere stofbrug, som er ophobet i fedtvævet.",
         Calculation: `Modellen er uden for rækkevidde baseret på test nr. ${specimen_base + 1}`
     }
-    
-    const ifRoundedSpecimenBaseisLargerThanParam9 = {
+
+    // Case4 of the results describes that the model can't predict anything yet beacuse of the value is more than the cut off point 132 mg/mol. 
+    const case4 = {
         Title: "Værdi er udenfor modellens rækkevidde (0,9 til 132 mg/mol).",
         Text: `Testværdien den ${date_base_format} er for høj, og der må afventes et fald inden modellen kan anvendes. Gentagne høje værdier kan betragtes som tegn på fortsat stofbrug`,
         Calculation: `Modellen er uden for rækkevidde baseret på test nr. ${specimen_base + 1}`
     }
 
-    const ifRoundedSpecimenLastIsLessOrEqualToParam1 ={
+    // Case5 of the results describes that the model can't predict anything yet beacuse of the value is less than the cut off point 0,9 mg/mol. 
+    // Case5 adds a warning about "no signs of new use"
+    const case5 ={
         Title: "Værdi er udenfor modellens rækkevidde (0,9 til 132 mg/mol) ",
         Text: 'Testværdien er for lav til modellen. Lave værdier i denne størrelse kan tolkes som udskillelse af rester fra tidligere stofbrug, som er ophobet i fedtvævet. BEMÆRK: Der er derfor ikke tegn på nyt indtag',
         Calculation: `Modellen er uden for rækkevidde baseret på test nr. ${specimen_last + 1}`
     }
 
-    const ifRoundedSpecimenLastIsLargerThanParam9 = {
-        Title: "Værdi er udenfor modellens rækkevidde (0,9 til 132 mg/mol) ",
-        Text:`Testværdien den ${date_last_format} er for høj, og der må afventes et fald inden modellen kan anvendes. Gentagne høje værdier kan betragtes som tegn på fortsat stofbrug`,
-        Calculation: `Modellen er uden for rækkevidde baseret på test nr. ${specimen_last + 1}`
-    }
-
-    const ifResultIsLargerThanRatio = {
+    // Case6 descibes which test values the result is based on.
+    // Inside case6 are ohter cases nested. 
+    const case6 = {
         Calculation: `Modellen har givet følgende resultat baseret på test nr. ${specimen_base + 1} og test nr. ${specimen_last + 1}`,
-        ifRoundedBaseIsLagerThan800AndroundedSpecimenLastIsLessThan200: {
+
+        // Case6_1 desctibes "new sign of use" 
+        case6_1: {
             Title: `Tegn på nyt indtag`,
             Text: `Der er evidens for nyt forbrug. Næste beregning vil ske med udgangspunkt i testen fra den ${date_last_format}`
         }, 
-        ifAnswerTitleIsEqualToAnswerTitleAndRoundedSpecimenIsLargerOrEqualTo200: {
+
+        // Case6_2 desctibes "new sign of use" 
+        case6_2: {
             Title: "Tegn på nyt indtag.",
             Text: `Der er evidens for nyt forbrug. Næste beregning vil ske med udgangspunkt i testen fra den ${date_last_format}`
 
         },
-        ifRoundedBaseIsLagerThan800AndroundedSpecimenLastLargerThan200: {
+
+        // Case6_3 desctibes "risk for false positive" 
+        case6_3: {
             Title: "Risiko for falsk forudsigelse af nyt indtag",
             Text: `BEMÆRK: Der er mulighed for en falsk positiv forudsigelse  i op til 14 dage fra testen den ${date_base_format}, foretag derfor næste test efter den ${new Date(datapoints[specimen_base].Date).addDays(15).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}, hvorefter modellen vil være præcis.`
         }, 
-        ifRoundedBaseIsLessOrEqualTo800: {
-            ifAnswerTitleIsEqualToAnswerTitle: {
+
+        // Case6_4 desctibes two cases:  case6_4_1: a sign of new use case and case6_4_2: a need for another test case
+        case6_4: {
+            case6_4_1: {
                 Titel: "Tegn på nyt indtag",
                 Text: `Der er evidens for nyt forbrug. Næste beregning vil ske med udgangspunkt i testen fra den ${date_last_format}`
             },
-            ifAnswerTitleIsNotEqualToAnswerTitle: {
+            case6_4_2: {
                 Title:"Ny prøve påkrævet. Modellen kan endnu ikke forudsige et resultat. Der er risiko for falsk forudsigelse af nyt indtag.",
                 Text: `BEMÆRK: Resultatet fra modellen er usikkert. Tag næste prøve tidligst efter 2 dage. Næste testsvar vil blive beregnet på baggrund af testen fra den ${date_last_format}. Modellen burde herefter være præcis`
             }
         }, 
-        ifResultIsLargerThanRatio: {
+
+         // Case6_5 desctibes "no sign of new use" 
+        case6_5: {
             Title: "Intet tegn på nyt indtag af cannabis.",
             Text: `Der er ikke evidens for nyt cannabis forbrug mellem den ${date_base_format} og den ${date_last_format}. Næste prøve vil fortsat blive beregnet med udgangspunkt i testen fra den ${date_base_format}`,
             Calculation: `Modellen har givet følgende resultat baseret på test nr. ${specimen_base + 1} og test nr. ${specimen_last + 1}`
         },
-        ifRoundedSpecimenLastLessThanParam1: {
-            Title: "Værdi er udenfor modellens rækkevidde (0,9 til 132 mg/mol)",
-            Text: 'Testværdien er for lav til modellen. Lave værdier i denne størrelse kan tolkes som udskillelse af rester fra tidligere stofbrug, som er ophobet i fedtvævet. BEMÆRK: Der er derfor ikke tegn på nyt indtag',
-            Calculation: `Modellen er uden for rækkevidde baseret på test nr. ${specimen_last + 1}`
-        },
-        ifRoundedSpecimenLastLargerThanParam9: {
-            Title: "Værdi er udenfor modellens rækkevidde (0,9 til 132 mg/mol) ",
-            Text: `Testværdien den ${new Date(datapoints[specimen_last].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})} er for høj, og der må afventes et fald inden modellen kan anvendes. Gentagne høje værdier kan betragtes som tegn på fortsat stofbrug`,
-            Calculation: `Modellen er uden for rækkevidde baseret på test nr. ${specimen_last + 1}`
-        }
     }
 
     
@@ -241,33 +242,33 @@ export function convertNgMg({datapoints}) {
     //gives an answer based on one test
     function above800 () {
         if (roundedSpecimen_base <= param.concentration[1]){
-            answers.Title = ifRoundedSpecimenBaseisLessOrEqualToParam1.Title
-            answers.Text = ifRoundedSpecimenBaseisLessOrEqualToParam1.Text
-            answers.Calculation = ifRoundedSpecimenBaseisLessOrEqualToParam1.Calculation
+            answers.Title = case3.Title
+            answers.Text = case3.Text
+            answers.Calculation = case3.Calculation
             specimen_base = specimen_base + 1
             answers.borderColor = blackBorder
             old_title = 1;
         }
         else if (roundedSpecimen_base > param.concentration[9]){
-            answers.Title = ifRoundedSpecimenBaseisLargerThanParam9.Title
-            answers.Text = ifRoundedSpecimenBaseisLargerThanParam9.Text
-            answers.Calculation = ifRoundedSpecimenBaseisLargerThanParam9.Calculation
+            answers.Title = case4.Title
+            answers.Text = case4.Text
+            answers.Calculation = case4.Calculation
             specimen_base = specimen_base + 1
             answers.borderColor = blackBorder
             old_title = 1;
         }
         else{
             if (roundedSpecimen_base > 800) {
-                answers.Title = ifRoundedSpeciemBaseIsLargerThan800.Title
-                answers.Text = ifRoundedSpeciemBaseIsLargerThan800.Text
+                answers.Title = case1.Title
+                answers.Text = case1.Text
                 answers.borderColor = normalBorder
-                answers.Calculation = ifRoundedSpeciemBaseIsLargerThan800.Calculation
+                answers.Calculation = case1.Calculation
                 old_title = 1;
             } else {
-                answers.Title = ifRoundedSpeciemBaseIsLessThan800.Title
-                answers.Text = ifRoundedSpeciemBaseIsLessThan800.Text
+                answers.Title = case2.Title
+                answers.Text = case2.Text
                 answers.borderColor = normalBorder
-                answers.Calculation = ifRoundedSpeciemBaseIsLessThan800.Calculation
+                answers.Calculation = case2.Calculation
                 old_title = 1;
             }
         }
@@ -284,10 +285,10 @@ export function convertNgMg({datapoints}) {
     //findes the correct parameters to use for the calculations. 
     function findA(roundedRatio) {
         if (roundedSpecimen_base <= param.concentration[1]) {
-            answers.Title = ifRoundedSpecimenBaseisLessOrEqualToParam1.Title
-            answers.Text = ifRoundedSpecimenBaseisLessOrEqualToParam1.Text
+            answers.Title = case3.Title
+            answers.Text = case3.Text
             answers.borderColor = blackBorder
-            answers.Calculation = ifRoundedSpecimenBaseisLessOrEqualToParam1.Calculation
+            answers.Calculation = case3.Calculation
             specimen_base = specimen_last
             old_title = 1;
         } 
@@ -316,10 +317,10 @@ export function convertNgMg({datapoints}) {
             upperLimit(param.A[8], param.k[8], totalHours, param.S2[8], param.RMS[8], roundedRatio)
         }
         else if (roundedSpecimen_base > param.concentration[9] ) {
-            answers.Title = ifRoundedSpecimenBaseisLargerThanParam9.Title
-            answers.Text = ifRoundedSpecimenBaseisLargerThanParam9.Text
+            answers.Title = case4.Title
+            answers.Text = case4.Text
             answers.borderColor = blackBorder
-            answers.Calculation = ifRoundedSpecimenBaseisLargerThanParam9.Calculation
+            answers.Calculation = case4.Calculation
             specimen_base = specimen_last
             old_title = 1;
         }
@@ -334,64 +335,64 @@ export function convertNgMg({datapoints}) {
     //Assignes the correct result based on the result and ratio, as well as other elements
     function autoInterpretation(result, ratio) {
         if (roundedSpecimen_last <= param.concentration[1]){
-            answers.Title = ifRoundedSpecimenLastIsLessOrEqualToParam1.Title
-            answers.Text = ifRoundedSpecimenLastIsLessOrEqualToParam1.Text
-            answers.Calculation = ifRoundedSpecimenLastIsLessOrEqualToParam1.Calculation
+            answers.Title = case5.Title
+            answers.Text = case5.Text
+            answers.Calculation = case5.Calculation
             answers.borderColor = blackBorder
             specimen_base = specimen_last
         }
         else if (roundedSpecimen_last > param.concentration[9]){
-            answers.Title = ifRoundedSpecimenLastIsLargerThanParam9.Title
-            answers.Text =  ifRoundedSpecimenLastIsLargerThanParam9.Text
-            answers.Calculation = ifRoundedSpecimenLastIsLargerThanParam9.Calculation
+            answers.Title = case4.Title
+            answers.Text =  case4.Text
+            answers.Calculation = case4.Calculation
             answers.borderColor = blackBorder
             specimen_base = specimen_last
         }
         else {
             if (result < ratio) {
                 answers.borderColor = redBorder
-                answers.Calculation = ifResultIsLargerThanRatio.Calculation
+                answers.Calculation = case6.Calculation
                 if (roundedSpecimen_base >= 800) {
                     if(roundedSpecimen_last < 200){
-                        answers.Title = ifResultIsLargerThanRatio.ifRoundedBaseIsLagerThan800AndroundedSpecimenLastIsLessThan200.Title
-                        answers.Text = ifResultIsLargerThanRatio.ifRoundedBaseIsLagerThan800AndroundedSpecimenLastIsLessThan200.Text
+                        answers.Title = case6.case6_1.Title
+                        answers.Text = case6.case6_1.Text
                     }
                     else if (specimen_last - specimen_base >= 1 && old_title === 0)
                     {
-                        answers.Title = ifResultIsLargerThanRatio.ifAnswerTitleIsEqualToAnswerTitleAndRoundedSpecimenIsLargerOrEqualTo200.Title
-                        answers.Text = ifResultIsLargerThanRatio.ifAnswerTitleIsEqualToAnswerTitleAndRoundedSpecimenIsLargerOrEqualTo200.Text
+                        answers.Title = case6.case6_2.Title
+                        answers.Text = case6.case6_2.Text
                     }
                     else{
-                        answers.Title = ifResultIsLargerThanRatio.ifRoundedBaseIsLagerThan800AndroundedSpecimenLastLargerThan200.Title
+                        answers.Title = case6.case6_3.Title
                         //Connected to the Date.prototype.addDays method to add 15 days
                         var rawDatObject = new Date(datapoints[specimen_last].Date)
                         // Converts the date into a string with the month name. 
                         var added15Days = rawDatObject.addDays(15).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})
                         
-                        answers.Text = ifResultIsLargerThanRatio.ifRoundedBaseIsLagerThan800AndroundedSpecimenLastLargerThan200.Text
+                        answers.Text = case6.case6_3.Text
                         answers.borderColor = orangeBorder
                     }
                 }
                 else if (roundedSpecimen_base < 800) {
                     if (specimen_last > 1 && old_title === 0){
-                        answers.Title = ifResultIsLargerThanRatio.ifRoundedBaseIsLessOrEqualTo800.ifAnswerTitleIsEqualToAnswerTitle.Titel
-                        answers.Text = ifResultIsLargerThanRatio.ifRoundedBaseIsLessOrEqualTo800.ifAnswerTitleIsEqualToAnswerTitle.Text
+                        answers.Title = case6.case6_4.case6_4_1.Titel
+                        answers.Text = case6.case6_4.case6_4_1.Text
                         answers.borderColor = redBorder
                     }
                     else
                     {
-                        answers.Title = ifResultIsLargerThanRatio.ifRoundedBaseIsLessOrEqualTo800.ifAnswerTitleIsNotEqualToAnswerTitle.Title
-                        answers.Text = ifResultIsLargerThanRatio.ifRoundedBaseIsLessOrEqualTo800.ifAnswerTitleIsNotEqualToAnswerTitle.Text
+                        answers.Title = case6.case6_4.case6_4_2.Title
+                        answers.Text = case6.case6_4.case6_4_2.Text
                         answers.borderColor = orangeBorder
                     }
                 }
                 specimen_base = specimen_last
             } 
             else if (result > ratio) {
-                answers.Title = ifResultIsLargerThanRatio.ifResultIsLargerThanRatio.Title
+                answers.Title = case6.case6_5.Title
                 answers.borderColor = grenBorder
-                answers.Text = ifResultIsLargerThanRatio.ifResultIsLargerThanRatio.Text
-                answers.Calculation = ifResultIsLargerThanRatio.ifResultIsLargerThanRatio.Calculation 
+                answers.Text = case6.case6_5.Text
+                answers.Calculation = case6.case6_5.Calculation 
             } 
             else if (result = null){
             }
