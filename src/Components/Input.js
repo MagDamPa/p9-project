@@ -3,6 +3,7 @@ import '../Style/Input.css'
 import Datapoints from './Datapoints'
 import infoIcon from './Icons/infoIcon.svg'
 import { v4 as uuidv4 } from 'uuid'
+import { Info, Plus } from 'lucide-react'
 
 function Input({datapoints, setDatapoints}) {
 
@@ -62,38 +63,41 @@ function Input({datapoints, setDatapoints}) {
   }
   
   return (
-    <div >
+    <div className='flex justify-center' >
       <form onSubmit={e => { e.preventDefault(); }}>
-        <div className='flex-wrapper' >
+        <div className='flex justify-center flex-col align-middle max-w-6xl mt-8' >
           <div>
             {/*Creates a element of the component Datapoints, and provides it with the array datapoints, and the function setDatapoints*/}
             <Datapoints datapoints={datapoints} setDatapoints={setDatapoints}/>
           </div>
-          <div className='line'/>
-          <div className='Input'>
+          <div className='flex justify-between text-center align-middle border rounded-lg p-2 gap-4'>
             {/*adds the number of the next element we will add to the array*/}
-            <p className = "flex-item main testnumber" id="testnumber">
+            <p className = "px-6 rounded-lg text-center bg-base-200 flex justify-center items-center" id="testnumber" >
               {datapoints.length + 1}
-            </p> 
+            </p>
             {/*Creates an input field for the user to enter a date based on a dropdown calender, it acceses the values using the useRef from react*/}
-            <input type = "date"  className = "flex-item main date border" id='date' ref={testDateRef} required />
+            <input type = "date"  className = "border zborder-base-200 rounded-lg pl-2" id='date' ref={testDateRef} required />
             {/*Creates an input field for the user to enter a testvalue, again using useRef to acces it later*/}
-            <input type = 'number' className = "flex-item noscroll main testvalue Small" ref={testValueRef} required placeholder='Resultat'/>
-            <span className="flex-item Unit main"> 
-              mg/mol
-            </span>
-            {/*Unit display*/}
-            <button className = "flex-item info main">
-                <img className = "IconInput" 
-                  src={infoIcon}
-                />
+            <div className = "border rounded-lg border-base-200 flex pl-2">
+              <input type = 'number' className = " " ref={testValueRef} required placeholder='Resultat'/>
+              <select className="select w-full max-w-xs bg-base-200 " >
+                <option value={true} selected >mg/mol</option>
+                <option value={false}>usa</option>
+            </select>   
+            </div>
+            <input className='border rounded-lg pl-2' placeholder='Kommentar' />
+            {/*Unit display*/}      
+            <div className="tooltip" data-tip="hello">
+              <button className="btn"><Info /></button>
+            </div>        
+            <button className='btn' onClick={buttonHandlerAdd}>
+                <Plus />
+                Tilføj testresult
             </button>
           </div>
           <div className='text' id="output-box"></div>
           <div className='buttons'>
-            <button className='Add' onClick={buttonHandlerAdd}>
-                Tilføj testresult
-            </button>
+           
             <button className='deleteAll' onClick={buttonHandlerDelete}>
                 Slet alle testresultater
             </button>

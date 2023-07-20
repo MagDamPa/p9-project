@@ -1,8 +1,8 @@
 import React from 'react'
-import 'chartjs-adapter-date-fns';
+//import 'chartjs-adapter-date-fns';
 import '../Style/Chart.css'
 import {da} from 'date-fns/locale';
-import { Line } from 'react-chartjs-2';
+//import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -94,12 +94,12 @@ function Chart({datapoints}) {
 return (
   //Endelig spytter Return denne funktion fra komponentet ud til vores app.js.
   <div className='chart-wrapper'>
-    <Line 
+    {/* <Line 
       height = {"600px"}
       width = {"1500px"}
       data = {data}
       options = {options}
-    />
+    /> */}
   </div> )
 }
 
