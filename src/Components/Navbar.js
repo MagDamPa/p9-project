@@ -18,7 +18,7 @@ function Navbar({setLanguage, language}) {
         <div className="flex-none">
             <ul className="menu menu-horizontal px-1 items-center">
             <li><Link to='/Videnscenter'>Videnscenter</Link></li>
-            <li><Link to='/faq'>FAQ</Link></li>
+            <li><Link to='/FAQ'>FAQ</Link></li>
             <li><Link to='/kontakt'>Kontakt</Link></li>
             <div className="tabs tabs-boxed ml-4">
             <select className="select w-full max-w-xs" value={language} onChange={languageSelectHandler}>

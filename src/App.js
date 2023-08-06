@@ -5,6 +5,7 @@ import Navbar from './Components/Navbar';
 import { Routes, Route } from 'react-router-dom';
 import Homepage from './pages/Homepage';
 import Contact from './pages/Contact';
+import FAQ from './pages/FAQ';
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Homepage/>} />
         <Route path='/kontakt' element={<Contact />} />
+        <Route path='/faq' element={<FAQ />} />
       </Routes>
     </div>
   );
