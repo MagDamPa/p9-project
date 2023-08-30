@@ -2,7 +2,7 @@ import React from 'react'
 import '../Style/Result.css'
 
 function Result({answersTitle, answersText, answersColor, answersCalculation, answersOutside}) {
-
+/// This function returns the Results corresponding to the evaluated text. The response is stored as an array, each one in five different elements as mentioned above. 
 
   return (
     <div>
