@@ -17,8 +17,8 @@ import {
 } from 'chart.js';
 
 
-// Størstedelen af ovenstående er blot at importere Chart.js elementer, der er vores graf-library; Derudover,
-// så er Chart.css den associerede .css fil, og import {da} importerer dansk standard for dato-angivelse, fra date-fns, et api til at koble tid på grafer.
+// The code above is boilerplate, meant to import Chart.js elements - our chart library, in addition;
+// Chart.css is the associated .css fil, and import {da} imports danish standards for date-marking from date-fns, an api for adding time to the chart.
 
 ChartJS.register(
   CategoryScale,
@@ -30,10 +30,10 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-// Dette aktiverer disse specifikationer, således de er associeret med ChartJS,
+// This activates the specifications, and associates them with ChartJS,
 
 function Chart({datapoints}) {
-//Chart er hovedfunktionen, og specificerer de egenskaber grafen skal have, samt den data der puttes ind i den.
+//Chart is the main function, and specifies the attributes the chart must have, as well as the data to be plugged into it.
   const options = {
     maintainAspectRatio: false,
     plugins: {
@@ -50,7 +50,7 @@ function Chart({datapoints}) {
           size: 30,
           family: "Times New Roman"
         }
-        //Dette specificerer graftitlen, dens lokation, størrelse, og position.
+        //This specifies the chart title, its location, size and position.
       },
       scales: {
         x: {
@@ -59,9 +59,9 @@ function Chart({datapoints}) {
           max: 150,
           stepSize: 3,
         },
-        // Scales er "Skalaerne", altså, hvordan måles de forskellige elementer? max siger at der maks kan være 103 punkter i dataen, beginatZero sætter x-aksens minimum til at være 0.
+        // Scales is the "scales", how the elements are measured. Max states that 50 steps at most can appear, while beginatZero sets the x-axis to start at zero.
       },
-    // Adapters sørger for at dato bliver læst af api'en som dansk tid...
+    // Adapters ensure that the dates are read in danish as format...
       adapters: {
         date: {
           locale: da
@@ -75,14 +75,14 @@ function Chart({datapoints}) {
       max: 160,
     },
   }; 
-/// Labels er hvorledes disse dato-strings skal repræsenteres: Selvfølgelig i dansk format.
+/// Labels are how these times are to be represnted: In a danish format, in this case.
   const labels = datapoints.map(datapoint => 
     new Date(datapoint.Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})); 
   const data = {
-    labels, ///specificerer hvad der skal stå på x-aksen
+    labels, ///Specifices what is to be written on the x-axis
     datasets: [
       {
-        // her mappes variablen data, som er et array, til den indtastede data fra Datapoints. 
+        // Here the variable data is mapped as an array to the data input from datapoints.  
         label: 'THC-COOH/CREA concentration',
         data: datapoints.map(datapoint => 
           datapoint.Value),
@@ -92,7 +92,7 @@ function Chart({datapoints}) {
     ],
   };
 return (
-  //Endelig spytter Return denne funktion fra komponentet ud til vores app.js.
+  //Finally, Return returns the entirity of the function as a component to our app.js.
   <div className='chart-wrapper'>
     <Line 
       height = {"600px"}
