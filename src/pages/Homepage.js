@@ -44,14 +44,14 @@ function Homepage() {
   }, [datapoints.length]);
 
   return (
-    <div className="App pb-16">{
+    <div className="pb-16">{
       screenWidth >= 992 ? 
       <div>
         <DashboardHero model={model} setModel={setModel} logggedIn={logggedIn} setLoggedIn={setLoggedIn} />
         <InputContainer datapoints={datapoints} setDatapoints={setDatapoints} answers={answers}/>
-        <div className='flex gap-4 mt-16 md:block lg:flex '>
+        <div className='flex gap-4 mt-16 md:block lg:flex p-4 '>
           <div style={{border: borderStyling}} className='border border-base-300 rounded-lg p-4 '> 
-          <h2 className='text-2xl font-bold text-center'>Fortolkning </h2>
+            <h2 className='text-2xl font-bold text-center'>Fortolkning </h2>
               <div className=''>
                 <Result 
                   answersTitle={answers.Title} 

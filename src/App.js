@@ -16,7 +16,7 @@ function App() {
 
 
   return (
-    <div className="App pb-16">
+    <div className="pb-16">
       <Navbar setLanguage={setLanguage} language={language} />
       <Routes>
         <Route path='/' element={<Homepage/>} />

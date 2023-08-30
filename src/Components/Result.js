@@ -23,10 +23,10 @@ function Result({answersTitle, answersText, answersColor, answersCalculation, an
         </p>
       </div>
       <div className='flex justify-center mt-4 gap-2'>
-        <span style={{backgroundColor: "#E8F5FC"}} className="badge">Intet svar</span>
-        <span style={{backgroundColor: "#ffa202"}} className="badge">Ny prøve påkrævet</span>
-        <span style={{backgroundColor: "#e2271d"}} className="badge">Tegn på nyt indtag</span>
-        <span style={{backgroundColor: "#3be21d"}} className="badge">Intet tegn på nyt indtag</span>
+        <span style={{backgroundColor: "#f1f1ef", color: "#787774"}} className="badge">Intet svar</span>
+        <span style={{backgroundColor: "#f8ecdf", color: "#cc772f"}} className="badge">Ny prøve påkrævet</span>
+        <span style={{backgroundColor: "#faecee", color: "#c4554d"}} className="badge">Tegn på nyt indtag</span>
+        <span style={{backgroundColor: "#eef3ed", color: "#548064"}} className="badge">Intet tegn på nyt indtag</span>
       </div>
     </div>
   )
