@@ -77,7 +77,7 @@ function Chart({datapoints}) {
   }; 
 /// Labels er hvorledes disse dato-strings skal repræsenteres: Selvfølgelig i dansk format.
   const labels = datapoints.map(datapoint => 
-    new Date(datapoint.Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})); 
+    new Date(datapoint.date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})); 
   const data = {
     labels, ///specificerer hvad der skal stå på x-aksen
     datasets: [
@@ -85,7 +85,7 @@ function Chart({datapoints}) {
         // her mappes variablen data, som er et array, til den indtastede data fra Datapoints. 
         label: 'THC-COOH/CREA concentration',
         data: datapoints.map(datapoint => 
-          datapoint.Value),
+          datapoint.value),
         borderColor: '#8AABCE',
         backgroundColor: '#8AABCE',
       },

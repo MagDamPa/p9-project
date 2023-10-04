@@ -10,11 +10,11 @@ function Datapoint({datapoint, index}) {
         </p> 
       {/*Shows the date for the datapoint*/}
         <p className = "flex-item datapoints date" id="date" >
-          {new Date(datapoint.Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}
+          {new Date(datapoint.date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}
         </p>
       {/*Displays the value for the datapoint*/}
         <p className = "flex-item datapoints Small">
-          {datapoint.Value}
+          {datapoint.value}
         </p>
       {/*Simple unit display*/}
       <span className="flex-item Unit datapoints"> 

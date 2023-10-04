@@ -45,7 +45,7 @@ function Input({datapoints, setDatapoints, answers}) {
     if(date != '' && value != ''){
       if (date_last < date || date_last === ''){
         setDatapoints(prevDatapoints => {
-          return [...prevDatapoints, { Id: uuidv4(), Date: date, Value: value,}]
+          return [...prevDatapoints, { Id: uuidv4(), date: date, value: value,}]
         })
         e.preventDefault()
         testDateRef.current.value = null

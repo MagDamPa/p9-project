@@ -24,7 +24,7 @@ const ChartView = ({data}) => {
   useEffect(() => {
     // Use map to create a new array with Date and Value properties using pick
     const _transformedData = map(data, (item) =>
-      pick(item, ['Date', 'Value'])
+      pick(item, ['date', 'value'])
     ); 
 
     // Set the transformedData using useState
@@ -36,11 +36,11 @@ const ChartView = ({data}) => {
   }
   
   transformedData.forEach(d => {
-    d.Date = moment(d.Date).valueOf(); // date -> epoch
+    d.date = moment(d.date).valueOf(); // date -> epoch
   });
 
-  const xDomainMin = transformedData[0]?.Date
-  const xDomainMax = transformedData[transformedData.length-1]?.Date
+  const xDomainMin = transformedData[0]?.date
+  const xDomainMax = transformedData[transformedData.length-1]?.date
   
   
   function CustomTooltip({ active, payload, label }) {
@@ -81,10 +81,10 @@ const ChartView = ({data}) => {
                 <stop offset="75%" stopColor="#2451B7" stopOpacity={0.05} />
               </linearGradient> 
             </defs>
-          <Area dataKey="Value" fill='url(#color)'  activeDot={{ r: 8 }}  />
+          <Area dataKey="value" fill='url(#color)'  activeDot={{ r: 8 }}  />
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis 
-          dataKey="Date" 
+          dataKey="date" 
           tickFormatter={dateFormatter} 
           domain={[xDomainMin, xDomainMax]}
           scale="time"
@@ -94,7 +94,7 @@ const ChartView = ({data}) => {
             right: 30
           }}
           />
-          <YAxis dataKey="Value" domain={[0, 150]} />
+          <YAxis dataKey="value" domain={[0, 150]} />
           <Tooltip content={CustomTooltip}  />
         </AreaChart>  
       </ResponsiveContainer> 
