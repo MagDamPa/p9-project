@@ -6,7 +6,11 @@ module.exports = {
       
     },
     
-    extend: {},
+    extend: {
+      maxWidth: {
+        'half': '50%',
+      }
+    },
   },
   plugins: [require("daisyui")],
 }

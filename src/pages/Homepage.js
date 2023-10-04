@@ -8,6 +8,7 @@ import Navbar from '../Components/Navbar';
 import InputContainer from '../Components/InputContainer';
 import DashboardHero from '../Components/DashboardHero';
 import TooSmallScreen from '../Components/TooSmallScreen';
+import ChartView from '../Components/ChartView';
 
 function Homepage() {
 
@@ -65,6 +66,7 @@ function Homepage() {
           </div>
           <div style={{border: borderStyling}} className='border border-base-300 rounded-lg p-4 flex-grow '>
             <h2 className='text-2xl font-bold text-center'>Graf over resultater </h2>
+            <ChartView data={datapoints} />
           </div>
         </div>
       </div>
