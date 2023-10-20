@@ -5,6 +5,8 @@ import infoIcon from './Icons/infoIcon.svg'
 import { v4 as uuidv4 } from 'uuid'
 import { Info, Plus } from 'lucide-react'
 import ResultTable from './ResultTable';
+import { toast } from 'sonner';
+
 
 function Input({datapoints, setDatapoints, answers}) {
 
@@ -40,7 +42,6 @@ function Input({datapoints, setDatapoints, answers}) {
       date_last = new Date(datapoints[datapoints.length-1].Date)
     )
 
-    let warn = ''
 
     if(date != '' && value != ''){
       if (date_last < date || date_last === ''){
@@ -50,12 +51,14 @@ function Input({datapoints, setDatapoints, answers}) {
         e.preventDefault()
         testDateRef.current.value = null
         testValueRef.current.value = null
-        warn = ''
-        document.getElementById("output-box").innerHTML = warn;
       }
       else{
-        warn = "Datoen du har indtastet ligger før tidligere indtastet datoer<br>";
-        document.getElementById("output-box").innerHTML = warn;
+        toast.error('Datoen du har indtastet ligger før tidligere indtastet datoer', {
+          action: {
+            label: "luk",
+            onClick: () => {},
+          }
+        })
       }
     }
   }
@@ -100,7 +103,6 @@ function Input({datapoints, setDatapoints, answers}) {
           </div>
           <div className='text' id="output-box"></div>
           <div className='buttons'>
-           
             <button className='deleteAll hidden' onClick={buttonHandlerDelete}>
                 Slet alle testresultater
             </button>

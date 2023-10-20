@@ -33,8 +33,6 @@ function Homepage() {
 
   let screenWidth  = window.innerWidth
 
-  console.log(screenWidth)
-
   useEffect(() => {
     if (datapoints.length != 0) {
       convertNgMg({datapoints})
