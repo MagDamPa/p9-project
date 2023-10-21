@@ -1,8 +1,8 @@
 import React from 'react'
-import 'chartjs-adapter-date-fns';
+//import 'chartjs-adapter-date-fns';
 import '../Style/Chart.css'
 import {da} from 'date-fns/locale';
-import { Line } from 'react-chartjs-2';
+//import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -77,7 +77,7 @@ function Chart({datapoints}) {
   }; 
 /// Labels er hvorledes disse dato-strings skal repræsenteres: Selvfølgelig i dansk format.
   const labels = datapoints.map(datapoint => 
-    new Date(datapoint.Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})); 
+    new Date(datapoint.date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})); 
   const data = {
     labels, ///specificerer hvad der skal stå på x-aksen
     datasets: [
@@ -85,7 +85,7 @@ function Chart({datapoints}) {
         // her mappes variablen data, som er et array, til den indtastede data fra Datapoints. 
         label: 'THC-COOH/CREA concentration',
         data: datapoints.map(datapoint => 
-          datapoint.Value),
+          datapoint.value),
         borderColor: '#8AABCE',
         backgroundColor: '#8AABCE',
       },
@@ -94,12 +94,12 @@ function Chart({datapoints}) {
 return (
   //Endelig spytter Return denne funktion fra komponentet ud til vores app.js.
   <div className='chart-wrapper'>
-    <Line 
+    {/* <Line 
       height = {"600px"}
       width = {"1500px"}
       data = {data}
       options = {options}
-    />
+    /> */}
   </div> )
 }
 

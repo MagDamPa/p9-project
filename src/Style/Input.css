@@ -57,12 +57,7 @@
     font-weight: bolder;
 }
 
-#testnumber {
-    max-width: 30px;
-    background-color: var(--DarkBlue);
-    color: var(--LightBlue);
-    border: none; 
-}
+
 
 .date{
     max-width: 300px;

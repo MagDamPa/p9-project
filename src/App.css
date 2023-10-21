@@ -1,3 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
  --LightBlue: #F8F9FA; 
@@ -9,7 +12,7 @@
 
 
 body {
-  background-color: var(--LightBlue);
+  
 }
 
 
@@ -17,7 +20,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 2%
+
 }
 
 /* Navbar styling */

@@ -110,10 +110,10 @@ export function convertNgMg({datapoints}) {
     specimen_last = datapoints.length - 1
 
     //creates variables to use in the results
-    var date_base = new Date(datapoints[specimen_base].Date)
-    var date_last = new Date(datapoints[specimen_last].Date)
-    var date_base_format = new Date(datapoints[specimen_base].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})
-    var date_last_format = new Date(datapoints[specimen_last].Date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})
+    var date_base = new Date(datapoints[specimen_base].date)
+    var date_last = new Date(datapoints[specimen_last].date)
+    var date_base_format = new Date(datapoints[specimen_base].date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})
+    var date_last_format = new Date(datapoints[specimen_last].date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})
     
     //runs the function days between
     daysBetween()
@@ -174,7 +174,7 @@ export function convertNgMg({datapoints}) {
         // Case6_3 desctibes "risk for false positive" 
         case6_3: {
             Title: "Risiko for falsk forudsigelse af nyt indtag",
-            Text: `BEMÆRK: Der er mulighed for en falsk positiv forudsigelse  i op til 14 dage fra testen den ${date_base_format}, foretag derfor næste test efter den ${new Date(datapoints[specimen_base].Date).addDays(15).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}, hvorefter modellen vil være præcis.`
+            Text: `BEMÆRK: Der er mulighed for en falsk positiv forudsigelse  i op til 14 dage fra testen den ${date_base_format}, foretag derfor næste test efter den ${new Date(datapoints[specimen_base].date).addDays(15).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}, hvorefter modellen vil være præcis.`
         }, 
 
         // Case6_4 desctibes two cases:  case6_4_1: a sign of new use case and case6_4_2: a need for another test case
@@ -210,9 +210,9 @@ export function convertNgMg({datapoints}) {
     }
 
     //calculations for the base specimen
-    let convertSpecimen_base = datapoints[specimen_base].Value *1000/113.12; 
+    let convertSpecimen_base = datapoints[specimen_base].value *1000/113.12; 
     let roundedSpecimen_base = Math.floor(convertSpecimen_base);
-    let base_date = new Date(datapoints[specimen_base].Date)
+    let base_date = new Date(datapoints[specimen_base].date)
     
     //initiate the variable for the last specimen and assign it null
     let convertSpecimen_last = null
@@ -227,10 +227,10 @@ export function convertNgMg({datapoints}) {
     }
     else{
         //assignes the variables for the last specimen
-        convertSpecimen_last = datapoints[specimen_last].Value*1000/113.12;
+        convertSpecimen_last = datapoints[specimen_last].value*1000/113.12;
         roundedSpecimen_last = Math.floor(convertSpecimen_last);
         
-        last_date = new Date(datapoints[specimen_last].Date)
+        last_date = new Date(datapoints[specimen_last].date)
         
         //calculates the hours between the tests
         const hours = 60 * 60 * 1000; 
@@ -365,7 +365,7 @@ export function convertNgMg({datapoints}) {
                     else{
                         answers.Title = case6.case6_3.Title
                         //Connected to the Date.prototype.addDays method to add 15 days
-                        var rawDatObject = new Date(datapoints[specimen_last].Date)
+                        var rawDatObject = new Date(datapoints[specimen_last].date)
                         // Converts the date into a string with the month name. 
                         var added15Days = rawDatObject.addDays(15).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})
                         
