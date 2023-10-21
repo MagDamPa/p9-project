@@ -6,6 +6,7 @@ import { Routes, Route } from 'react-router-dom';
 import Homepage from './pages/Homepage';
 import Contact from './pages/Contact';
 import { Toaster } from 'sonner';
+import KnowledgeCenter from './pages/KnowledgeCenter';
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Homepage/>} />
         <Route path='/kontakt' element={<Contact />} />
+        <Route path='/videnscenter' element={<KnowledgeCenter />} />
       </Routes>
       <Toaster richColors />
     </div>

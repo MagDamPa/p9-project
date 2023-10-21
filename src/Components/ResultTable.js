@@ -3,7 +3,7 @@ import Datapoint from './Datapoint'
 import ResultTableRow from './ResultTableRow'
 import { Calculator, CalendarDays, Hash, MessageSquare, SquareEqual, Trash2 } from 'lucide-react'
 
-function ResultTable({datapoints, setDatapoints,answers }) {
+function ResultTable({datapoints, setDatapoints, answers }) {
 
   
   return (
@@ -24,7 +24,7 @@ function ResultTable({datapoints, setDatapoints,answers }) {
                 <tbody>
                 {/* row 1 */}
                 {datapoints.map((datapoint, index) => {
-                  return <ResultTableRow key={datapoint.Id} datapoint = {datapoint} setDatapoints={setDatapoints} datapoints={datapoints} index={index} answers={answers}/>
+                  return <ResultTableRow key={datapoint.Id} datapoint={datapoint} setDatapoints={setDatapoints} datapoints={datapoints} index={index} answers={answers}/>
                 })}
                 
                 </tbody>

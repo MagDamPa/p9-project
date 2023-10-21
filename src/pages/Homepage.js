@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import '../App.css';
 //import Chart from './Components/Chart';
 import {answers, convertNgMg} from '../Utils/Model'; 
@@ -14,27 +14,18 @@ function Homepage() {
 
   const borderStyling = "solid 1px #E7E2DE"
 
-  //STATES: 
-
   const [datapoints, setDatapoints] = useState([]);
-
-  const [, updateState] = React.useState();
-  const forceUpdate = React.useCallback(() => updateState({}), []);
-
-  //State to control language selection - true = dansk & false = english
-  const [language, setLanguage] = useState(true);
-
+  const [, updateState] = useState();
+  const forceUpdate = useCallback(() => updateState({}), []);
   //State to change the  model - true = cronical & false = occasional 
   const [model, setModel] = useState(true);
-
-  //State to check wether a user is logged in or not.
   const [logggedIn, setLoggedIn] = useState(true)
 
 
   let screenWidth  = window.innerWidth
 
   useEffect(() => {
-    if (datapoints.length != 0) {
+    if (datapoints.length > 0) {
       convertNgMg({datapoints})
       forceUpdate()
     } 
@@ -48,8 +39,8 @@ function Homepage() {
       <div>
         <DashboardHero model={model} setModel={setModel} logggedIn={logggedIn} setLoggedIn={setLoggedIn} />
         <InputContainer datapoints={datapoints} setDatapoints={setDatapoints} answers={answers}/>
-        <div className='flex gap-4 mt-16 md:block lg:flex p-4 '>
-          <div style={{border: borderStyling}} className='border border-base-300 rounded-lg p-4 '> 
+        <div className='flex gap-4 mt-16 md:block lg:flex p-4 w-full '>
+          <div style={{border: borderStyling}} className='border border-base-300 rounded-lg p-4 flex-grow '> 
             <h2 className='text-2xl font-bold text-center'>Fortolkning </h2>
               <div className=''>
                 <Result 
@@ -62,7 +53,7 @@ function Homepage() {
                 />
               </div>
           </div>
-          <div style={{border: borderStyling}} className='border border-base-300 rounded-lg p-4 flex-grow '>
+          <div style={{border: borderStyling}} className='border border-base-300 rounded-lg p-4 flex-grow max-w-half '>
             <h2 className='text-2xl font-bold text-center'>Graf over resultater </h2>
             <ChartView data={datapoints} />
           </div>

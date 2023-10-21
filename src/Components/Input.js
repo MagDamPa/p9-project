@@ -1,4 +1,4 @@
-import React, {useRef} from 'react'
+import React, {useRef, useState} from 'react'
 import '../Style/Input.css'
 import Datapoints from './Datapoints'
 import infoIcon from './Icons/infoIcon.svg'
@@ -6,17 +6,18 @@ import { v4 as uuidv4 } from 'uuid'
 import { Info, Plus } from 'lucide-react'
 import ResultTable from './ResultTable';
 import { toast } from 'sonner';
+import {answers, convertNgMg} from '../Utils/Model'; 
 
 
 function Input({datapoints, setDatapoints, answers}) {
 
   const borderStyling = "solid 1px #E7E2DE"
 
-  var testDateRef = useRef()
-  var testValueRef = useRef()
+  const testDateRef = useRef()
+  const testValueRef = useRef()
+  const [date_last, setDate_last] = useState("")
 
-  //disables the scrolling function on the number input field. 
-  //is mostly to ease the use of the field for the user. 
+   
   document.addEventListener("wheel", function(event){
     if(document.activeElement.type === "number" &&
        document.activeElement.classList.contains("noscroll"))
@@ -25,32 +26,35 @@ function Input({datapoints, setDatapoints, answers}) {
     }
   });
 
-  //initiate a variable called date_last
-  var date_last;
-
-  //the function that runs when pressing the add button. 
-  //it checks whether the inputfields are empty before adding it
-  //it also checks whether the date is before the other dates input and if so it does not add it.
   function buttonHandlerAdd(e){
-    var date = new Date(testDateRef.current.value)
-    var value = testValueRef.current.value
+    const date = new Date(testDateRef.current.value)
+    const value = testValueRef.current.value
 
-    if (datapoints.length === 0){
-      date_last = ''
+    if (datapoints.length > 0){
+      setDate_last(new Date(datapoints[datapoints.length-1].date))
     }
-    else(
-      date_last = new Date(datapoints[datapoints.length-1].Date)
-    )
 
-
-    if(date != '' && value != ''){
+    if( date && value ) {
       if (date_last < date || date_last === ''){
         setDatapoints(prevDatapoints => {
-          return [...prevDatapoints, { Id: uuidv4(), date: date, value: value,}]
+          return [...prevDatapoints, { 
+            Id: uuidv4(), 
+            date: date, 
+            value: value, 
+            answerTitle: answers.Title,
+            answerBorder: answers.borderColor
+          }]
         })
         e.preventDefault()
         testDateRef.current.value = null
         testValueRef.current.value = null
+
+        toast.success('Test resultat tilført', {
+          action: {
+            label: "luk",
+            onClick: () => {},
+          }
+        })
       }
       else{
         toast.error('Datoen du har indtastet ligger før tidligere indtastet datoer', {
@@ -63,7 +67,6 @@ function Input({datapoints, setDatapoints, answers}) {
     }
   }
 
-  //reload page as to delete all elements in the statearray. 
   function buttonHandlerDelete(){
       window.location.reload(false);
   }
