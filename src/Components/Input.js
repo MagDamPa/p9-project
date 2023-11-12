@@ -15,6 +15,7 @@ function Input({datapoints, setDatapoints, answers}) {
 
   const testDateRef = useRef()
   const testValueRef = useRef()
+  const commentRef = useRef()
   const [date_last, setDate_last] = useState("")
 
    
@@ -29,6 +30,7 @@ function Input({datapoints, setDatapoints, answers}) {
   function buttonHandlerAdd(e){
     const date = new Date(testDateRef.current.value)
     const value = testValueRef.current.value
+    const comment = commentRef.current.value
 
     if (datapoints.length > 0){
       setDate_last(new Date(datapoints[datapoints.length-1].date))
@@ -41,6 +43,7 @@ function Input({datapoints, setDatapoints, answers}) {
             Id: uuidv4(), 
             date: date, 
             value: value, 
+            comment: comment,
             answerTitle: answers.Title,
             answerBorder: answers.borderColor
           }]
@@ -48,6 +51,7 @@ function Input({datapoints, setDatapoints, answers}) {
         e.preventDefault()
         testDateRef.current.value = null
         testValueRef.current.value = null
+        commentRef.current.value = null
 
         toast.success('Test resultat tilført', {
           action: {
@@ -94,7 +98,7 @@ function Input({datapoints, setDatapoints, answers}) {
                 <option value={false} >USA</option>
               </select>
             </div>
-            <textarea style={{border: borderStyling}} type='text' className='textarea textarea-bordered max-h-8' placeholder='Kommentar' ></textarea>
+            <textarea ref={commentRef} style={{border: borderStyling}} type='text' className='textarea textarea-bordered max-h-8' placeholder='Kommentar' ></textarea>
             {/*Unit display*/}      
             <div className="tooltip" data-tip="hello">
               <button className="btn"><Info /></button>

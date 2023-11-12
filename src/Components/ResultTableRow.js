@@ -8,7 +8,7 @@ export default function ResultTableRow({datapoint, index, answers}) {
     value,
     comment,
     answerTitle,
-    answersBorder
+    answerBorder
   } = datapoint
 
   return (
@@ -16,7 +16,7 @@ export default function ResultTableRow({datapoint, index, answers}) {
             <td  >{index + 1}</td>
             <td>{new Date(date).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})}</td>
             <td>{value} mg/mol</td>
-            <td><span className="badge p-4" style={{border: answersBorder}}>{answerTitle}</span></td>
+            <td><span className="badge p-4" style={{border: answerBorder}}>{answerTitle}</span></td>
             <td>{comment}</td>
             <td>
                 <button className='btn btn-outline btn-error'>Slet</button>
