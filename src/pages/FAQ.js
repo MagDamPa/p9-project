@@ -32,9 +32,16 @@ const FAQ = () => {
               <p>{item.answer}</p>
             </div>
           </div>
-          
         ))}
-        
+        <div className="mt-10 p-6 bg-white shadow-md rounded-lg dark:bg-zinc-700">
+          <h3 className="text-2xl font-bold mb-4">Har du et spørgsmål?</h3>
+          <p className="text-lg text-zinc-500 dark:text-zinc-400">
+            Så send en mail til understående mail, og vi vil lægge spørgsmålet samt svar op her, så alle kan få glæde af det. 
+          </p>
+          <button className="btn btn-link mt-6 pl-0">
+            torben@rhn.dk
+          </button>
+        </div>
       </div>
     </div>
   )

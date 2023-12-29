@@ -20,17 +20,7 @@ const KnowledgeCenter = () => {
     <div className='flex p-4 gap-4'>
       <section className="w-full">
         <header className="flex justify-center items-center py-4 px-6 bg-white shadow">
-          <img
-            alt="Logo"
-            className="object-contain"
-            height="40"
-            src="/placeholder.svg"
-            style={{
-              aspectRatio: "150/40",
-              objectFit: "cover",
-            }}
-            width="150"
-          />
+          <h1 className='text-4xl bold'>Videnscenter</h1>
         </header>
         <main className="grid grid-cols-1 gap-6 p-6 md:grid-cols-2 lg:grid-cols-3">
           {articleData?.result.map((item) => (
@@ -41,10 +31,10 @@ const KnowledgeCenter = () => {
                 height="200"
                 src={urlFor(item.coverImage).width(320).height(240).fit('max').auto('format')}
                 style={{
-                  aspectRatio: "200/200",
+                  aspectRatio: "16/9",
                   objectFit: "cover",
                 }}
-                width="200"
+                width="100%"
               />
               <div className="flex items-center mb-4">
                 <img
@@ -58,7 +48,9 @@ const KnowledgeCenter = () => {
                   }}
                   width="40"
                 />
-                <p className="text-gray-500">Af {item.name} on {moment(item.publishedAt).format('DD. MMM, YYYY')}</p>
+                <p className="text-sm">Af {item.name}
+                <br></br>
+                 d. {moment(item.publishedAt).format('DD. MMM, YYYY')}</p>
               </div>
               <h2 className="text-2xl font-bold mb-2">{item.title}</h2>
               <p className="text-gray-600 mb-4 max-w-[12.5rem max-h-[6rem] truncate overflow-hidden">
@@ -66,7 +58,7 @@ const KnowledgeCenter = () => {
                   value={item.content} 
                 />
               </p>
-              <Link className="text-blue-500 hover:text-blue-600" to={"/" + item.slug.current} key={item.slug.current}>
+              <Link className="hover:text-blue underline" to={"/" + item.slug.current} key={item.slug.current}>
                 Læs mere
               </Link>
             </div>
