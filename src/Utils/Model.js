@@ -77,6 +77,25 @@ const param = {
         0.000289,
         0.000289,
         'Outside param'
+    ],
+    time: [
+        0,
+        23.9,
+        47.9,
+        71.9,
+        95.9,
+        119.9,
+        120.1
+    ],
+    //outside param:
+   max: [
+        3.05,
+        3.05,
+        1.74,
+        1.45,
+        0.250,
+        0.215,
+        'Outside param'
     ]
 }
 
@@ -84,7 +103,7 @@ const param = {
 var normalBorder = 'solid 4px #E8F5FC'
 var redBorder = 'solid 4px #e2271d'
 var orangeBorder = 'solid 4px #ffa202'
-var grenBorder = 'solid 4px #3be21d'
+var greenBorder = 'solid 4px #3be21d'
 var blackBorder = 'solid 4px #000000'
 
 //base answers
@@ -104,7 +123,7 @@ var specimen_last = 0;
 var old_title = 0;
  
 //main function
-export function convertNgMg({datapoints}) {
+export function convertNgMg({datapoints}, ModelType) {
 
     //Sets the variable equal to the length of the list minus 1. 
     specimen_last = datapoints.length - 1
@@ -221,22 +240,32 @@ export function convertNgMg({datapoints}) {
 
     var totalHours = null
 
-    //the if-statement that initiate the correct calculations, whether there is one or more specimens. 
-    if (datapoints.length === 1 || specimen_last === specimen_base){
-        above800(convertSpecimen_base); 
+
+    if (ModelType === "Cronic"){
+        cronic();
     }
-    else{
-        //assignes the variables for the last specimen
-        convertSpecimen_last = datapoints[specimen_last].value*1000/113.12;
-        roundedSpecimen_last = Math.floor(convertSpecimen_last);
-        
-        last_date = new Date(datapoints[specimen_last].date)
-        
-        //calculates the hours between the tests
-        const hours = 60 * 60 * 1000; 
-        totalHours = (last_date.getTime() - base_date.getTime()) / hours;
-        totalHours = Math.round(totalHours)
-        calcRatio(); 
+    else if (ModelType === "Occational"){
+        calcRatioOCC(); 
+    }
+
+    //the if-statement that initiate the correct calculations, whether there is one or more specimens. 
+    function cronic(){
+        if (datapoints.length === 1 || specimen_last === specimen_base){
+            above800(convertSpecimen_base); 
+        }
+        else{
+            //assignes the variables for the last specimen
+            convertSpecimen_last = datapoints[specimen_last].value*1000/113.12;
+            roundedSpecimen_last = Math.floor(convertSpecimen_last);
+
+            last_date = new Date(datapoints[specimen_last].date)
+            
+            //calculates the hours between the tests
+            const hours = 60 * 60 * 1000; 
+            totalHours = (last_date.getTime() - base_date.getTime()) / hours;
+            totalHours = Math.round(totalHours)
+            calcRatio(); 
+        }
     }
 
     //gives an answer based on one test
@@ -367,7 +396,6 @@ export function convertNgMg({datapoints}) {
                         //Connected to the Date.prototype.addDays method to add 15 days
                         var rawDatObject = new Date(datapoints[specimen_last].date)
                         // Converts the date into a string with the month name. 
-                        var added15Days = rawDatObject.addDays(15).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})
                         
                         answers.Text = case6.case6_3.Text
                         answers.borderColor = orangeBorder
@@ -390,7 +418,7 @@ export function convertNgMg({datapoints}) {
             } 
             else if (result > ratio) {
                 answers.Title = case6.case6_5.Title
-                answers.borderColor = grenBorder
+                answers.borderColor = greenBorder
                 answers.Text = case6.case6_5.Text
                 answers.Calculation = case6.case6_5.Calculation 
             } 
@@ -400,13 +428,97 @@ export function convertNgMg({datapoints}) {
         }
     }   
 
+    //gives an answer based on one test
+    function calcRatioOCC() {
+
+        if (datapoints.length === 1 || specimen_last === specimen_base){
+            answers.Title = 'First test'
+            answers.Text = 'First test'
+            answers.Calculation = 'First test'
+            answers.borderColor = normalBorder
+        }
+        else{
+            convertSpecimen_last = datapoints[specimen_last].value*1000/113.12;
+            roundedSpecimen_last = Math.floor(convertSpecimen_last);
+            
+            last_date = new Date(datapoints[specimen_last].date)
+
+            const hours = 60 * 60 * 1000; 
+            totalHours = (last_date.getTime() - base_date.getTime()) / hours;
+            totalHours = Math.round(totalHours)
+
+            console.log("Specimen_base: " + roundedSpecimen_base + " RoundedSpecimen_last: " + roundedSpecimen_last);
+
+            let ratio = roundedSpecimen_last / roundedSpecimen_base;
+
+            let roundedRatio = Math.floor(ratio * 100) / 100 
+            calculateOCC(totalHours, roundedRatio); 
+        }
+    }
+
+    function calculateOCC(totalHours, roundedRatio) {
+        console.log("Total hours: " + totalHours + " RoundedRatio: " + roundedRatio)
+        if (totalHours <= param.time[1]) {
+            answers.Title = 'for lav'
+            answers.Text = 'for lav'
+            answers.Calculation = 'for lav'
+            answers.borderColor = blackBorder
+            specimen_base = specimen_last
+
+            old_title = 1;
+        } 
+        else if (totalHours > param.time[1] && totalHours <= param.time[2]) {
+            result(param.max[1], roundedRatio)
+        } 
+        else if (totalHours > param.time[2] && totalHours <= param.time[3]) {
+            result(param.max[2], roundedRatio)
+        } 
+        else if (totalHours > param.time[3] && totalHours <= param.time[4]) {
+            result(param.max[3], roundedRatio)
+        } 
+        else if (totalHours > param.time[4] && totalHours <= param.time[5]) {
+            result(param.max[4], roundedRatio)
+        } 
+        else if (totalHours > param.time[5] && totalHours <= param.time[6]) {
+            result(param.max[5], roundedRatio)
+        } 
+        else if (totalHours > param.time[6] && totalHours <= param.time[7]) {
+            result(param.max[6], roundedRatio)
+        } 
+        else if (roundedRatio > param.time[7] ) {
+            answers.Title = 'for høj'
+            answers.Text = 'for høj'
+            answers.Calculation = 'for høj'
+            answers.borderColor = blackBorder
+            specimen_base = specimen_last
+            old_title = 1;
+        }
+    }
+
+    function result(max, ratio) {
+        console.log("Max: " + max + " ratio: " + ratio)
+        if (ratio>max){
+            answers.Title = 'new use'
+            answers.Text = 'new use'
+            answers.Calculation = 'new use'
+            answers.borderColor = redBorder
+            console.log(ratio, max)
+            specimen_base = specimen_last
+
+        }
+        else{
+            answers.Title = 'abstinent'
+            answers.Text = 'abstinent'
+            answers.Calculation = 'abstinent'
+            answers.borderColor = greenBorder
+            console.log(ratio, max)
+            specimen_base = specimen_last
+        }
+    }
 }
-
-
 //Prototype added to the Date object. It adds days to the date. 
 Date.prototype.addDays = function(days) {
     var date = new Date(this.valueOf());
     date.setDate(date.getDate() + days);
     return date;
 }
-

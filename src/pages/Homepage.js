@@ -18,17 +18,34 @@ function Homepage() {
   const [, updateState] = useState();
   const forceUpdate = useCallback(() => updateState({}), []);
   //State to change the  model - true = cronical & false = occasional 
-  const [model, setModel] = useState(true);
+  const [model, setModel] = useState([]]);
   const [logggedIn, setLoggedIn] = useState(true)
+  var normalBorder = 'solid 4px #E8F5FC'
 
+  // useEffect(() => {
+  //   if (model === 'true'){
+  //     console.log('Kronisk')
+  //   }
+  //   else{
+  //     console.log('Sporadisk')
+  //   }
+  // }, [model]);
 
   let screenWidth  = window.innerWidth
 
   useEffect(() => {
-    if (datapoints.length > 0) {
-      convertNgMg({datapoints})
+    if (datapoints.length > 0 && model === 'true') {
+      console.log('Kronisk')
+      convertNgMg({datapoints}, "Cronic")
+      console.log("classic: " + answers.Calculation);
       forceUpdate()
     } 
+    else if (datapoints.length > 0 && model === 'false'){
+      console.log('Sporadisk')
+      convertNgMg({datapoints}, "Occational")
+      console.log("OCC: " + answers.Calculation);
+      forceUpdate()
+    }
     else {
     }
   }, [datapoints.length]);

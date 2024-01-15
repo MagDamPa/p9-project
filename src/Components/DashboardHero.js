@@ -32,12 +32,12 @@ function DashboardHero({model, setModel, logggedIn,
         <div className='flex justify-between items-center mt-16'>
           {model === "true" ? <div className="tabs tabs-boxed">
             <button onClick={displayTag} value={true} className="tab bg-neutral text-base-100">Kronisk forbrug</button> 
-            <button onClick={displayTag} value={false} className="tab ">Lejlighedsvis forbrug</button> 
+            <button onClick={displayTag} value={false} className="tab ">Sporadisk forbrug</button> 
           </div>
           :
           <div className="tabs tabs-boxed">
             <button onClick={displayTag} value={true} className="tab">Kronisk forbrug</button> 
-            <button onClick={displayTag} value={false} className="tab bg-neutral text-base-100">Lejlighedsvis forbrug</button> 
+            <button onClick={displayTag} value={false} className="tab bg-neutral text-base-100">Sporadisk forbrug</button> 
           </div>
           }
           <button className='btn btn-neutral capitalize btn-sm'> <Download />Download rapport</button>
