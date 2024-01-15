@@ -2,8 +2,10 @@ import React from 'react'
 import Datapoint from './Datapoint'
 import ResultTableRow from './ResultTableRow'
 import { Calculator, CalendarDays, Hash, MessageSquare, SquareEqual, Trash2 } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 function ResultTable({datapoints, setDatapoints, answers }) {
+  const { t } = useTranslation()
 
   
   return (
@@ -13,12 +15,12 @@ function ResultTable({datapoints, setDatapoints, answers }) {
                 {/* head */}
                 <thead className=''>
                 <tr className='bg-base-200 '>
-                    <th className=''><div className='flex items-center gap-1'><Hash size={12} />Test nr</div></th>
-                    <th className=''><div className='flex items-center gap-1'><CalendarDays size={12}/>Testet den</div></th>
-                    <th className=''><div className='flex items-center gap-1'><Calculator size={12} />Test værdi</div></th>
-                    <th className=''><div className='flex items-center gap-1'><SquareEqual size={12} />Resultat</div></th>
-                    <th className=''><div className='flex items-center gap-1'><MessageSquare size={12} />Kommentar</div></th>
-                    <th className=''><div className='flex items-center gap-1'><Trash2 size={12} />Handlinger</div></th>
+                    <th className=''><div className='flex items-center gap-1'><Hash size={12} />{t('test_nb')}</div></th>
+                    <th className=''><div className='flex items-center gap-1'><CalendarDays size={12}/>{t('tested')}</div></th>
+                    <th className=''><div className='flex items-center gap-1'><Calculator size={12} />{t('test_value')}</div></th>
+                    <th className=''><div className='flex items-center gap-1'><SquareEqual size={12} />{t('common.result')}</div></th>
+                    <th className=''><div className='flex items-center gap-1'><MessageSquare size={12} />{t('common.comment')}</div></th>
+                    <th className=''><div className='flex items-center gap-1'><Trash2 size={12} />{t('common.actions')}</div></th>
                 </tr>
                 </thead>
                 <tbody>

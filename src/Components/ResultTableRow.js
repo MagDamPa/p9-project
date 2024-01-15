@@ -1,6 +1,9 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 export default function ResultTableRow({datapoint, index, answers}) {
+
+  const { t } = useTranslation()
 
   const {
     id,
@@ -19,7 +22,7 @@ export default function ResultTableRow({datapoint, index, answers}) {
             <td><span className="badge p-4" style={{border: answerBorder}}>{answerTitle}</span></td>
             <td>{comment}</td>
             <td>
-                <button className='btn btn-outline btn-error'>Slet</button>
+                <button className='btn btn-outline btn-error'>{t('common.delete')}</button>
             </td>
         </tr>
   )

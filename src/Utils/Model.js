@@ -81,11 +81,11 @@ const param = {
 }
 
 //border colours
-var normalBorder = 'solid 4px #E8F5FC'
-var redBorder = 'solid 4px #e2271d'
-var orangeBorder = 'solid 4px #ffa202'
-var grenBorder = 'solid 4px #3be21d'
-var blackBorder = 'solid 4px #000000'
+var normalBorder = 'border-4 border-slate-500'
+var redBorder = 'border-red-500 border-4'
+var orangeBorder = 'border-orange-500 border-4'
+var grenBorder = 'border-green-500 border-4'
+var blackBorder = 'border-black border-4'
 
 //base answers
 export const answers = {

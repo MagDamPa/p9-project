@@ -7,20 +7,24 @@ import fetchDataFromSanity from '../Utils/DataFetcher';
 import moment from 'moment';
 import { PortableText } from '@portabletext/react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const KnowledgeCenter = () => {
-  const QUERY = '*[_type == "article"]{title, "name": author->name, "avatar": author->image,  _id, slug, coverImage, publishedAt, content}' 
+  const QUERY = '*[_type == "article"]{title, "name": author->name, "avatar": author->image,  _id, slug, coverImage, publishedAt, content, resume}' 
   const { data: articleData, isLoading, isError } = useQuery(['articleData', QUERY], () => fetchDataFromSanity(QUERY));
- console.log(articleData)
   const urlFor = (source) => {
+    if (!source) return 
+
     return imageUrlBuilder(client).image(source)
   }
+
+  const { t } = useTranslation()
   
   return (
     <div className='flex p-4 gap-4'>
       <section className="w-full">
-        <header className="flex justify-center items-center py-4 px-6 bg-white shadow">
-          <h1 className='text-4xl bold'>Videnscenter</h1>
+        <header className="flex justify-center items-center py-4 px-6" >
+          <h1 className='text-4xl bold'>{t('knowledgecenter')}</h1>
         </header>
         <main className="grid grid-cols-1 gap-6 p-6 md:grid-cols-2 lg:grid-cols-3">
           {articleData?.result.map((item) => (
@@ -29,7 +33,7 @@ const KnowledgeCenter = () => {
                 alt="Blog cover image"
                 className="object-cover mb-4 rounded"
                 height="200"
-                src={urlFor(item.coverImage).width(320).height(240).fit('max').auto('format')}
+                src={item.coverImage && urlFor(item.coverImage).width(320).height(240).fit('max').auto('format')}
                 style={{
                   aspectRatio: "16/9",
                   objectFit: "cover",
@@ -53,13 +57,12 @@ const KnowledgeCenter = () => {
                  d. {moment(item.publishedAt).format('DD. MMM, YYYY')}</p>
               </div>
               <h2 className="text-2xl font-bold mb-2">{item.title}</h2>
-              <p className="text-gray-600 mb-4 max-w-[12.5rem max-h-[6rem] truncate overflow-hidden">
-                <PortableText
-                  value={item.content} 
-                />
+              <p className="text-gray-600 mb-4 max-w-[12.5rem max-h-[6rem] overflow-hidden line-clamp-4 text-sm">
+              {item.resume} 
+                {console.log(item)}
               </p>
-              <Link className="hover:text-blue underline" to={"/" + item.slug.current} key={item.slug.current}>
-                Læs mere
+              <Link className="text-blue-500 hover:text-blue-700 underline" to={item.slug.current} key={item.slug.current}>
+                {t('common.read_more')}
               </Link>
             </div>
           ))}

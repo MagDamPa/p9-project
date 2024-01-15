@@ -46,5 +46,10 @@ export default {
         { type: 'image' }, // You can include images in the content
       ],
     },
+    {
+      name: 'resume',
+      title: 'Resume',
+      type: 'text',
+    },
   ],
 };
