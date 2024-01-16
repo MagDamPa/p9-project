@@ -41,7 +41,7 @@ function Input({datapoints, setDatapoints, answers}) {
             Id: uuidv4(), 
             date: date, 
             value: value, 
-            answerTitle: answers.Title,
+            //answerTitle: answers.Title,
             answerBorder: answers.borderColor
           }]
         })

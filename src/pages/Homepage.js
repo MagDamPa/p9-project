@@ -18,37 +18,28 @@ function Homepage() {
   const [, updateState] = useState();
   const forceUpdate = useCallback(() => updateState({}), []);
   //State to change the  model - true = cronical & false = occasional 
-  const [model, setModel] = useState([]]);
+  const [model, setModel] = useState("true");
   const [logggedIn, setLoggedIn] = useState(true)
   var normalBorder = 'solid 4px #E8F5FC'
-
-  // useEffect(() => {
-  //   if (model === 'true'){
-  //     console.log('Kronisk')
-  //   }
-  //   else{
-  //     console.log('Sporadisk')
-  //   }
-  // }, [model]);
 
   let screenWidth  = window.innerWidth
 
   useEffect(() => {
     if (datapoints.length > 0 && model === 'true') {
-      console.log('Kronisk')
-      convertNgMg({datapoints}, "Cronic")
-      console.log("classic: " + answers.Calculation);
+      convertNgMg({datapoints, setDatapoints}, "Cronic")
       forceUpdate()
     } 
     else if (datapoints.length > 0 && model === 'false'){
-      console.log('Sporadisk')
-      convertNgMg({datapoints}, "Occational")
-      console.log("OCC: " + answers.Calculation);
+      convertNgMg({datapoints, setDatapoints}, "Occational")
       forceUpdate()
     }
     else {
     }
   }, [datapoints.length]);
+
+  
+  
+  //const setDatapoints([...datapoints, {Id: datapoint.Id, date: datapoint.date, value: datapoint.value, answerTitle: answers.Title}])
 
   return (
     <div className="pb-16">{
