@@ -15,7 +15,6 @@ import {
 import {pick, map, maxBy} from 'lodash'
 import moment from 'moment'
 import { add, format, differenceInCalendarDays, isFuture } from "date-fns";
-import { t } from 'i18next';
 
 
 
@@ -49,8 +48,8 @@ const ChartView = ({data}) => {
       //console.log(payload)
       return (
         <div className="card bg-base-100 shadow-xl p-4">
-          <p className='text-sm'>{t('common.test_date') + moment(label).format("DD. MMMM YYYY")}</p>
-          <p>{t('test_value') + ": " + payload[0].value} </p>
+          <p className='text-sm'>{`Test Dato: ${moment(label).format("DD. MMMM YYYY")}`}</p>
+          <p>{`Testværdi: ${payload[0].value}`} </p>
         </div>
       );
     }
@@ -61,7 +60,7 @@ const ChartView = ({data}) => {
     return<div className='mt-8'>
         <div className="alert alert-warning">
           <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
-          <span>{t('add_data')}</span>
+          <span>Indtast dato'er og prøve resultater for at få vist en graf over resultater</span>
         </div>
       </div>
   }
