@@ -17,7 +17,7 @@ function Homepage() {
   const [, updateState] = useState();
   const forceUpdate = useCallback(() => updateState({}), []);
   //State to change the  model - true = cronical & false = occasional 
-  const [model, setModel] = useState([]]);
+  const [model, setModel] = useState(true);
   const [logggedIn, setLoggedIn] = useState(true)
   var normalBorder = 'solid 4px #E8F5FC'
 

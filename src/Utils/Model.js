@@ -103,7 +103,7 @@ const param = {
 var normalBorder = 'border-4 border-slate-500'
 var redBorder = 'border-red-500 border-4'
 var orangeBorder = 'border-orange-500 border-4'
-var grenBorder = 'border-green-500 border-4'
+var greenBorder = 'border-green-500 border-4'
 var blackBorder = 'border-black border-4'
 
 //base answers
