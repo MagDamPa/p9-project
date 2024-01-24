@@ -37,11 +37,17 @@ function DashboardHero({
             }
         </div>
         <div className='flex justify-between items-center mt-16'>
-           <div className="tabs tabs-boxed">
-            <button onClick={displayTag} value="chronical" className={model === "chronical" ? "tab bg-neutral text-base-100" : "tab"}>{t('chronical_use')}</button> 
-            <button onClick={displayTag} value="occational" className={model === "occational" ?  "tab bg-neutral text-base-100" : "tab"}>{t('occational_use')}</button> 
+          {model === "true" ? <div className="tabs tabs-boxed">
+            <button onClick={displayTag} value={true} className="tab bg-neutral text-base-100">Kronisk forbrug</button> 
+            <button onClick={displayTag} value={false} className="tab ">Sporadisk forbrug</button> 
           </div>
-          <button className='btn btn-neutral capitalize btn-sm'> <Download />{t('download_report')}</button>
+          :
+          <div className="tabs tabs-boxed">
+            <button onClick={displayTag} value={true} className="tab">Kronisk forbrug</button> 
+            <button onClick={displayTag} value={false} className="tab bg-neutral text-base-100">Sporadisk forbrug</button> 
+          </div>
+          }
+          <button className='btn btn-neutral capitalize btn-sm'> <Download />Download rapport</button>
         </div>
     </div>
   )
