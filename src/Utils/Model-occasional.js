@@ -99,6 +99,8 @@ export function convertNgMgOcc({datapoints}) {
     function calcRatio() {
         let ratio = roundedSpecimen_last / roundedSpecimen_base; 
         let roundedRatio = Math.floor(ratio * 100) / 100 
+
+
         console.log("roundRation: " + roundedRatio);
         console.log("totalHours: " + totalHours);
         calculate(totalHours, roundedRatio); 
