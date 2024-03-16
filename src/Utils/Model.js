@@ -77,34 +77,15 @@ const param = {
         0.000289,
         0.000289,
         'Outside param'
-    ],
-    time: [
-        0,
-        23.9,
-        47.9,
-        71.9,
-        95.9,
-        119.9,
-        120.1
-    ],
-    //outside param:
-   max: [
-        3.05,
-        3.05,
-        1.74,
-        1.45,
-        0.250,
-        0.215,
-        'Outside param'
     ]
 }
 
 //border colours
-var normalBorder = 'border-4 border-slate-500'
-var redBorder = 'border-red-500 border-4'
-var orangeBorder = 'border-orange-500 border-4'
-var greenBorder = 'border-green-500 border-4'
-var blackBorder = 'border-black border-4'
+var normalBorder = 'solid 4px #E8F5FC'
+var redBorder = 'solid 4px #e2271d'
+var orangeBorder = 'solid 4px #ffa202'
+var grenBorder = 'solid 4px #3be21d'
+var blackBorder = 'solid 4px #000000'
 
 //base answers
 export const answers = {
@@ -265,10 +246,6 @@ export function convertNgMg({datapoints, setDatapoints}, ModelType) {
         ])
     }
 
-
-
-
-    //the if-statement that initiate the correct calculations, whether there is one or more specimens. 
     function cronic(){
         if (datapoints.length === 1 || specimen_last === specimen_base){
             above800(convertSpecimen_base); 
@@ -286,6 +263,27 @@ export function convertNgMg({datapoints, setDatapoints}, ModelType) {
             totalHours = Math.round(totalHours)
             calcRatio(); 
         }
+    }
+
+
+
+
+    //the if-statement that initiate the correct calculations, whether there is one or more specimens. 
+    if (datapoints.length === 1 || specimen_last === specimen_base){
+        above800(convertSpecimen_base); 
+    }
+    else{
+        //assignes the variables for the last specimen
+        convertSpecimen_last = datapoints[specimen_last].value*1000/113.12;
+        roundedSpecimen_last = Math.floor(convertSpecimen_last);
+        
+        last_date = new Date(datapoints[specimen_last].date)
+        
+        //calculates the hours between the tests
+        const hours = 60 * 60 * 1000; 
+        totalHours = (last_date.getTime() - base_date.getTime()) / hours;
+        totalHours = Math.round(totalHours)
+        calcRatio(); 
     }
 
     //gives an answer based on one test
@@ -416,6 +414,7 @@ export function convertNgMg({datapoints, setDatapoints}, ModelType) {
                         //Connected to the Date.prototype.addDays method to add 15 days
                         var rawDatObject = new Date(datapoints[specimen_last].date)
                         // Converts the date into a string with the month name. 
+                        var added15Days = rawDatObject.addDays(15).toLocaleDateString('dk-DK', {year: 'numeric', month: 'long', day: 'numeric'})
                         
                         answers.Text = case6.case6_3.Text
                         answers.borderColor = orangeBorder
@@ -438,7 +437,7 @@ export function convertNgMg({datapoints, setDatapoints}, ModelType) {
             } 
             else if (result > ratio) {
                 answers.Title = case6.case6_5.Title
-                answers.borderColor = greenBorder
+                answers.borderColor = grenBorder
                 answers.Text = case6.case6_5.Text
                 answers.Calculation = case6.case6_5.Calculation 
             } 
@@ -550,3 +549,4 @@ Date.prototype.addDays = function(days) {
     date.setDate(date.getDate() + days);
     return date;
 }
+
