@@ -439,7 +439,7 @@ export function convertNgMg({datapoints, setDatapoints}, ModelType) {
             } 
             else if (result > ratio) {
                 answers.Title = case6.case6_5.Title
-                answers.borderColor = grenBorder
+                answers.borderColor = greenBorder
                 answers.Text = case6.case6_5.Text
                 answers.Calculation = case6.case6_5.Calculation 
             } 
