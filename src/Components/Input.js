@@ -7,16 +7,16 @@ import { Info, Plus } from 'lucide-react'
 import ResultTable from './ResultTable';
 import { toast } from 'sonner';
 import {answers, convertNgMg} from '../Utils/Model'; 
-import { useTranslation } from 'react-i18next'
 
 
 function Input({datapoints, setDatapoints, answers}) {
 
+  const borderStyling = "solid 1px #E7E2DE"
+
   const testDateRef = useRef()
   const testValueRef = useRef()
-  const commentRef = useRef()
   const [date_last, setDate_last] = useState("")
-  const { t } = useTranslation()
+
    
   document.addEventListener("wheel", function(event){
     if(document.activeElement.type === "number" &&
@@ -29,7 +29,6 @@ function Input({datapoints, setDatapoints, answers}) {
   function buttonHandlerAdd(e){
     const date = new Date(testDateRef.current.value)
     const value = testValueRef.current.value
-    const comment = commentRef.current.value
 
     if (datapoints.length > 0){
       setDate_last(new Date(datapoints[datapoints.length-1].date))
@@ -42,7 +41,6 @@ function Input({datapoints, setDatapoints, answers}) {
             Id: uuidv4(), 
             date: date, 
             value: value, 
-            comment: comment,
             answerTitle: answers.Title,
             answerBorder: answers.borderColor
           }]
@@ -50,19 +48,18 @@ function Input({datapoints, setDatapoints, answers}) {
         e.preventDefault()
         testDateRef.current.value = null
         testValueRef.current.value = null
-        commentRef.current.value = null
 
-        toast.success( t('toast.result_added'), {
+        toast.success('Test resultat tilført', {
           action: {
-            label: t('common.close'),
+            label: "luk",
             onClick: () => {},
           }
         })
       }
       else{
-        toast.error(t('toast.date_error'), {
+        toast.error('Datoen du har indtastet ligger før tidligere indtastet datoer', {
           action: {
-            abel: t('common.close'),
+            label: "luk",
             onClick: () => {},
           }
         })
@@ -75,16 +72,16 @@ function Input({datapoints, setDatapoints, answers}) {
   }
   
   return (
-    <div className=' w-full flex justify-center items-center flex-col p-8 rounded mt-16 border border-slate-200 bg-white' >
+    <div style={{border: borderStyling}} className=' w-full flex justify-center items-center flex-col p-8 rounded  mt-16' >
       <form onSubmit={e => { e.preventDefault(); }}>
         <div className='flex justify-center flex-col items-center  mt-8 flex-wrap' >
-          <div className='flex justify-between text-center items center border rounded-lg p-2 gap-4 border border-slate-200'>
+          <div  style={{border: borderStyling}} className='flex justify-between text-center items center border rounded-lg p-2 gap-4'>
             {/*adds the number of the next element we will add to the array*/}
             <p className = "px-6 rounded-lg text-center bg-base-300 flex justify-center items-center" id="testnumber" >
               {datapoints.length + 1}
             </p>
             {/*Creates an input field for the user to enter a date based on a dropdown calender, it acceses the values using the useRef from react*/}
-            <input type = "date"  className = "border border-base-300 rounded-lg pl-2 h-13 border border-slate-200" id='date' ref={testDateRef} required />
+            <input style={{border: borderStyling}} type = "date"  className = "border border-base-300 rounded-lg pl-2 h-13" id='date' ref={testDateRef} required />
             {/*Creates an input field for the user to enter a testvalue, again using useRef to acces it later*/}
             <div className="join">
             <div>
@@ -97,20 +94,20 @@ function Input({datapoints, setDatapoints, answers}) {
                 <option value={false} >USA</option>
               </select>
             </div>
-            <textarea ref={commentRef} type='text' className='textarea textarea-bordered max-h-8 border border-slate-200' placeholder={t('common.comment')} ></textarea>
+            <textarea style={{border: borderStyling}} type='text' className='textarea textarea-bordered max-h-8' placeholder='Kommentar' ></textarea>
             {/*Unit display*/}      
             <div className="tooltip" data-tip="hello">
               <button className="btn"><Info /></button>
             </div>        
             <button className='btn btn-md' onClick={buttonHandlerAdd}>
                 <Plus />
-                {t('common.add_result')}
+                Tilføj testresult
             </button>
           </div>
           <div className='text' id="output-box"></div>
           <div className='buttons'>
             <button className='deleteAll hidden' onClick={buttonHandlerDelete}>
-               {t('common.delete_results')}
+                Slet alle testresultater
             </button>
           </div>
         </div>
