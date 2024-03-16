@@ -21,17 +21,24 @@ function Homepage() {
   const [model, setModel] = useState(true);
   const [logggedIn, setLoggedIn] = useState(true)
 
-
   let screenWidth  = window.innerWidth
 
   useEffect(() => {
-    if (datapoints.length > 0) {
-      convertNgMg({datapoints})
+    if (datapoints.length > 0 && model === 'true') {
+      convertNgMg({datapoints, setDatapoints}, "Cronic")
       forceUpdate()
     } 
+    else if (datapoints.length > 0 && model === 'false'){
+      convertNgMg({datapoints, setDatapoints}, "Occational")
+      forceUpdate()
+    }
     else {
     }
   }, [datapoints.length]);
+
+  
+  
+  //const setDatapoints([...datapoints, {Id: datapoint.Id, date: datapoint.date, value: datapoint.value, answerTitle: answers.Title}])
 
   return (
     <div className="pb-16">{

@@ -104,7 +104,7 @@ var specimen_last = 0;
 var old_title = 0;
  
 //main function
-export function convertNgMg({datapoints}) {
+export function convertNgMg({datapoints, setDatapoints}, ModelType) {
 
     //Sets the variable equal to the length of the list minus 1. 
     specimen_last = datapoints.length - 1
@@ -220,6 +220,34 @@ export function convertNgMg({datapoints}) {
     let last_date = null
 
     var totalHours = null
+
+
+    if (ModelType === "Cronic"){
+        cronic();
+        updateDatapoints();
+    }
+    else if (ModelType === "Occational"){
+        calcRatioOCC(); 
+        updateDatapoints();
+    }
+
+    function updateDatapoints(){
+        var item = datapoints[datapoints.length - 1];
+        console.log("datapoint to change: " + item.Id + item.value)
+        setDatapoints([...datapoints.filter((x) => x.Id !== item.Id),
+            {
+                Id: item.Id,
+                date: item.date,
+                value: item.value,
+                answerTitle: answers.Title,
+                qantity: [...datapoints].find((a) => a.Id === item.Id).qantity - 1, 
+                //If increment + 1 & decrement - 1 
+            },
+        ])
+    }
+
+
+
 
     //the if-statement that initiate the correct calculations, whether there is one or more specimens. 
     if (datapoints.length === 1 || specimen_last === specimen_base){
@@ -400,9 +428,102 @@ export function convertNgMg({datapoints}) {
         }
     }   
 
+    //gives an answer based on one test
+    function calcRatioOCC() {
+
+        if (datapoints.length === 1){
+            answers.Title = 'First test'
+            answers.Text = 'First test'
+            answers.Calculation = 'First test'
+            answers.borderColor = normalBorder
+        }
+        else{
+            convertSpecimen_last = datapoints[specimen_last].value*1000/113.12;
+            roundedSpecimen_last = Math.floor(convertSpecimen_last);
+            
+            last_date = new Date(datapoints[specimen_last].date)
+
+            const hours = 60 * 60 * 1000; 
+            totalHours = (last_date.getTime() - base_date.getTime()) / hours;
+            totalHours = Math.round(totalHours)
+
+            console.log("Specimen_base: " + roundedSpecimen_base + " RoundedSpecimen_last: " + roundedSpecimen_last);
+
+            let ratio = roundedSpecimen_last / roundedSpecimen_base;
+
+            let roundedRatio = Math.floor(ratio * 100) / 100 
+            calculateOCC(totalHours, roundedRatio); 
+        }
+    }
+
+    function calculateOCC(totalHours, roundedRatio) {
+        console.log("Total hours: " + totalHours + " RoundedRatio: " + roundedRatio)
+        if (totalHours <= param.time[1]) {
+            console.log("If 1")
+            answers.Title = 'for lav'
+            answers.Text = 'for lav'
+            answers.Calculation = 'for lav'
+            answers.borderColor = blackBorder
+            specimen_base = specimen_last
+
+            old_title = 1;
+        } 
+        else if (totalHours > param.time[1] && totalHours <= param.time[2]) {
+            console.log("If 2")
+            result(param.max[1], roundedRatio)
+        } 
+        else if (totalHours > param.time[2] && totalHours <= param.time[3]) {
+            console.log("If 3")
+            result(param.max[2], roundedRatio)
+        } 
+        else if (totalHours > param.time[3] && totalHours <= param.time[4]) {
+            console.log("If 4")
+            result(param.max[3], roundedRatio)
+        } 
+        else if (totalHours > param.time[4] && totalHours <= param.time[5]) {
+            console.log("If 5")
+            result(param.max[4], roundedRatio)
+        } 
+        else if (totalHours > param.time[5] && totalHours <= param.time[6]) {
+            console.log("If 6")
+            result(param.max[5], roundedRatio)
+        } 
+        else if (totalHours > param.time[6] && totalHours <= param.time[7]) {
+            console.log("If 7")
+            result(param.max[6], roundedRatio)
+        } 
+        else if (totalHours > param.time[7] ) {
+            console.log("If max")
+            answers.Title = 'for høj'
+            answers.Text = 'for høj'
+            answers.Calculation = 'for høj'
+            answers.borderColor = blackBorder
+            specimen_base = specimen_last
+            old_title = 1;
+        }
+    }
+
+    function result(max, ratio) {
+        console.log("Max: " + max + " ratio: " + ratio)
+        if (ratio>max){
+            answers.Title = 'Tegn på nyt indtag'
+            answers.Text = `Der er evidens for nyt forbrug. Næste beregning vil ske med udgangspunkt i testen fra den ${date_last_format}`
+            answers.Calculation = `Modellen har givet følgende resultat baseret på test nr. ${specimen_base + 1} og test nr. ${specimen_last + 1}`
+            answers.borderColor = redBorder
+            console.log(ratio, max)
+            specimen_base = specimen_last
+
+        }
+        else{
+            answers.Title = "Intet tegn på nyt indtag af cannabis."
+            answers.Text = `Der er ikke evidens for nyt cannabis forbrug mellem den ${date_base_format} og den ${date_last_format}. Næste prøve vi baseret på den sporadiske model blive beregnet med udgangspunkt i testen fra den ${date_last_format}`
+            answers.Calculation = `Modellen har givet følgende resultat baseret på test nr. ${specimen_base + 1} og test nr. ${specimen_last + 1}`
+            answers.borderColor = greenBorder
+            console.log(ratio, max)
+            specimen_base = specimen_last
+        }
+    }
 }
-
-
 //Prototype added to the Date object. It adds days to the date. 
 Date.prototype.addDays = function(days) {
     var date = new Date(this.valueOf());
