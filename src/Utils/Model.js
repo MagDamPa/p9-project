@@ -246,6 +246,25 @@ export function convertNgMg({datapoints, setDatapoints}, ModelType) {
         ])
     }
 
+    function cronic(){
+        if (datapoints.length === 1 || specimen_last === specimen_base){
+            above800(convertSpecimen_base); 
+        }
+        else{
+            //assignes the variables for the last specimen
+            convertSpecimen_last = datapoints[specimen_last].value*1000/113.12;
+            roundedSpecimen_last = Math.floor(convertSpecimen_last);
+
+            last_date = new Date(datapoints[specimen_last].date)
+            
+            //calculates the hours between the tests
+            const hours = 60 * 60 * 1000; 
+            totalHours = (last_date.getTime() - base_date.getTime()) / hours;
+            totalHours = Math.round(totalHours)
+            calcRatio(); 
+        }
+    }
+
 
 
 
